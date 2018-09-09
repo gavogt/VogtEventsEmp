@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace VogtEventsEmp
 {
@@ -12,22 +13,6 @@ namespace VogtEventsEmp
         {
             DisplayHeader();
             DisplayGreeting();
-
-            Employee emp = new Employee();
-
-
-
-        }
-
-        class Employee
-        {
-
-            private DisplayEmployeeInformation DisplayInformation;
-
-        }
-
-        class DisplayEmployeeInformation
-        {
 
         }
 
