@@ -43,6 +43,7 @@ namespace VogtEventsEmp
 
         }
 
+        // For datetime and int hiredates
         private T hireDate;
 
         public T HireDate
