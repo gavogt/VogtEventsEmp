@@ -14,7 +14,6 @@ namespace VogtEventsEmp
 
         static void Main(string[] args)
         {
-
             // Variables  
             var employeeList = new List<Employee<int>>();
             var emp = new Employee<int>();
