@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Speech.Synthesis;
 
 namespace VogtEventsEmp
 {
@@ -43,7 +44,7 @@ namespace VogtEventsEmp
 
         }
 
-        // For datetime and int hiredates
+        // For datetime and int hiredate
         private T hireDate;
 
         public T HireDate
@@ -71,8 +72,14 @@ namespace VogtEventsEmp
 
         public void DisplayEmpInformation(string name, int number, int hiredate)
         {
+            // Added speech
+            SpeechSynthesizer speaker = new SpeechSynthesizer();
             DisplayEventAddedMessage();
+
             Console.WriteLine($"The employee's name is {name}, number is {number} and hired {hiredate}");
+
+            speaker.Speak($"The employee's name is {name}, number is {number} and hired {hiredate}");
+
             Console.WriteLine("");
 
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using System.Speech.Synthesis;
 
 namespace VogtEventsEmp
 {
@@ -24,6 +25,7 @@ namespace VogtEventsEmp
 
             // Ask username
             user = AskUserName();
+            Speak(user);
 
             // Menu
             Menu(user);
@@ -44,9 +46,9 @@ namespace VogtEventsEmp
             {
                 // Cw
                 Console.WriteLine("---------");
-                Console.WriteLine(employee.Name);
-                Console.WriteLine(employee.Number);
-                Console.WriteLine(employee.HireDate);
+                Console.WriteLine(employee?.Name);
+                Console.WriteLine(employee?.Number);
+                Console.WriteLine(employee?.HireDate);
 
             }
         }
@@ -327,6 +329,19 @@ namespace VogtEventsEmp
         public static void ConsoleReset()
         {
             Console.ResetColor();
+
+        }
+        #endregion
+
+        #region Computer generated speech
+        /// <summary>
+        /// Have an announcer
+        /// </summary>
+        /// <param name="userName">Name of the user to pass in</param>
+        public static void Speak(string userName)
+        {
+            SpeechSynthesizer speaker = new SpeechSynthesizer();
+            speaker.Speak($"Greetings {userName}! Please select one of the following options below. \n");
 
         }
         #endregion
