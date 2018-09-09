@@ -9,6 +9,7 @@ namespace VogtEventsEmp
 {
     class Program
     {
+        // Delegate for the username
         public delegate void Username(string name);
 
         static void Main(string[] args)
@@ -71,11 +72,14 @@ namespace VogtEventsEmp
             // Loop to add employees
             while (run)
             {
+                // Custom message off the username delegate
                 Username myUsername = delegate (string username) { Console.WriteLine("Please try again " + username); };
 
+                // Assign the employee to a list
                 emp = EmpAdd(user);
                 employeeList.Add(emp);
 
+                // Try catch with a specific message and color changes
                 try
                 {
                     Console.WriteLine("Would you like to add another employee?");
@@ -117,11 +121,16 @@ namespace VogtEventsEmp
         /// <returns>A new employee object</returns>
         public static Employee<int> EmpAdd(string user)
         {
+            // Custom message from the username delegate
             Username myUsername = delegate (string username) { Console.WriteLine("Please try again with adding an employee " + username); };
 
+            // Initialize an employee object with a generic for int
             var employee = new Employee<int>();
+
+            // Color for error throws 
             string color = default;
 
+            // Try catch for adding an employee's properties
             try
             {
                 Console.WriteLine("What is the employee's name?");
@@ -149,6 +158,7 @@ namespace VogtEventsEmp
 
             }
 
+            // Display emp information off an event
             employee.DisplayEmployeeInfo(employee.Name, employee.Number, employee.HireDate);
 
             return employee;
@@ -164,10 +174,14 @@ namespace VogtEventsEmp
         /// <returns>The selected menu choie</returns>
         public static int Menu(string user)
         {
+            // Standard message off the username delegate
             Username usernameDefault = new Username(DisplayUserName);
 
+            // Variables
             int choice = default;
             string color = default;
+
+            // Try catch for the menu selection
             try
             {
                 Console.WriteLine("What is your selection?");
@@ -199,7 +213,8 @@ namespace VogtEventsEmp
         /// <param name="userName"></param>
         public static void ShowUserGreeting(string userName)
         {
-            Console.WriteLine($"Greetins {userName} please select options\n");
+            // Standard message for a greeting
+            Console.WriteLine($"Greetings {userName}! Please select one of the following options below. \n");
 
         }
         #endregion
@@ -210,11 +225,15 @@ namespace VogtEventsEmp
         /// </summary>
         public static string AskUserName()
         {
+            // Variables
             string userName = default;
+
+            // Assign the user
             Console.WriteLine("What is the user's name?");
             userName = Console.ReadLine();
             Console.WriteLine("");
 
+            // Display a standard greeting message
             Action<string> displayUserInfo = ShowUserGreeting;
             displayUserInfo(userName);
 
@@ -231,6 +250,7 @@ namespace VogtEventsEmp
         /// <returns></returns>
         public static int Choice(int choice)
         {
+            // Loop through for the choice
             switch (choice)
             {
                 case 1:
@@ -250,10 +270,11 @@ namespace VogtEventsEmp
 
         #region Initial Display for the system
         /// <summary>
-        /// Method to display
+        /// Method to display when the program starts
         /// </summary>
         public static void DisplayForSystem()
         {
+            // Standard system messages
             DisplayHeader();
             DisplayGreeting();
 
@@ -289,7 +310,7 @@ namespace VogtEventsEmp
         /// </summary>
         public static void ChangeConsoleColor(string color)
         {
-
+            // Display different colors for exceptions
             if (color == "RED")
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -326,5 +347,6 @@ namespace VogtEventsEmp
         public static void DisplayHeader() => Console.WriteLine("**************EMPLOYEE SOLUTION**************");
         public static void DisplayGreeting() => Console.WriteLine("Welcome to the employee solution!\n");
         #endregion
+
     }
 }
