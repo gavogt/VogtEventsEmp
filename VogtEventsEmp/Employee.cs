@@ -66,6 +66,7 @@ namespace VogtEventsEmp
         {
             DisplayEventAddedMessage();
             Console.WriteLine($"The employee's name is {name}, number is {number} and hired {hiredate}");
+            Console.WriteLine("");
 
         }
     }
