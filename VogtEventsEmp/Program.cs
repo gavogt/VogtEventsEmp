@@ -9,25 +9,30 @@ namespace VogtEventsEmp
 {
     class Program
     {
+        public delegate void Username(string name);
         public delegate void DisplayColor(string color);
 
         static void Main(string[] args)
         {
+            // Message for username
+            Username myUsername = delegate (string username) { Console.WriteLine("Please try again " + username); };
+
             // Variables  
             var employeeList = new List<Employee<int>>();
             var emp = new Employee<int>();
             bool run = true;
             int choice = default;
             string color = default;
+            string user = default;
 
             // Displays
             DisplayForSystem();
-            AskUserName();
+            user = AskUserName();
 
             // Loop to add employees
             while (run)
             {
-                emp = EmpAdd();
+                emp = EmpAdd(user);
 
                 employeeList.Add(emp);
 
@@ -36,14 +41,17 @@ namespace VogtEventsEmp
                     Console.WriteLine("Would you like to add another employee?");
                     choice = Convert.ToInt32(Console.ReadLine());
                 }
-                catch (FormatException e)
+                catch (FormatException)
                 {
+                    myUsername(user);
                     color = "RED";
                     ChangeConsoleColor(color);
 
                 }
                 catch
                 {
+
+                    myUsername(user);
                     color = "BLUE";
                     ChangeConsoleColor(color);
                 }
@@ -71,8 +79,10 @@ namespace VogtEventsEmp
         /// Method for adding an employee
         /// </summary>
         /// <returns>A new employee object</returns>
-        public static Employee<int> EmpAdd()
+        public static Employee<int> EmpAdd(string user)
         {
+            Username myUsername = delegate (string username) { Console.WriteLine("Please try again " + username); };
+
             var employee = new Employee<int>();
             string color = default;
 
@@ -86,16 +96,18 @@ namespace VogtEventsEmp
                 employee.HireDate = Convert.ToInt32(Console.ReadLine());
 
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
                 color = "RED";
                 ChangeConsoleColor(color);
+                myUsername(user);
 
             }
             catch
             {
                 color = "BLUE";
                 ChangeConsoleColor(color);
+                myUsername(user);
 
             }
 
@@ -117,7 +129,7 @@ namespace VogtEventsEmp
         /// <summary>
         /// Ask for the user's name
         /// </summary>
-        public static void AskUserName()
+        public static string AskUserName()
         {
             string userName = default;
             Console.WriteLine("What is the user's name?");
@@ -126,6 +138,8 @@ namespace VogtEventsEmp
 
             Action<string> displayUserInfo = ShowUserGreeting;
             displayUserInfo(userName);
+
+            return userName;
 
         }
 
@@ -139,11 +153,17 @@ namespace VogtEventsEmp
 
         }
 
+        public static void DisplayUserName(string userName)
+        {
+            Console.WriteLine("Try again " + userName);
+        }
+
         /// <summary>
         /// Display Red console text
         /// </summary>
         public static void ChangeConsoleColor(string color)
         {
+
             if (color == "RED")
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
