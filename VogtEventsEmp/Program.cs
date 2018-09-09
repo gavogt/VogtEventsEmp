@@ -14,7 +14,6 @@ namespace VogtEventsEmp
             // List initialization
             var employeeList = new List<Employee<int>>();
             var emp = new Employee<int>();
-            var empTwo = new Employee<int>();
 
             // Displays
             DisplayForSystem();
@@ -22,19 +21,13 @@ namespace VogtEventsEmp
 
             emp = EmpAdd();
 
-
-            // Add to list 
             employeeList.Add(emp);
-            //employeeList.Add(empTwo);
-
-
-            //empTwo.DisplayEmployeeInfo(empTwo.Name, empTwo.Number, empTwo.HireDate);
-            //emp.DisplayEmployeeInfo(name: "Gabbins", number: 13114, hiredate: 2017);
 
             // For each snippet
             foreach (var employee in employeeList)
             {
                 // Cw
+                Console.WriteLine("here");
                 Console.WriteLine("---------");
                 Console.WriteLine(employee.Name);
                 Console.WriteLine(employee.Number);
