@@ -18,11 +18,13 @@ namespace VogtEventsEmp
             string userName = default;
             Console.WriteLine("What is the user's name?");
             userName = Console.ReadLine();
-
+            
             var emp = new Employee<int>();
-            emp.Name = "Gabbins";
-            emp.Number = 13114;
-            emp.HireDate = 2017;
+            //emp.Name = "Gabbins";
+            //emp.Number = 13114;
+            //emp.HireDate = 2017;
+            
+            emp.DisplayEmployeeInfo(name: "Gabbins", number: 13114, hiredate: 2017);
 
             Action<string> displayUserInfo = ShowUserGreeting;
             displayUserInfo(userName);
@@ -31,12 +33,12 @@ namespace VogtEventsEmp
 
         public static void ShowUserGreeting(string userName)
         {
-            Console.WriteLine($"Greetins {userName} please select options");
+            Console.WriteLine($"Greetins {userName} please select options\n");
 
         }
 
         public static void DisplayHeader() => Console.WriteLine("**************EMPLOYEE SOLUTION**************");
-        public static void DisplayGreeting() => Console.WriteLine("Welcome to the employee solution!");
+        public static void DisplayGreeting() => Console.WriteLine("Welcome to the employee solution!\n");
 
     }
 }

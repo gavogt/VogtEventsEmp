@@ -8,13 +8,13 @@ namespace VogtEventsEmp
 {
     class Employee<T>
     {
-        private DisplayEmployeeInformation DisplayInformation;
+        private DisplayEmployeeInformation displayInformation;
 
         // Ctor
         public Employee()
         {
-            // Subscribe
-            DisplayInformation.DisplayEventAddedMessage += DisplayInformation_DisplayEventAddedMessage;
+            displayInformation = new DisplayEmployeeInformation();
+            displayInformation.DisplayEventAddedMessage += DisplayInformation_DisplayEventAddedMessage;
         }
 
         private void DisplayInformation_DisplayEventAddedMessage()
@@ -50,7 +50,7 @@ namespace VogtEventsEmp
         // Method for events
         public void DisplayEmployeeInfo(string name, int number, int hiredate)
         {
-            DisplayInformation.DisplayEmpInformation(name, number, hiredate);
+            displayInformation.DisplayEmpInformation(name, number, hiredate);
         }
     }
 
