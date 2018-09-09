@@ -11,8 +11,16 @@ namespace VogtEventsEmp
     {
         static void Main(string[] args)
         {
+
             DisplayHeader();
             DisplayGreeting();
+
+            string userName = default;
+            Console.WriteLine("What is the user's name?");
+            userName = Console.ReadLine();
+
+            Action<string> displayUserInfo = ShowUserGreeting;
+            displayUserInfo(userName);
 
         }
 
