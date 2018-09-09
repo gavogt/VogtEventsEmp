@@ -14,26 +14,63 @@ namespace VogtEventsEmp
         static void Main(string[] args)
         {
             // Message for username
-            Username myUsername = delegate (string username) { Console.WriteLine("Please try again " + username); };
-
 
             // Variables  
+            var employeeList = new List<Employee<int>>();
+            var emp = new Employee<int>();
+            string user = default;
+
+            // Displays
+            DisplayForSystem();
+
+            // Ask username
+            user = AskUserName();
+
+            // Menu
+            Menu(user);
+
+            // Add employee and return to list
+            employeeList = EmpListAdd(user);
+
+            // Loop through Employee
+            LoopThroughList(employeeList);
+
+        }
+
+        public static void LoopThroughList(List<Employee<int>> employeeList)
+        {
+            // For each snippet
+            foreach (var employee in employeeList)
+            {
+                // Cw
+                Console.WriteLine("here");
+                Console.WriteLine("---------");
+                Console.WriteLine(employee.Name);
+                Console.WriteLine(employee.Number);
+                Console.WriteLine(employee.HireDate);
+
+            }
+        }
+
+        /// <summary>
+        /// Method for taking the user's name and returning a list
+        /// </summary>
+        /// <param name="user">User's name that's entrying the data</param>
+        /// <returns>An employee list</returns>
+        public static List<Employee<int>> EmpListAdd(string user)
+        {
+            // Variables
             var employeeList = new List<Employee<int>>();
             var emp = new Employee<int>();
             bool run = true;
             int choice = default;
             string color = default;
-            string user = default;
-
-            // Displays
-            DisplayForSystem();
-            user = AskUserName();
-
-            Menu(user);
 
             // Loop to add employees
             while (run)
             {
+                Username myUsername = delegate (string username) { Console.WriteLine("Please try again " + username); };
+
                 emp = EmpAdd(user);
                 employeeList.Add(emp);
 
@@ -66,17 +103,8 @@ namespace VogtEventsEmp
                 }
             }
 
-            // For each snippet
-            foreach (var employee in employeeList)
-            {
-                // Cw
-                Console.WriteLine("here");
-                Console.WriteLine("---------");
-                Console.WriteLine(employee.Name);
-                Console.WriteLine(employee.Number);
-                Console.WriteLine(employee.HireDate);
+            return employeeList;
 
-            }
         }
 
         /// <summary>
@@ -123,6 +151,11 @@ namespace VogtEventsEmp
 
         }
 
+        /// <summary>
+        /// Method for displaying the menu to a user
+        /// </summary>
+        /// <param name="user">The user that needs the menu</param>
+        /// <returns>The selected menu choie</returns>
         public static int Menu(string user)
         {
             Username usernameDefault = new Username(DisplayUserName);
@@ -149,6 +182,7 @@ namespace VogtEventsEmp
             }
 
             return choice;
+
         }
 
         /// <summary>
