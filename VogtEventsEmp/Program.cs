@@ -47,7 +47,6 @@ namespace VogtEventsEmp
                 Console.WriteLine(employee.HireDate);
 
             }
-
         }
 
         /// <summary>
