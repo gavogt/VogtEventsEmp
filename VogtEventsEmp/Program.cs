@@ -16,6 +16,7 @@ namespace VogtEventsEmp
         {
             // Message for username
             Username myUsername = delegate (string username) { Console.WriteLine("Please try again " + username); };
+            Username usernameDefault = new Username(DisplayUserName);
 
             // Variables  
             var employeeList = new List<Employee<int>>();
@@ -28,12 +29,22 @@ namespace VogtEventsEmp
             // Displays
             DisplayForSystem();
             user = AskUserName();
-            Console.WriteLine("What is your selection?");
-            Console.WriteLine("1. Add an employee");
-            Console.WriteLine("2. Exit");
-            choice = Convert.ToInt32(Console.ReadLine());
-            Choice(choice);
-
+            try
+            {
+                Console.WriteLine("What is your selection?");
+                Console.WriteLine("1. Add an employee");
+                Console.WriteLine("2. Exit");
+                choice = Convert.ToInt32(Console.ReadLine());
+                Choice(choice);
+            }
+            catch
+            {
+                Console.WriteLine("Here");
+                ClearConsole();
+                usernameDefault(user);
+                color = "RED";
+                ChangeConsoleColor(color);
+            }
             // Loop to add employees
             while (run)
             {
@@ -88,7 +99,7 @@ namespace VogtEventsEmp
         /// <returns>A new employee object</returns>
         public static Employee<int> EmpAdd(string user)
         {
-            Username myUsername = delegate (string username) { Console.WriteLine("Please try again " + username); };
+            Username myUsername = delegate (string username) { Console.WriteLine("Please try again with adding an employee " + username); };
 
             var employee = new Employee<int>();
             string color = default;
