@@ -34,7 +34,7 @@ namespace VogtEventsEmp
             set { hireDate = value; }
         }
 
-        public void DisplayEmployeeInfo(string name, int number, DateTime hiredate)
+        public void DisplayEmployeeInfo(string name, int number, int hiredate)
         {
             DisplayInformation.DisplayEmpInformation(name, number, hiredate);
         }
@@ -42,10 +42,14 @@ namespace VogtEventsEmp
 
     class DisplayEmployeeInformation
     {
-        public void DisplayEmpInformation(string name, int number, DateTime hiredate)
-        {
-            Console.WriteLine($"The employee's name is {name}, number is {number} and hired {hiredate}");
-        }
+        public delegate void DisplayAddedMessage();
+        public event DisplayAddedMessage DisplayEventAddedMessage;
 
+        public void DisplayEmpInformation(string name, int number, int hiredate)
+        {
+            DisplayEventAddedMessage();
+            Console.WriteLine($"The employee's name is {name}, number is {number} and hired {hiredate}");
+
+        }
     }
 }

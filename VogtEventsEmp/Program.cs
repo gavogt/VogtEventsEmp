@@ -19,6 +19,11 @@ namespace VogtEventsEmp
             Console.WriteLine("What is the user's name?");
             userName = Console.ReadLine();
 
+            var emp = new Employee<int>();
+            emp.Name = "Gabbins";
+            emp.Number = 13114;
+            emp.HireDate = 2017;
+
             Action<string> displayUserInfo = ShowUserGreeting;
             displayUserInfo(userName);
 
