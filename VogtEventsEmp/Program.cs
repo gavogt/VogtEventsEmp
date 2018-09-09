@@ -11,17 +11,30 @@ namespace VogtEventsEmp
     {
         static void Main(string[] args)
         {
-            // List initialization
+            // Variables  
             var employeeList = new List<Employee<int>>();
             var emp = new Employee<int>();
+            bool run = true;
+            int choice = default;
 
             // Displays
             DisplayForSystem();
             AskUserName();
 
-            emp = EmpAdd();
+            while (run)
+            {
+                emp = EmpAdd();
 
-            employeeList.Add(emp);
+                employeeList.Add(emp);
+
+                Console.WriteLine("Would you like to add another emploee?");
+                choice = Convert.ToInt32(Console.ReadLine());
+
+                if (choice == 2)
+                {
+                    run = false;
+                }
+            }
 
             // For each snippet
             foreach (var employee in employeeList)
@@ -42,7 +55,6 @@ namespace VogtEventsEmp
         /// <returns>A new employee object</returns>
         public static Employee<int> EmpAdd()
         {
-
             var employee = new Employee<int>();
 
             Console.WriteLine("What is the employee's name?");
