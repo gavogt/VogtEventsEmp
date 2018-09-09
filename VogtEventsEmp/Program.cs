@@ -78,6 +78,11 @@ namespace VogtEventsEmp
                 employee.HireDate = Convert.ToInt32(Console.ReadLine());
 
             }
+            catch (FormatException e)
+            {
+                throw new FormatException();
+
+            }
             catch
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
