@@ -27,7 +27,7 @@ namespace VogtEventsEmp
             employeeList.Add(emp);
             //employeeList.Add(empTwo);
 
-            emp.DisplayEmployeeInfo(emp.Name, emp.Number, emp.HireDate);
+
             //empTwo.DisplayEmployeeInfo(empTwo.Name, empTwo.Number, empTwo.HireDate);
             //emp.DisplayEmployeeInfo(name: "Gabbins", number: 13114, hiredate: 2017);
 
@@ -43,21 +43,23 @@ namespace VogtEventsEmp
             }
         }
 
+        /// <summary>
+        /// Method for adding an employee
+        /// </summary>
+        /// <returns>A new employee object</returns>
         public static Employee<int> EmpAdd()
         {
 
             var employee = new Employee<int>();
 
-            string empName = default;
-            int empNumber = default;
-            int empHireDate = default;
-
             Console.WriteLine("What is the employee's name?");
-            empName = Console.ReadLine();
+            employee.Name = Console.ReadLine();
             Console.WriteLine("What is the employee's number?");
-            empNumber = Convert.ToInt32(Console.ReadLine());
+            employee.Number = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("What is the employee's hire date?");
-            empHireDate = Convert.ToInt32(Console.ReadLine());
+            employee.HireDate = Convert.ToInt32(Console.ReadLine());
+
+            employee.DisplayEmployeeInfo(employee.Name, employee.Number, employee.HireDate);
 
             return employee;
         }
