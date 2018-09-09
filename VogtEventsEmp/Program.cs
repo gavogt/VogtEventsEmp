@@ -11,28 +11,25 @@ namespace VogtEventsEmp
     {
         static void Main(string[] args)
         {
+            // List initialization
             var employeeList = new List<Employee<int>>();
-            DisplayHeader();
-            DisplayGreeting();
-
-            string userName = default;
-            Console.WriteLine("What is the user's name?");
-            userName = Console.ReadLine();
-            Console.WriteLine("");
-
-            Action<string> displayUserInfo = ShowUserGreeting;
-            displayUserInfo(userName);
-
             var emp = new Employee<int>();
+            var empTwo = new Employee<int>();
+
+            // Displays
+            DisplayForSystem();
+            AskUserName();
+
+            // Assign to properties
             emp.Name = "Gabbins";
             emp.Number = 13114;
             emp.HireDate = 2017;
 
-            var empTwo = new Employee<int>();
             empTwo.Name = "Captain Marrow";
             empTwo.Number = 1337;
             empTwo.HireDate = 2018;
 
+            // Add to list 
             employeeList.Add(emp);
             employeeList.Add(empTwo);
 
@@ -53,14 +50,45 @@ namespace VogtEventsEmp
 
         }
 
+        /// <summary>
+        /// Display a greeting for the user
+        /// </summary>
+        /// <param name="userName"></param>
         public static void ShowUserGreeting(string userName)
         {
             Console.WriteLine($"Greetins {userName} please select options\n");
 
         }
 
+        /// <summary>
+        /// Ask for the user's name
+        /// </summary>
+        public static void AskUserName()
+        {
+            string userName = default;
+            Console.WriteLine("What is the user's name?");
+            userName = Console.ReadLine();
+            Console.WriteLine("");
+
+            Action<string> displayUserInfo = ShowUserGreeting;
+            displayUserInfo(userName);
+
+        }
+
+        /// <summary>
+        /// Method to display
+        /// </summary>
+        public static void DisplayForSystem()
+        {
+            DisplayHeader();
+            DisplayGreeting();
+
+        }
+
+        /// <summary>
+        /// Lambda for display
+        /// </summary>
         public static void DisplayHeader() => Console.WriteLine("**************EMPLOYEE SOLUTION**************");
         public static void DisplayGreeting() => Console.WriteLine("Welcome to the employee solution!\n");
-
     }
 }
