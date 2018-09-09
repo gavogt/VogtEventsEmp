@@ -13,7 +13,6 @@ namespace VogtEventsEmp
 
         static void Main(string[] args)
         {
-            // Message for username
 
             // Variables  
             var employeeList = new List<Employee<int>>();
@@ -37,6 +36,7 @@ namespace VogtEventsEmp
 
         }
 
+        #region Loop through an employee list
         public static void LoopThroughList(List<Employee<int>> employeeList)
         {
             // For each snippet
@@ -51,7 +51,9 @@ namespace VogtEventsEmp
 
             }
         }
+        #endregion
 
+        #region Add employee to a list
         /// <summary>
         /// Method for taking the user's name and returning a list
         /// </summary>
@@ -106,7 +108,9 @@ namespace VogtEventsEmp
             return employeeList;
 
         }
+        #endregion
 
+        #region Add an employee with properties
         /// <summary>
         /// Method for adding an employee
         /// </summary>
@@ -150,7 +154,9 @@ namespace VogtEventsEmp
             return employee;
 
         }
+        #endregion
 
+        #region Menu for the user
         /// <summary>
         /// Method for displaying the menu to a user
         /// </summary>
@@ -184,7 +190,9 @@ namespace VogtEventsEmp
             return choice;
 
         }
+        #endregion
 
+        #region Display a greeting for the user
         /// <summary>
         /// Display a greeting for the user
         /// </summary>
@@ -194,7 +202,9 @@ namespace VogtEventsEmp
             Console.WriteLine($"Greetins {userName} please select options\n");
 
         }
+        #endregion
 
+        #region Ask for the user's name
         /// <summary>
         /// Ask for the user's name
         /// </summary>
@@ -211,7 +221,9 @@ namespace VogtEventsEmp
             return userName;
 
         }
+        #endregion
 
+        #region Choice for the menu
         /// <summary>
         /// Selection for options
         /// </summary>
@@ -234,7 +246,9 @@ namespace VogtEventsEmp
             return choice;
 
         }
+        #endregion
 
+        #region Initial Display for the system
         /// <summary>
         /// Method to display
         /// </summary>
@@ -244,7 +258,9 @@ namespace VogtEventsEmp
             DisplayGreeting();
 
         }
+        #endregion
 
+        #region Display the user's name (delegate)
         /// <summary>
         /// Method for displaying a user name
         /// </summary>
@@ -254,7 +270,9 @@ namespace VogtEventsEmp
             Console.WriteLine("Try again " + userName);
 
         }
+        #endregion
 
+        #region Clear the console from prior text
         /// <summary>
         /// Method to remove the previous text
         /// </summary>
@@ -263,7 +281,9 @@ namespace VogtEventsEmp
             Console.Clear();
 
         }
+        #endregion
 
+        #region Change the console color
         /// <summary>
         /// Display Red console text
         /// </summary>
@@ -286,7 +306,9 @@ namespace VogtEventsEmp
             ConsoleReset();
 
         }
+        #endregion
 
+        #region Reset the console Color
         /// <summary>
         /// Return the console color to normal
         /// </summary>
@@ -295,11 +317,14 @@ namespace VogtEventsEmp
             Console.ResetColor();
 
         }
+        #endregion
 
+        #region Lambdas
         /// <summary>
         /// Lambda for display
         /// </summary>
         public static void DisplayHeader() => Console.WriteLine("**************EMPLOYEE SOLUTION**************");
         public static void DisplayGreeting() => Console.WriteLine("Welcome to the employee solution!\n");
+        #endregion
     }
 }
