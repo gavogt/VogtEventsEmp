@@ -15,11 +15,13 @@ namespace VogtEventsEmp
         {
             displayInformation = new DisplayEmployeeInformation();
             displayInformation.DisplayEventAddedMessage += DisplayInformation_DisplayEventAddedMessage;
+
         }
 
         private void DisplayInformation_DisplayEventAddedMessage()
         {
             Console.WriteLine("Employee added: ");
+
         }
 
         // Propfulls
@@ -29,6 +31,7 @@ namespace VogtEventsEmp
         {
             get { return name; }
             set { name = value; }
+
         }
 
         private int number;
@@ -37,6 +40,7 @@ namespace VogtEventsEmp
         {
             get { return number; }
             set { number = value; }
+
         }
 
         private T hireDate;
@@ -45,12 +49,14 @@ namespace VogtEventsEmp
         {
             get { return hireDate; }
             set { hireDate = value; }
+
         }
 
         // Method for events
         public void DisplayEmployeeInfo(string name, int number, int hiredate)
         {
             displayInformation.DisplayEmpInformation(name, number, hiredate);
+
         }
     }
 
