@@ -28,6 +28,11 @@ namespace VogtEventsEmp
             // Displays
             DisplayForSystem();
             user = AskUserName();
+            Console.WriteLine("What is your selection?");
+            Console.WriteLine("1. Add an employee");
+            Console.WriteLine("2. Exit");
+            choice = Convert.ToInt32(Console.ReadLine());
+            Choice(choice);
 
             // Loop to add employees
             while (run)
@@ -40,9 +45,11 @@ namespace VogtEventsEmp
                 {
                     Console.WriteLine("Would you like to add another employee?");
                     choice = Convert.ToInt32(Console.ReadLine());
+
                 }
                 catch (FormatException)
                 {
+                    ClearConsole();
                     myUsername(user);
                     color = "RED";
                     ChangeConsoleColor(color);
@@ -50,7 +57,7 @@ namespace VogtEventsEmp
                 }
                 catch
                 {
-
+                    ClearConsole();
                     myUsername(user);
                     color = "BLUE";
                     ChangeConsoleColor(color);
@@ -98,6 +105,7 @@ namespace VogtEventsEmp
             }
             catch (FormatException)
             {
+                ClearConsole();
                 color = "RED";
                 ChangeConsoleColor(color);
                 myUsername(user);
@@ -105,6 +113,7 @@ namespace VogtEventsEmp
             }
             catch
             {
+                ClearConsole();
                 color = "BLUE";
                 ChangeConsoleColor(color);
                 myUsername(user);
@@ -144,6 +153,29 @@ namespace VogtEventsEmp
         }
 
         /// <summary>
+        /// Selection for options
+        /// </summary>
+        /// <param name="choice"></param>
+        /// <returns></returns>
+        public static int Choice(int choice)
+        {
+
+            switch (choice)
+            {
+                case 1:
+                    break;
+                case 2:
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Something happened!");
+                    break;
+            }
+
+            return choice;
+        }
+
+        /// <summary>
         /// Method to display
         /// </summary>
         public static void DisplayForSystem()
@@ -153,9 +185,21 @@ namespace VogtEventsEmp
 
         }
 
+        /// <summary>
+        /// Method for displaying a user name
+        /// </summary>
+        /// <param name="userName">The name to pass in</param>
         public static void DisplayUserName(string userName)
         {
             Console.WriteLine("Try again " + userName);
+        }
+
+        /// <summary>
+        /// Method to remove the previous text
+        /// </summary>
+        public static void ClearConsole()
+        {
+            Console.Clear();
         }
 
         /// <summary>
