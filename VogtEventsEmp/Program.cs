@@ -9,6 +9,8 @@ namespace VogtEventsEmp
 {
     class Program
     {
+        public delegate void DisplayColor(string color);
+
         static void Main(string[] args)
         {
             // Variables  
@@ -16,6 +18,7 @@ namespace VogtEventsEmp
             var emp = new Employee<int>();
             bool run = true;
             int choice = default;
+            string color = default;
 
             // Displays
             DisplayForSystem();
@@ -30,15 +33,19 @@ namespace VogtEventsEmp
 
                 try
                 {
-                    Console.WriteLine("Would you like to add another emploee?");
+                    Console.WriteLine("Would you like to add another employee?");
                     choice = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (FormatException e)
+                {
+                    color = "RED";
+                    ChangeConsoleColor(color);
+
                 }
                 catch
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("Error!");
-                    Console.ResetColor();
-
+                    color = "BLUE";
+                    ChangeConsoleColor(color);
                 }
 
                 if (choice == 2)
@@ -67,6 +74,7 @@ namespace VogtEventsEmp
         public static Employee<int> EmpAdd()
         {
             var employee = new Employee<int>();
+            string color = default;
 
             try
             {
@@ -80,12 +88,14 @@ namespace VogtEventsEmp
             }
             catch (FormatException e)
             {
-                DisplayRedConsole();
+                color = "RED";
+                ChangeConsoleColor(color);
 
             }
             catch
             {
-                DisplayRedConsole();
+                color = "BLUE";
+                ChangeConsoleColor(color);
 
             }
 
@@ -132,12 +142,22 @@ namespace VogtEventsEmp
         /// <summary>
         /// Display Red console text
         /// </summary>
-        public static void DisplayRedConsole()
+        public static void ChangeConsoleColor(string color)
         {
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("Error with format!");
-            ConsoleReset();
+            if (color == "RED")
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Error with format!");
 
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                Console.WriteLine("The light is broken inside but I still work");
+
+            }
+
+            ConsoleReset();
         }
 
         /// <summary>
