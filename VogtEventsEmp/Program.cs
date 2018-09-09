@@ -20,21 +20,15 @@ namespace VogtEventsEmp
             DisplayForSystem();
             AskUserName();
 
-            // Assign to properties
-            emp.Name = "Gabbins";
-            emp.Number = 13114;
-            emp.HireDate = 2017;
+            emp = EmpAdd();
 
-            empTwo.Name = "Captain Marrow";
-            empTwo.Number = 1337;
-            empTwo.HireDate = 2018;
 
             // Add to list 
             employeeList.Add(emp);
-            employeeList.Add(empTwo);
+            //employeeList.Add(empTwo);
 
             emp.DisplayEmployeeInfo(emp.Name, emp.Number, emp.HireDate);
-            empTwo.DisplayEmployeeInfo(empTwo.Name, empTwo.Number, empTwo.HireDate);
+            //empTwo.DisplayEmployeeInfo(empTwo.Name, empTwo.Number, empTwo.HireDate);
             //emp.DisplayEmployeeInfo(name: "Gabbins", number: 13114, hiredate: 2017);
 
             // For each snippet
@@ -47,6 +41,25 @@ namespace VogtEventsEmp
                 Console.WriteLine(employee.HireDate);
 
             }
+        }
+
+        public static Employee<int> EmpAdd()
+        {
+
+            var employee = new Employee<int>();
+
+            string empName = default;
+            int empNumber = default;
+            int empHireDate = default;
+
+            Console.WriteLine("What is the employee's name?");
+            empName = Console.ReadLine();
+            Console.WriteLine("What is the employee's number?");
+            empNumber = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("What is the employee's hire date?");
+            empHireDate = Convert.ToInt32(Console.ReadLine());
+
+            return employee;
         }
 
         /// <summary>
