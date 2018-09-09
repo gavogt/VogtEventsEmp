@@ -44,7 +44,6 @@ namespace VogtEventsEmp
             foreach (var employee in employeeList)
             {
                 // Cw
-                Console.WriteLine("here");
                 Console.WriteLine("---------");
                 Console.WriteLine(employee.Name);
                 Console.WriteLine(employee.Number);
@@ -58,7 +57,7 @@ namespace VogtEventsEmp
         /// <summary>
         /// Method for taking the user's name and returning a list
         /// </summary>
-        /// <param name="user">User's name that's entrying the data</param>
+        /// <param name="user">User's name that's entering the data</param>
         /// <returns>An employee list</returns>
         public static List<Employee<int>> EmpListAdd(string user)
         {
@@ -69,8 +68,7 @@ namespace VogtEventsEmp
             int choice = default;
             string color = default;
 
-            // Loop to add employees
-            while (run)
+            while (run) // Loop to add employees
             {
                 // Custom message off the username delegate
                 Username myUsername = delegate (string username) { Console.WriteLine("Please try again " + username); };
@@ -79,8 +77,7 @@ namespace VogtEventsEmp
                 emp = EmpAdd(user);
                 employeeList.Add(emp);
 
-                // Try catch with a specific message and color changes
-                try
+                try // Try catch with a specific message and color changes
                 {
                     Console.WriteLine("Would you like to add another employee?");
                     choice = Convert.ToInt32(Console.ReadLine());
@@ -130,8 +127,7 @@ namespace VogtEventsEmp
             // Color for error throws 
             string color = default;
 
-            // Try catch for adding an employee's properties
-            try
+            try // Try catch for adding an employee's properties
             {
                 Console.WriteLine("What is the employee's name?");
                 employee.Name = Console.ReadLine();
@@ -181,8 +177,7 @@ namespace VogtEventsEmp
             int choice = default;
             string color = default;
 
-            // Try catch for the menu selection
-            try
+            try // Try catch for the menu selection
             {
                 Console.WriteLine("What is your selection?");
                 Console.WriteLine("1. Add an employee");
@@ -193,7 +188,6 @@ namespace VogtEventsEmp
             }
             catch
             {
-                Console.WriteLine("Here");
                 ClearConsole();
                 usernameDefault(user);
                 color = "RED";
@@ -250,8 +244,7 @@ namespace VogtEventsEmp
         /// <returns></returns>
         public static int Choice(int choice)
         {
-            // Loop through for the choice
-            switch (choice)
+            switch (choice) // Loop through for the choice
             {
                 case 1:
                     break;
@@ -310,8 +303,7 @@ namespace VogtEventsEmp
         /// </summary>
         public static void ChangeConsoleColor(string color)
         {
-            // Display different colors for exceptions
-            if (color == "RED")
+            if (color == "RED") // Display different colors for exceptions
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("Error with format!");
