@@ -21,14 +21,25 @@ namespace VogtEventsEmp
             DisplayForSystem();
             AskUserName();
 
+            // Loop to add employees
             while (run)
             {
                 emp = EmpAdd();
 
                 employeeList.Add(emp);
 
-                Console.WriteLine("Would you like to add another emploee?");
-                choice = Convert.ToInt32(Console.ReadLine());
+                try
+                {
+                    Console.WriteLine("Would you like to add another emploee?");
+                    choice = Convert.ToInt32(Console.ReadLine());
+                }
+                catch
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("Error!");
+                    Console.ResetColor();
+
+                }
 
                 if (choice == 2)
                 {
@@ -57,12 +68,23 @@ namespace VogtEventsEmp
         {
             var employee = new Employee<int>();
 
-            Console.WriteLine("What is the employee's name?");
-            employee.Name = Console.ReadLine();
-            Console.WriteLine("What is the employee's number?");
-            employee.Number = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("What is the employee's hire date?");
-            employee.HireDate = Convert.ToInt32(Console.ReadLine());
+            try
+            {
+                Console.WriteLine("What is the employee's name?");
+                employee.Name = Console.ReadLine();
+                Console.WriteLine("What is the employee's number?");
+                employee.Number = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("What is the employee's hire date?");
+                employee.HireDate = Convert.ToInt32(Console.ReadLine());
+
+            }
+            catch
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Error!");
+                Console.ResetColor();
+
+            }
 
             employee.DisplayEmployeeInfo(employee.Name, employee.Number, employee.HireDate);
 
