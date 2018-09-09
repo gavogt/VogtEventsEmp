@@ -80,14 +80,12 @@ namespace VogtEventsEmp
             }
             catch (FormatException e)
             {
-                throw new FormatException();
+                DisplayRedConsole();
 
             }
             catch
             {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Error!");
-                Console.ResetColor();
+                DisplayRedConsole();
 
             }
 
@@ -128,6 +126,26 @@ namespace VogtEventsEmp
         {
             DisplayHeader();
             DisplayGreeting();
+
+        }
+
+        /// <summary>
+        /// Display Red console text
+        /// </summary>
+        public static void DisplayRedConsole()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("Error with format!");
+            ConsoleReset();
+
+        }
+
+        /// <summary>
+        /// Return the console color to normal
+        /// </summary>
+        public static void ConsoleReset()
+        {
+            Console.ResetColor();
 
         }
 
