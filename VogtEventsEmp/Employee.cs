@@ -10,6 +10,19 @@ namespace VogtEventsEmp
     {
         private DisplayEmployeeInformation DisplayInformation;
 
+        // Ctor
+        public Employee()
+        {
+            // Subscribe
+            DisplayInformation.DisplayEventAddedMessage += DisplayInformation_DisplayEventAddedMessage;
+        }
+
+        private void DisplayInformation_DisplayEventAddedMessage()
+        {
+            Console.WriteLine("Employee added: ");
+        }
+
+        // Propfulls
         private string name;
 
         public string Name
@@ -34,12 +47,16 @@ namespace VogtEventsEmp
             set { hireDate = value; }
         }
 
+        // Method for events
         public void DisplayEmployeeInfo(string name, int number, int hiredate)
         {
             DisplayInformation.DisplayEmpInformation(name, number, hiredate);
         }
     }
 
+    /// <summary>
+    /// Methods, Delegates and Events for displaying employee information
+    /// </summary>
     class DisplayEmployeeInformation
     {
         public delegate void DisplayAddedMessage();
