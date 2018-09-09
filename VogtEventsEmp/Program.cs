@@ -10,13 +10,12 @@ namespace VogtEventsEmp
     class Program
     {
         public delegate void Username(string name);
-        public delegate void DisplayColor(string color);
 
         static void Main(string[] args)
         {
             // Message for username
             Username myUsername = delegate (string username) { Console.WriteLine("Please try again " + username); };
-            Username usernameDefault = new Username(DisplayUserName);
+
 
             // Variables  
             var employeeList = new List<Employee<int>>();
@@ -29,24 +28,9 @@ namespace VogtEventsEmp
             // Displays
             DisplayForSystem();
             user = AskUserName();
-            try
-            {
-                Console.WriteLine("What is your selection?");
-                Console.WriteLine("1. Add an employee");
-                Console.WriteLine("2. Exit");
-                choice = Convert.ToInt32(Console.ReadLine());
-                Choice(choice);
 
-            }
-            catch
-            {
-                Console.WriteLine("Here");
-                ClearConsole();
-                usernameDefault(user);
-                color = "RED";
-                ChangeConsoleColor(color);
+            Menu(user);
 
-            }
             // Loop to add employees
             while (run)
             {
@@ -137,6 +121,34 @@ namespace VogtEventsEmp
 
             return employee;
 
+        }
+
+        public static int Menu(string user)
+        {
+            Username usernameDefault = new Username(DisplayUserName);
+
+            int choice = default;
+            string color = default;
+            try
+            {
+                Console.WriteLine("What is your selection?");
+                Console.WriteLine("1. Add an employee");
+                Console.WriteLine("2. Exit");
+                choice = Convert.ToInt32(Console.ReadLine());
+                Choice(choice);
+
+            }
+            catch
+            {
+                Console.WriteLine("Here");
+                ClearConsole();
+                usernameDefault(user);
+                color = "RED";
+                ChangeConsoleColor(color);
+
+            }
+
+            return choice;
         }
 
         /// <summary>
