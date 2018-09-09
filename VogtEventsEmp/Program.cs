@@ -36,6 +36,7 @@ namespace VogtEventsEmp
                 Console.WriteLine("2. Exit");
                 choice = Convert.ToInt32(Console.ReadLine());
                 Choice(choice);
+
             }
             catch
             {
@@ -44,12 +45,12 @@ namespace VogtEventsEmp
                 usernameDefault(user);
                 color = "RED";
                 ChangeConsoleColor(color);
+
             }
             // Loop to add employees
             while (run)
             {
                 emp = EmpAdd(user);
-
                 employeeList.Add(emp);
 
                 try
@@ -72,11 +73,12 @@ namespace VogtEventsEmp
                     myUsername(user);
                     color = "BLUE";
                     ChangeConsoleColor(color);
-                }
 
+                }
                 if (choice == 2)
                 {
                     run = false;
+
                 }
             }
 
@@ -134,6 +136,7 @@ namespace VogtEventsEmp
             employee.DisplayEmployeeInfo(employee.Name, employee.Number, employee.HireDate);
 
             return employee;
+
         }
 
         /// <summary>
@@ -170,7 +173,6 @@ namespace VogtEventsEmp
         /// <returns></returns>
         public static int Choice(int choice)
         {
-
             switch (choice)
             {
                 case 1:
@@ -184,6 +186,7 @@ namespace VogtEventsEmp
             }
 
             return choice;
+
         }
 
         /// <summary>
@@ -203,6 +206,7 @@ namespace VogtEventsEmp
         public static void DisplayUserName(string userName)
         {
             Console.WriteLine("Try again " + userName);
+
         }
 
         /// <summary>
@@ -211,6 +215,7 @@ namespace VogtEventsEmp
         public static void ClearConsole()
         {
             Console.Clear();
+
         }
 
         /// <summary>
@@ -233,6 +238,7 @@ namespace VogtEventsEmp
             }
 
             ConsoleReset();
+
         }
 
         /// <summary>
