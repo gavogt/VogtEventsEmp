@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Collections;
 using System.Speech.Synthesis;
 using System.IO;
+using System.Threading;
+
 
 namespace VogtEventsEmp
 {
@@ -21,8 +23,9 @@ namespace VogtEventsEmp
             string empName = default;
             var admin = new Admin();
             var employeeList = new List<Employee<DateTime>>();
+            var adminList = new List<Admin>();
             var emp = new Employee<DateTime>();
-            Hashtable hashAllUsers = new Hashtable();
+            var sortedDictionary = new SortedDictionary<int, string>();
 
             // Displays
             InitialDisplayForProgram();
@@ -30,6 +33,9 @@ namespace VogtEventsEmp
             // Ask Admin's name
             adminName = AskAdminName();
             admin = AddAdministrator(adminName);
+
+            // Add admin to a list
+            adminList.Add(admin);
 
             // Menu
             Menu(adminName);
@@ -44,7 +50,58 @@ namespace VogtEventsEmp
             WriteEmployeeListToFile(employeeList);
             WriteAdminToFile(admin, DateTime.Now);
 
+            sortedDictionary = AllPersonnel(employeeList, adminList);
+            DisplaySortedDictionary(sortedDictionary);
+
         }
+
+        #region DisplaySortedDictionary
+        /// <summary>
+        /// Runs a loop through a sorted dictionary to display keys and value
+        /// </summary>
+        /// <param name="sortedPersonnel">A sorted dictionary to pass in</param>
+        public static void DisplaySortedDictionary(SortedDictionary<int, string> sortedPersonnel)
+        {
+            foreach (var personnel in sortedPersonnel)
+            {
+                // Have to make unique
+                Console.WriteLine("--------- Sorted Dictionary ---------");
+                Console.WriteLine($"Primary key: {personnel.Key.ToString()} \nPersonnel name: {personnel.Value}");
+            }
+        }
+        #endregion
+
+        #region AllPersonnel
+        /// <summary>
+        /// A method that takes an employee list of date time, and a list of admin in order to add them to a list
+        /// A method that takes an employee list of date time, and a list of admin in order to add them to a list
+        /// </summary>
+        /// <param name="empList">An list of type employee datetime to pass in</param>
+        /// <param name="adminList">An a list of type admin</param>
+        /// <returns></returns>
+        public static SortedDictionary<int, string> AllPersonnel(List<Employee<DateTime>> empList, List<Admin> adminList)
+        {
+            // A new sorted dictionary
+            SortedDictionary<int, string> mySortedDictionary = new SortedDictionary<int, string>();
+
+            // Loop through emp list
+            foreach (var personnel in empList)
+            {
+                mySortedDictionary.Add(personnel.Number, personnel.Name);
+
+            }
+
+            // Loop through admin list
+            foreach (var personnel in adminList)
+            {
+                mySortedDictionary.Add(personnel.Number, personnel.Name);
+
+            }
+
+            return mySortedDictionary;
+
+        }
+        #endregion
 
         #region WriteUserToFile
         /// <summary>
@@ -105,7 +162,7 @@ namespace VogtEventsEmp
             foreach (var employee in employeeList)
             {
                 // Cw
-                Console.WriteLine("---------");
+                Console.WriteLine("--------- Employee List ---------");
                 Console.WriteLine("Employee name: " + employee?.Name);
                 Console.WriteLine("Employee number: " + employee?.Number);
                 Console.WriteLine("Employee hired: " + employee?.HireDate.ToShortDateString());

@@ -61,8 +61,6 @@ namespace VogtEventsEmp
 
         public void DisplayAdminInfo(string name, int number)
         {
-            DateTime dateTime = new DateTime();
-
             // Added speech
             SpeechSynthesizer speaker = new SpeechSynthesizer();
             DisplayEventAddedMessage();
