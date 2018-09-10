@@ -153,6 +153,21 @@ namespace VogtEventsEmp
         }
         #endregion
 
+        #region EnterValidInformation
+        /// <summary>
+        /// Provide errors if the input isn't correct
+        /// </summary>
+        /// <param name="empVariable">Emp variable to pass in</param>
+        /// <param name="message">Message of error</param>
+        public static void EnterValidInformation(int empVariable, string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Please enter valid information! " + empVariable + " is incorrect. " + message);
+            ConsoleColorReset();
+
+        }
+        #endregion
+
         #region AddEmployee
         /// <summary>
         /// Method for adding an employee
@@ -171,28 +186,70 @@ namespace VogtEventsEmp
 
             try // Try catch for adding an employee's properties
             {
-                var year = 1;
-                var month = 1;
-                var day = 1;
+                var year = -1;
+                var month = -1;
+                var day = -1;
 
                 ClearConsole();
                 Console.Write("\nWhat is the employee's name: ");
                 employee.Name = Console.ReadLine();
 
                 Console.Write("What is the employee's number: ");
-                employee.Number = Convert.ToInt32(Console.ReadLine());
+                while (employee.Number < 1000 || employee.Number > 2000)
+                {
+                    employee.Number = Convert.ToInt32(Console.ReadLine());
 
-                Console.Write("What year was the employee hired: ");
-                year = Convert.ToInt32(Console.ReadLine());
+                    if (employee.Number < 1000 || employee.Number > 2000)
+                    {
+                        EnterValidInformation(employee.Number, "The number must be between 1000 and 2000");
 
-                Console.Write("What month was the employee hired: ");
-                month = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("What is the employee's number: ");
+                        employee.Number = Convert.ToInt32(Console.ReadLine());
+                    }
+                }
+                while (year < 1935 || year > 2018)
+                {
+                    Console.Write("What year was the employee hired: ");
+                    year = Convert.ToInt32(Console.ReadLine());
 
-                Console.Write("What day was the employee hired: ");
-                day = Convert.ToInt32(Console.ReadLine());
+                    if (year < 1935 || year > 2018)
+                    {
+                        EnterValidInformation(year, "Year must be after 1935 and before 2018!");
+
+                        Console.Write("What year was the employee hired: ");
+                        year = Convert.ToInt32(Console.ReadLine());
+                    }
+                }
+                while (month < 1 || month > 12)
+                {
+                    Console.Write("What month was the employee hired: ");
+                    month = Convert.ToInt32(Console.ReadLine());
+
+                    if (month < 1 || month > 12)
+                    {
+                        EnterValidInformation(month, "Month must be between 1 and 12!");
+
+                        Console.Write("What month was the employee hired: ");
+                        month = Convert.ToInt32(Console.ReadLine());
+
+                    }
+                }
+                while (day < 1 || day > 31)
+                {
+                    Console.Write("What day was the employee hired: ");
+                    day = Convert.ToInt32(Console.ReadLine());
+
+                    if (day < 1 || day > 12)
+                    {
+                        EnterValidInformation(month, "Day must be between 1 and 31!");
+
+                        Console.Write("What day was the employee hired: ");
+                        day = Convert.ToInt32(Console.ReadLine());
+
+                    }
+                }
 
                 employee.HireDate = new DateTime(year, month, day);
-
 
             }
             catch (FormatException)
