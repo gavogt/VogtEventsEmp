@@ -22,6 +22,7 @@ namespace VogtEventsEmp
             var admin = new Admin();
             var employeeList = new List<Employee<DateTime>>();
             var emp = new Employee<DateTime>();
+            Hashtable hashAllUsers = new Hashtable();
 
             // Displays
             InitialDisplayForProgram();
