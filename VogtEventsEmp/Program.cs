@@ -25,7 +25,7 @@ namespace VogtEventsEmp
             InitialDisplayForProgram();
 
             // Ask username
-            user = AskUserName();
+            user = AskUsername();
             Speak(user);
 
             // Menu
@@ -169,7 +169,7 @@ namespace VogtEventsEmp
 
             try // Try catch for adding an employee's properties
             {
-                Console.WriteLine("What is the employee's name?");
+                Console.WriteLine("\nWhat is the employee's name?");
                 employee.Name = Console.ReadLine();
                 Console.WriteLine("What is the employee's number?");
                 employee.Number = Convert.ToInt32(Console.ReadLine());
@@ -255,18 +255,18 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        #region Ask for the user's name
+        #region AskUsername
         /// <summary>
         /// Ask for the user's name
         /// </summary>
-        public static string AskUserName()
+        public static string AskUsername()
         {
             // Variables
             string userName = default;
 
             // Assign the user
             Console.WriteLine("What is the user's name?");
-            userName = Console.ReadLine();
+            userName = Console.ReadLine().ToUpper();
             Console.WriteLine("");
 
             // Display a standard greeting message
