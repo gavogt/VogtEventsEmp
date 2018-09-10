@@ -19,45 +19,69 @@ namespace VogtEventsEmp
             // Variables  
             var employeeList = new List<Employee<DateTime>>();
             var emp = new Employee<DateTime>();
-            string user = default;
+            var user = new User();
+            string username = default;
 
             // Displays
             InitialDisplayForProgram();
 
             // Ask username
-            user = AskUsername();
-            Speak(user);
+            username = AskUsername();
+            Speak(username);
 
             // Menu
-            Menu(user);
+            Menu(username);
 
             // Add employee and return to list
-            employeeList = AddEmployeeToList(user);
+            employeeList = AddEmployeeToList(username);
 
             // Loop through Employee
             LoopThroughEmployeeList(employeeList);
 
             // Add Employee list to a file
-            WriteToFile(employeeList);
+            WriteEmployeeListToFile(employeeList);
 
         }
 
+        #region WriteUserToFile
+        /// <summary>
+        /// Method for writing a user list to a file
+        /// </summary>
+        /// <param name="userList">The user to pass in and append to a file</param>
+        /// <param name="accessed">DateTime now when accessed</param>
+        public static void WriteUserToFile(User user, DateTime accessed)
+        {
+            // Open new stream
+            StreamWriter File = new StreamWriter(@"C:\EmployeeLists\EmployeeList.txt");
+
+            // Write user to file
+            File.Write($"{user.Name} {user.Number} "+ accessed.TimeOfDay);
+
+            File.Close();
+
+        }
+        #endregion
+
+        #region WriteEmployeeListToFile
         /// <summary>
         /// Method for writing to a directory
         /// </summary>
         /// <param name="employeeList">A list to write to a directory</param>
-        public static void WriteToFile(List<Employee<DateTime>> employeeList)
+        public static void WriteEmployeeListToFile(List<Employee<DateTime>> employeeList)
         {
-
+            // Open new stream
             StreamWriter File = new StreamWriter(@"C:\EmployeeLists\EmployeeList.txt");
 
+            // Loop through employee list
             foreach (var employee in employeeList)
             {
                 File.Write($"{employee.Name} {employee.Number} {employee.HireDate.ToShortDateString()}");
             }
 
             File.Close();
+
         }
+        #endregion
 
         #region DisplayOptionsForMenu
         /// <summary>
