@@ -17,8 +17,8 @@ namespace VogtEventsEmp
         static void Main(string[] args)
         {
             // Variables  
-            var employeeList = new List<Employee<int>>();
-            var emp = new Employee<int>();
+            var employeeList = new List<Employee<DateTime>>();
+            var emp = new Employee<DateTime>();
             string user = default;
 
             // Displays
@@ -46,7 +46,7 @@ namespace VogtEventsEmp
         /// Method for writing to a directory
         /// </summary>
         /// <param name="employeeList">A list to write to a directory</param>
-        public static void WriteToFile(List<Employee<int>> employeeList)
+        public static void WriteToFile(List<Employee<DateTime>> employeeList)
         {
 
             StreamWriter File = new StreamWriter(@"C:\EmployeeLists\EmployeeList.txt");
@@ -72,7 +72,7 @@ namespace VogtEventsEmp
         #endregion
 
         #region LoopThroughEmployeeList
-        public static void LoopThroughEmployeeList(List<Employee<int>> employeeList)
+        public static void LoopThroughEmployeeList(List<Employee<DateTime>> employeeList)
         {
             // For each snippet
             foreach (var employee in employeeList)
@@ -93,11 +93,11 @@ namespace VogtEventsEmp
         /// </summary>
         /// <param name="user">User's name that's entering the data</param>
         /// <returns>An employee list</returns>
-        public static List<Employee<int>> AddEmployeeToList(string user)
+        public static List<Employee<DateTime>> AddEmployeeToList(string user)
         {
             // Variables
-            var employeeList = new List<Employee<int>>();
-            var emp = new Employee<int>();
+            var employeeList = new List<Employee<DateTime>>();
+            var emp = new Employee<DateTime>();
             bool run = true;
             int choice = default;
             string color = default;
@@ -156,25 +156,28 @@ namespace VogtEventsEmp
         /// Method for adding an employee
         /// </summary>
         /// <returns>A new employee object</returns>
-        public static Employee<int> AddEmployee(string user)
+        public static Employee<DateTime> AddEmployee(string user)
         {
             // Custom message from the username delegate
             Username myUsername = delegate (string username) { Console.WriteLine("Please try again with adding an employee " + username); };
 
             // Initialize an employee object with a generic for int
-            var employee = new Employee<int>();
+            var employee = new Employee<DateTime>();
 
             // Color for error throws 
             string color = default;
 
             try // Try catch for adding an employee's properties
             {
+                var year = 1;
+
                 Console.WriteLine("\nWhat is the employee's name?");
                 employee.Name = Console.ReadLine();
                 Console.WriteLine("What is the employee's number?");
                 employee.Number = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("What is the employee's hire date?");
-                employee.HireDate = Convert.ToInt32(Console.ReadLine());
+                year = Convert.ToInt32(Console.ReadLine());
+                employee.HireDate = new DateTime(year);
 
             }
             catch (FormatException)

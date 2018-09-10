@@ -60,7 +60,7 @@ namespace VogtEventsEmp
         }
 
         // Method for events
-        public void DisplayEmployeeInfo(string name, int number, int hiredate)
+        public void DisplayEmployeeInfo(string name, int number, DateTime hiredate)
         {
             displayInformation.DisplayEmpInformation(name, number, hiredate);
 
@@ -77,7 +77,7 @@ namespace VogtEventsEmp
         public delegate void DisplayAddedMessage();
         public event DisplayAddedMessage DisplayEventAddedMessage;
 
-        public void DisplayEmpInformation(string name, int number, int hiredate)
+        public void DisplayEmpInformation(string name, int number, DateTime hiredate)
         {
             // Added speech
             SpeechSynthesizer speaker = new SpeechSynthesizer();
