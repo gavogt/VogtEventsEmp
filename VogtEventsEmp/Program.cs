@@ -50,8 +50,14 @@ namespace VogtEventsEmp
             WriteEmployeeListToFile(employeeList);
             WriteAdminToFile(admin, DateTime.Now);
 
+            // Assign a sorted dictionary from emp list and adminlist
             sortedDictionary = AllPersonnel(employeeList, adminList);
+
+            // Display the sorted dictionary on console
             DisplaySortedDictionary(sortedDictionary);
+
+            // Write the sorted dictionary to a file
+            WriteSortedDictionaryToFile(sortedDictionary);
 
         }
 
@@ -103,7 +109,28 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        #region WriteUserToFile
+        #region WriteSortedDictionaryToFile
+        /// <summary>
+        /// A method that takes a sorted dictionary and writes the PK and Values to it
+        /// </summary>
+        /// <param name="sortedDictionary">The sorted dictionary to pass in</param>
+        public static void WriteSortedDictionaryToFile(SortedDictionary<int, string> sortedDictionary)
+        {
+            // Open new stream
+            StreamWriter File = new StreamWriter(@"C:\WorkLists\SortedDictionaryList.txt");
+
+            foreach (var personnel in sortedDictionary)
+            {
+                File.Write($"PK: {personnel.Key} Value: {personnel.Value}");
+
+            }
+
+            File.Close();
+
+        }
+        #endregion
+
+        #region WriteAdminToFile
         /// <summary>
         /// Method for writing a user list to a file
         /// </summary>
