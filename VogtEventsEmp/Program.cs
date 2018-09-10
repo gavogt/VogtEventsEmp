@@ -537,7 +537,7 @@ namespace VogtEventsEmp
 
         #region Speak
         /// <summary>
-        /// Have an announcer
+        /// Have an announcer for the admin
         /// </summary>
         /// <param name="adminName">Name of the admin to pass in</param>
         public static void Speak(string admin)
