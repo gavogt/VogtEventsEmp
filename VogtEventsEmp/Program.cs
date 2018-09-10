@@ -53,7 +53,7 @@ namespace VogtEventsEmp
 
             foreach (var employee in employeeList)
             {
-                File.Write($"{employee.Name} {employee.Number} {employee.HireDate}");
+                File.Write($"{employee.Name} {employee.Number} {employee.HireDate.ToShortDateString()}");
             }
 
             File.Close();
