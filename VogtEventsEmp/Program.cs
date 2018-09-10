@@ -113,11 +113,15 @@ namespace VogtEventsEmp
 
                 try // Try catch with a specific message and color changes
                 {
-                    Console.WriteLine("Would you like to add another employee?");
-                    Console.WriteLine("1. Add another employee");
-                    Console.WriteLine("2. Exit");
-                    choice = Convert.ToInt32(Console.ReadLine());
+                    choice = 0;
 
+                    while (choice < 1 || choice > 2)
+                    {
+                        Console.WriteLine("Would you like to add another employee?");
+                        DisplayOptionsForMenu();
+                        choice = Convert.ToInt32(Console.ReadLine());
+
+                    }
                 }
                 catch (FormatException)
                 {
@@ -215,10 +219,12 @@ namespace VogtEventsEmp
 
             try // Try catch for the menu selection
             {
-                Console.WriteLine("What is your selection?");
-                Console.WriteLine("1. Add an employee");
-                Console.WriteLine("2. Exit");
-                choice = Convert.ToInt32(Console.ReadLine());
+                while (choice < 1 || choice > 2)
+                {
+                    Console.WriteLine("What is your selection?");
+                    DisplayOptionsForMenu();
+                    choice = Convert.ToInt32(Console.ReadLine());
+                }
                 Choice(choice);
 
             }
