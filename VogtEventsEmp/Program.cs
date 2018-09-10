@@ -19,27 +19,31 @@ namespace VogtEventsEmp
             // Variables  
             var employeeList = new List<Employee<DateTime>>();
             var emp = new Employee<DateTime>();
-            var user = new User();
-            string username = default;
+            var admin = new Admin();
+            var dateTime = new DateTime();
+            string adminName = default;
+            string empName = default;
+            
 
             // Displays
             InitialDisplayForProgram();
 
-            // Ask username
-            username = AskUsername();
-            Speak(username);
+            // Ask Admin's name
+            adminName = AskAdminName();
+            admin = AddAdministrator(adminName);
 
             // Menu
-            Menu(username);
+            Menu(adminName);
 
             // Add employee and return to list
-            employeeList = AddEmployeeToList(username);
+            employeeList = AddEmployeeToList(empName);
 
             // Loop through Employee
             LoopThroughEmployeeList(employeeList);
 
             // Add Employee list to a file
             WriteEmployeeListToFile(employeeList);
+            WriteAdminToFile(admin, DateTime.Now);
 
         }
 
@@ -47,15 +51,15 @@ namespace VogtEventsEmp
         /// <summary>
         /// Method for writing a user list to a file
         /// </summary>
-        /// <param name="userList">The user to pass in and append to a file</param>
+        /// <param name="admin">The Admin to pass in and append to a file</param>
         /// <param name="accessed">DateTime now when accessed</param>
-        public static void WriteUserToFile(User user, DateTime accessed)
+        public static void WriteAdminToFile(Admin admin, DateTime accessed)
         {
             // Open new stream
-            StreamWriter File = new StreamWriter(@"C:\EmployeeLists\EmployeeList.txt");
+            StreamWriter File = new StreamWriter(@"C:\WorkLists\AdminList.txt");
 
             // Write user to file
-            File.Write($"{user.Name} {user.Number} "+ accessed.TimeOfDay);
+            File.Write($"{admin.Name} {admin.Number} " + accessed);
 
             File.Close();
 
@@ -70,12 +74,12 @@ namespace VogtEventsEmp
         public static void WriteEmployeeListToFile(List<Employee<DateTime>> employeeList)
         {
             // Open new stream
-            StreamWriter File = new StreamWriter(@"C:\EmployeeLists\EmployeeList.txt");
+            StreamWriter File = new StreamWriter(@"C:\WorkLists\EmployeeList.txt");
 
             // Loop through employee list
             foreach (var employee in employeeList)
             {
-                File.Write($"{employee.Name} {employee.Number} {employee.HireDate.ToShortDateString()}");
+                File.Write($"{employee.Name.ToUpper()} {employee.Number} {employee.HireDate.ToShortDateString()}");
             }
 
             File.Close();
@@ -129,7 +133,7 @@ namespace VogtEventsEmp
             while (run) // Loop to add employees
             {
                 // Custom message off the username delegate
-                Username myUsername = delegate (string username) { Console.WriteLine("Please try again " + username); };
+                Username myAdminName = delegate (string adminName) { Console.WriteLine("Please try again " + adminName); };
 
                 // Assign the employee to a list
                 emp = AddEmployee(user);
@@ -152,7 +156,7 @@ namespace VogtEventsEmp
                 catch (FormatException)
                 {
                     ClearConsole();
-                    myUsername(user);
+                    myAdminName(user);
                     color = "RED";
                     ChangeConsoleColor(color);
 
@@ -160,7 +164,7 @@ namespace VogtEventsEmp
                 catch
                 {
                     ClearConsole();
-                    myUsername(user);
+                    myAdminName(user);
                     color = "BLUE";
                     ChangeConsoleColor(color);
 
@@ -192,12 +196,66 @@ namespace VogtEventsEmp
         }
         #endregion
 
+        #region AddUser
+        /// <summary>
+        /// Method for adding a user
+        /// </summary>
+        /// <returns>A new user object</returns>
+        public static Admin AddAdministrator(string adminName)
+        {
+            // Initialize an admin object
+            var admin = new Admin();
+
+            // Assign passed in string to admin name
+            admin.Name = adminName;
+
+            // Color for error throws 
+            string color = default;
+
+            try // Try catch for adding an administrators's properties
+            {
+                Console.Write("What is your number: ");
+                while (admin.Number < 100 || admin.Number > 200)
+                {
+                    admin.Number = Convert.ToInt32(Console.ReadLine());
+
+                    if (admin.Number < 100 || admin.Number > 200)
+                    {
+                        EnterValidInformation(admin.Number, "The admin number must be between 100 and 200");
+
+                        Console.Write("What is your number: ");
+                        admin.Number = Convert.ToInt32(Console.ReadLine());
+                    }
+                }
+            }
+            catch (FormatException)
+            {
+                ClearConsole();
+                color = "RED";
+                ChangeConsoleColor(color);
+
+            }
+            catch
+            {
+                ClearConsole();
+                color = "BLUE";
+                ChangeConsoleColor(color);
+
+            }
+
+            ClearConsole();
+
+            return admin;
+
+        }
+        #endregion
+
         #region AddEmployee
         /// <summary>
         /// Method for adding an employee
         /// </summary>
         /// <returns>A new employee object</returns>
-        public static Employee<DateTime> AddEmployee(string user)
+        public static Employee<DateTime> AddEmployee(string employeeVar)
         {
             // Custom message from the username delegate
             Username myUsername = delegate (string username) { Console.WriteLine("Please try again with adding an employee " + username); };
@@ -281,7 +339,7 @@ namespace VogtEventsEmp
                 ClearConsole();
                 color = "RED";
                 ChangeConsoleColor(color);
-                myUsername(user);
+                myUsername(employeeVar);
 
             }
             catch
@@ -289,7 +347,7 @@ namespace VogtEventsEmp
                 ClearConsole();
                 color = "BLUE";
                 ChangeConsoleColor(color);
-                myUsername(user);
+                myUsername(employeeVar);
 
             }
 
@@ -346,36 +404,37 @@ namespace VogtEventsEmp
         /// <summary>
         /// Display a greeting for the user
         /// </summary>
-        /// <param name="userName"></param>
-        public static void ShowGreetingToUser(string userName)
+        /// <param name="adminName"></param>
+        public static void ShowGreetingToUser(string adminName)
         {
             ClearConsole();
 
             // Standard message for a greeting
-            Console.WriteLine($"Greetings {userName}! Please select one of the following options below. \n");
+            Console.WriteLine($"Greetings {adminName}! Please enter your admin number, and then select one of the proceeding options. \n");
+            Speak(adminName);
 
         }
         #endregion
 
-        #region AskUsername
+        #region AskAdminName
         /// <summary>
         /// Ask for the user's name
         /// </summary>
-        public static string AskUsername()
+        public static string AskAdminName()
         {
             // Variables
-            string userName = default;
+            string adminName = default;
 
             // Assign the user
-            Console.WriteLine("What is the user's name?");
-            userName = Console.ReadLine().ToUpper();
+            Console.WriteLine("What your name?");
+            adminName = Console.ReadLine().ToUpper();
             Console.WriteLine("");
 
             // Display a standard greeting message
-            Action<string> displayUserInfo = ShowGreetingToUser;
-            displayUserInfo(userName);
+            Action<string> displayAdminInfo = ShowGreetingToUser;
+            displayAdminInfo(adminName);
 
-            return userName;
+            return adminName;
 
         }
         #endregion
@@ -480,11 +539,11 @@ namespace VogtEventsEmp
         /// <summary>
         /// Have an announcer
         /// </summary>
-        /// <param name="userName">Name of the user to pass in</param>
-        public static void Speak(string userName)
+        /// <param name="adminName">Name of the user to pass in</param>
+        public static void Speak(string admin)
         {
             SpeechSynthesizer speaker = new SpeechSynthesizer();
-            speaker.Speak($"Greetings {userName}! Please select one of the following options below. \n");
+            speaker.Speak($"Greetings {admin}! Please enter your admin number, and then select one of the proceeding options. \n");
 
         }
         #endregion

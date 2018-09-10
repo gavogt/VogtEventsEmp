@@ -14,12 +14,12 @@ namespace VogtEventsEmp
     /// <typeparam name="T">For datetime or int</typeparam>
     class Employee<T>
     {
-        private DisplayEmployeeInformation displayInformation;
+        private DisplayInformation displayInformation;
 
         // Ctor
         public Employee()
         {
-            displayInformation = new DisplayEmployeeInformation();
+            displayInformation = new DisplayInformation();
             displayInformation.DisplayEventAddedMessage += DisplayInformation_DisplayEventAddedMessage;
 
         }
@@ -72,7 +72,7 @@ namespace VogtEventsEmp
     /// <summary>
     /// Methods, Delegates and Events for displaying employee information
     /// </summary>
-    class DisplayEmployeeInformation
+    class DisplayInformation
     {
         public delegate void DisplayAddedMessage();
         public event DisplayAddedMessage DisplayEventAddedMessage;
