@@ -170,14 +170,26 @@ namespace VogtEventsEmp
             try // Try catch for adding an employee's properties
             {
                 var year = 1;
+                var month = 1;
+                var day = 1;
 
                 Console.WriteLine("\nWhat is the employee's name?");
                 employee.Name = Console.ReadLine();
+
                 Console.WriteLine("What is the employee's number?");
                 employee.Number = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("What is the employee's hire date?");
+
+                Console.WriteLine("What year was the employee hired?");
                 year = Convert.ToInt32(Console.ReadLine());
-                employee.HireDate = new DateTime(year);
+
+                Console.WriteLine("What month was the employee hired?");
+                month = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("What day was the employee hired?");
+                day = Convert.ToInt32(Console.ReadLine());
+
+                employee.HireDate = new DateTime(year, month, day);
+
 
             }
             catch (FormatException)

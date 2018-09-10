@@ -83,7 +83,7 @@ namespace VogtEventsEmp
             SpeechSynthesizer speaker = new SpeechSynthesizer();
             DisplayEventAddedMessage();
 
-            Console.WriteLine($"The employee's name is {name}, number is {number} and hired {hiredate}");
+            Console.WriteLine($"The employee's name is {name}, number is {number} and hired {hiredate.ToShortDateString()}");
 
             speaker.Speak($"The employee's name is {name}, number is {number} and hired {hiredate}");
 
