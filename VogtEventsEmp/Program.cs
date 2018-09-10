@@ -8,7 +8,6 @@ using System.Speech.Synthesis;
 using System.IO;
 using System.Threading;
 
-
 namespace VogtEventsEmp
 {
     class Program
@@ -72,7 +71,7 @@ namespace VogtEventsEmp
             {
                 // Have to make unique
                 Console.WriteLine("--------- Sorted Dictionary ---------");
-                Console.WriteLine($"Primary key: {personnel.Key.ToString()} \nPersonnel name: {personnel.Value}");
+                Console.WriteLine($"Primary key: {personnel.Key.ToString()} Personnel name: {personnel.Value} ");
             }
         }
         #endregion
@@ -120,7 +119,7 @@ namespace VogtEventsEmp
 
             foreach (var personnel in sortedDictionary)
             {
-                File.Write($"PK: {personnel.Key} Value: {personnel.Value}");
+                File.Write($"PK: {personnel.Key} Value: {personnel.Value} ");
 
             }
 
@@ -161,7 +160,7 @@ namespace VogtEventsEmp
             // Loop through employee list
             foreach (var employee in employeeList)
             {
-                File.Write($"{employee.Name} {employee.Number} {employee.HireDate.ToShortDateString()}");
+                File.Write($"{employee.Name} {employee.Number} {employee.HireDate.ToShortDateString()} ");
             }
 
             File.Close();
