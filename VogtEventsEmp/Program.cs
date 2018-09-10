@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using System.Speech.Synthesis;
+using System.IO;
 
 namespace VogtEventsEmp
 {
@@ -21,7 +22,7 @@ namespace VogtEventsEmp
             string user = default;
 
             // Displays
-            DisplayForSystem();
+            InitialDisplayForProgram();
 
             // Ask username
             user = AskUserName();
@@ -31,15 +32,47 @@ namespace VogtEventsEmp
             Menu(user);
 
             // Add employee and return to list
-            employeeList = EmpListAdd(user);
+            employeeList = AddEmployeeToList(user);
 
             // Loop through Employee
-            LoopThroughList(employeeList);
+            LoopThroughEmployeeList(employeeList);
+
+            // Add Employee list to a file
+            WriteToFile(employeeList);
 
         }
 
-        #region Loop through an employee list
-        public static void LoopThroughList(List<Employee<int>> employeeList)
+        /// <summary>
+        /// Method for writing to a directory
+        /// </summary>
+        /// <param name="employeeList">A list to write to a directory</param>
+        public static void WriteToFile(List<Employee<int>> employeeList)
+        {
+
+            StreamWriter File = new StreamWriter(@"C:\EmployeeLists\EmployeeList.txt");
+
+            foreach (var employee in employeeList)
+            {
+                File.Write($"{employee.Name} {employee.Number} {employee.HireDate}");
+            }
+
+            File.Close();
+        }
+
+        #region DisplayOptionsForMenu
+        /// <summary>
+        /// Ask the user if they'd like to add another employee or to Exit
+        /// </summary>
+        public static void DisplayOptionsForMenu()
+        {
+            Console.WriteLine("1. Add an employee");
+            Console.WriteLine("2. Exit");
+
+        }
+        #endregion
+
+        #region LoopThroughEmployeeList
+        public static void LoopThroughEmployeeList(List<Employee<int>> employeeList)
         {
             // For each snippet
             foreach (var employee in employeeList)
@@ -54,13 +87,13 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        #region Add employee to a list
+        #region AddEmployeeToList
         /// <summary>
         /// Method for taking the user's name and returning a list
         /// </summary>
         /// <param name="user">User's name that's entering the data</param>
         /// <returns>An employee list</returns>
-        public static List<Employee<int>> EmpListAdd(string user)
+        public static List<Employee<int>> AddEmployeeToList(string user)
         {
             // Variables
             var employeeList = new List<Employee<int>>();
@@ -75,12 +108,14 @@ namespace VogtEventsEmp
                 Username myUsername = delegate (string username) { Console.WriteLine("Please try again " + username); };
 
                 // Assign the employee to a list
-                emp = EmpAdd(user);
+                emp = AddEmployee(user);
                 employeeList.Add(emp);
 
                 try // Try catch with a specific message and color changes
                 {
                     Console.WriteLine("Would you like to add another employee?");
+                    Console.WriteLine("1. Add another employee");
+                    Console.WriteLine("2. Exit");
                     choice = Convert.ToInt32(Console.ReadLine());
 
                 }
@@ -112,12 +147,12 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        #region Add an employee with properties
+        #region AddEmployee
         /// <summary>
         /// Method for adding an employee
         /// </summary>
         /// <returns>A new employee object</returns>
-        public static Employee<int> EmpAdd(string user)
+        public static Employee<int> AddEmployee(string user)
         {
             // Custom message from the username delegate
             Username myUsername = delegate (string username) { Console.WriteLine("Please try again with adding an employee " + username); };
@@ -163,7 +198,7 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        #region Menu for the user
+        #region Menu
         /// <summary>
         /// Method for displaying the menu to a user
         /// </summary>
@@ -172,7 +207,7 @@ namespace VogtEventsEmp
         public static int Menu(string user)
         {
             // Standard message off the username delegate
-            Username usernameDefault = new Username(DisplayUserName);
+            Username usernameDefault = new Username(DisplayUsername);
 
             // Variables
             int choice = default;
@@ -201,12 +236,12 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        #region Display a greeting for the user
+        #region ShowGreetingToUser
         /// <summary>
         /// Display a greeting for the user
         /// </summary>
         /// <param name="userName"></param>
-        public static void ShowUserGreeting(string userName)
+        public static void ShowGreetingToUser(string userName)
         {
             // Standard message for a greeting
             Console.WriteLine($"Greetings {userName}! Please select one of the following options below. \n");
@@ -229,7 +264,7 @@ namespace VogtEventsEmp
             Console.WriteLine("");
 
             // Display a standard greeting message
-            Action<string> displayUserInfo = ShowUserGreeting;
+            Action<string> displayUserInfo = ShowGreetingToUser;
             displayUserInfo(userName);
 
             return userName;
@@ -237,7 +272,7 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        #region Choice for the menu
+        #region Choice
         /// <summary>
         /// Selection for options
         /// </summary>
@@ -262,11 +297,11 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        #region Initial Display for the system
+        #region InitialDisplayForProgram
         /// <summary>
         /// Method to display when the program starts
         /// </summary>
-        public static void DisplayForSystem()
+        public static void InitialDisplayForProgram()
         {
             // Standard system messages
             DisplayHeader();
@@ -275,19 +310,19 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        #region Display the user's name (delegate)
+        #region DisplayUsername
         /// <summary>
         /// Method for displaying a user name
         /// </summary>
         /// <param name="userName">The name to pass in</param>
-        public static void DisplayUserName(string userName)
+        public static void DisplayUsername(string userName)
         {
             Console.WriteLine("Try again " + userName);
 
         }
         #endregion
 
-        #region Clear the console from prior text
+        #region ClearConsole
         /// <summary>
         /// Method to remove the previous text
         /// </summary>
@@ -298,7 +333,7 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        #region Change the console color
+        #region ChangeConsoleColor
         /// <summary>
         /// Display Red console text
         /// </summary>
@@ -317,23 +352,23 @@ namespace VogtEventsEmp
 
             }
 
-            ConsoleReset();
+            ConsoleColorReset();
 
         }
         #endregion
 
-        #region Reset the console Color
+        #region ConsoleColorReset
         /// <summary>
         /// Return the console color to normal
         /// </summary>
-        public static void ConsoleReset()
+        public static void ConsoleColorReset()
         {
             Console.ResetColor();
 
         }
         #endregion
 
-        #region Computer generated speech
+        #region Speak
         /// <summary>
         /// Have an announcer
         /// </summary>

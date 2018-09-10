@@ -7,6 +7,11 @@ using System.Speech.Synthesis;
 
 namespace VogtEventsEmp
 {
+    #region Employee
+    /// <summary>
+    /// Employee Class
+    /// </summary>
+    /// <typeparam name="T">For datetime or int</typeparam>
     class Employee<T>
     {
         private DisplayEmployeeInformation displayInformation;
@@ -61,7 +66,9 @@ namespace VogtEventsEmp
 
         }
     }
+    #endregion
 
+    #region DisplayEmployeeInformation
     /// <summary>
     /// Methods, Delegates and Events for displaying employee information
     /// </summary>
@@ -84,4 +91,6 @@ namespace VogtEventsEmp
 
         }
     }
+    #endregion
+
 }
