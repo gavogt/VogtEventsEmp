@@ -87,7 +87,7 @@ namespace VogtEventsEmp
 
         #region DisplayOptionsForMenu
         /// <summary>
-        /// Ask the user if they'd like to add another employee or to Exit
+        /// Ask the admin if they'd like to add another employee or to Exit
         /// </summary>
         public static void DisplayOptionsForMenu()
         {
@@ -115,7 +115,7 @@ namespace VogtEventsEmp
 
         #region AddEmployeeToList
         /// <summary>
-        /// Method for taking the user's name and returning a list
+        /// Method for taking the employee's name and returning a list
         /// </summary>
         /// <param name="employee">User's name that's entering the data</param>
         /// <returns>An employee list</returns>
@@ -183,7 +183,7 @@ namespace VogtEventsEmp
         /// <summary>
         /// Provide errors if the input isn't correct
         /// </summary>
-        /// <param name="empVariable">Emp variable to pass in</param>
+        /// <param name="empVariable">Employee input variable to pass in</param>
         /// <param name="message">Message of error</param>
         public static void EnterValidInformation(int empVariable, string message)
         {
@@ -198,7 +198,7 @@ namespace VogtEventsEmp
         /// <summary>
         /// Method for adding a user
         /// </summary>
-        /// <returns>A new user object</returns>
+        /// <returns>A new admin object</returns>
         public static Admin AddAdministrator(string adminName)
         {
             // Initialize an admin object
@@ -210,7 +210,7 @@ namespace VogtEventsEmp
             // Color for error throws 
             string color = default;
 
-            try // Try catch for adding an administrators's properties
+            try // Try catch for adding an administrator's properties
             {
                 Console.Write("What is your number: ");
                 while (admin.Number < 100 || admin.Number > 200)
@@ -363,9 +363,9 @@ namespace VogtEventsEmp
         /// <summary>
         /// Method for displaying the menu to a user
         /// </summary>
-        /// <param name="user">The user that needs the menu</param>
+        /// <param name="admin">The admin that needs the menu</param>
         /// <returns>The selected menu choie</returns>
-        public static int Menu(string user)
+        public static int Menu(string admin)
         {
             // Standard message off the username delegate
             Username usernameDefault = new Username(DisplayUsername);
@@ -389,7 +389,7 @@ namespace VogtEventsEmp
             catch
             {
                 ClearConsole();
-                usernameDefault(user);
+                usernameDefault(admin);
                 color = "RED";
                 ChangeConsoleColor(color);
 
@@ -479,7 +479,7 @@ namespace VogtEventsEmp
 
         #region DisplayUsername
         /// <summary>
-        /// Method for displaying a user name
+        /// Method for displaying the admin's name in an error message
         /// </summary>
         /// <param name="adminName">The name to pass in</param>
         public static void DisplayUsername(string adminName)
@@ -539,7 +539,7 @@ namespace VogtEventsEmp
         /// <summary>
         /// Have an announcer
         /// </summary>
-        /// <param name="adminName">Name of the user to pass in</param>
+        /// <param name="adminName">Name of the admin to pass in</param>
         public static void Speak(string admin)
         {
             SpeechSynthesizer speaker = new SpeechSynthesizer();
