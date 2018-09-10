@@ -17,13 +17,11 @@ namespace VogtEventsEmp
         static void Main(string[] args)
         {
             // Variables  
-            var employeeList = new List<Employee<DateTime>>();
-            var emp = new Employee<DateTime>();
-            var admin = new Admin();
-            var dateTime = new DateTime();
             string adminName = default;
             string empName = default;
-            
+            var admin = new Admin();
+            var employeeList = new List<Employee<DateTime>>();
+            var emp = new Employee<DateTime>();
 
             // Displays
             InitialDisplayForProgram();
@@ -59,7 +57,7 @@ namespace VogtEventsEmp
             StreamWriter File = new StreamWriter(@"C:\WorkLists\AdminList.txt");
 
             // Write user to file
-            File.Write($"{admin.Name} {admin.Number} " + accessed);
+            File.Write($"{admin.Name} {admin.Number} " + accessed.ToLocalTime());
 
             File.Close();
 
@@ -79,7 +77,7 @@ namespace VogtEventsEmp
             // Loop through employee list
             foreach (var employee in employeeList)
             {
-                File.Write($"{employee.Name.ToUpper()} {employee.Number} {employee.HireDate.ToShortDateString()}");
+                File.Write($"{employee.Name} {employee.Number} {employee.HireDate.ToShortDateString()}");
             }
 
             File.Close();
@@ -119,9 +117,9 @@ namespace VogtEventsEmp
         /// <summary>
         /// Method for taking the user's name and returning a list
         /// </summary>
-        /// <param name="user">User's name that's entering the data</param>
+        /// <param name="employee">User's name that's entering the data</param>
         /// <returns>An employee list</returns>
-        public static List<Employee<DateTime>> AddEmployeeToList(string user)
+        public static List<Employee<DateTime>> AddEmployeeToList(string employee)
         {
             // Variables
             var employeeList = new List<Employee<DateTime>>();
@@ -136,7 +134,7 @@ namespace VogtEventsEmp
                 Username myAdminName = delegate (string adminName) { Console.WriteLine("Please try again " + adminName); };
 
                 // Assign the employee to a list
-                emp = AddEmployee(user);
+                emp = AddEmployee(employee);
                 employeeList.Add(emp);
 
                 try // Try catch with a specific message and color changes
@@ -156,7 +154,7 @@ namespace VogtEventsEmp
                 catch (FormatException)
                 {
                     ClearConsole();
-                    myAdminName(user);
+                    myAdminName(employee);
                     color = "RED";
                     ChangeConsoleColor(color);
 
@@ -164,7 +162,7 @@ namespace VogtEventsEmp
                 catch
                 {
                     ClearConsole();
-                    myAdminName(user);
+                    myAdminName(employee);
                     color = "BLUE";
                     ChangeConsoleColor(color);
 
@@ -245,6 +243,8 @@ namespace VogtEventsEmp
 
             ClearConsole();
 
+            admin.DisplayAdminInfo(admin.Name, admin.Number);
+
             return admin;
 
         }
@@ -274,7 +274,7 @@ namespace VogtEventsEmp
 
                 ClearConsole();
                 Console.Write("\nWhat is the employee's name: ");
-                employee.Name = Console.ReadLine();
+                employee.Name = Console.ReadLine().ToUpper();
 
                 Console.Write("What is the employee's number: ");
                 while (employee.Number < 1000 || employee.Number > 2000)
@@ -402,7 +402,7 @@ namespace VogtEventsEmp
 
         #region ShowGreetingToUser
         /// <summary>
-        /// Display a greeting for the user
+        /// Display a greeting for the admin
         /// </summary>
         /// <param name="adminName"></param>
         public static void ShowGreetingToUser(string adminName)
@@ -418,7 +418,7 @@ namespace VogtEventsEmp
 
         #region AskAdminName
         /// <summary>
-        /// Ask for the user's name
+        /// Ask for the admin's name
         /// </summary>
         public static string AskAdminName()
         {
@@ -481,10 +481,10 @@ namespace VogtEventsEmp
         /// <summary>
         /// Method for displaying a user name
         /// </summary>
-        /// <param name="userName">The name to pass in</param>
-        public static void DisplayUsername(string userName)
+        /// <param name="adminName">The name to pass in</param>
+        public static void DisplayUsername(string adminName)
         {
-            Console.WriteLine("Try again " + userName);
+            Console.WriteLine("Try again " + adminName);
 
         }
         #endregion

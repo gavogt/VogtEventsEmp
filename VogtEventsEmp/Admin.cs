@@ -61,14 +61,16 @@ namespace VogtEventsEmp
 
         public void DisplayAdminInfo(string name, int number)
         {
+            DateTime dateTime = new DateTime();
+
             // Added speech
             SpeechSynthesizer speaker = new SpeechSynthesizer();
             DisplayEventAddedMessage();
 
             Console.Clear();
-            Console.WriteLine($"Your name is {name}, admin number is {number}");
+            Console.WriteLine($"Your name is {name}, and your admin number is {number}. Your login time is at {DateTime.Now.ToLocalTime()}. If this is not correct, please try again.");
 
-            speaker.Speak($"Your name is {name}, admin number is {number}");
+            speaker.Speak($"Your name is {name}, and your admin number is {number}. Your login time is at {DateTime.Now.ToLocalTime()}. If this is not correct, please try again.");
 
             Console.WriteLine("");
 
