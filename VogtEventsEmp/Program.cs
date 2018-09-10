@@ -79,9 +79,9 @@ namespace VogtEventsEmp
             {
                 // Cw
                 Console.WriteLine("---------");
-                Console.WriteLine(employee?.Name);
-                Console.WriteLine(employee?.Number);
-                Console.WriteLine(employee?.HireDate);
+                Console.WriteLine("Employee name: " + employee?.Name);
+                Console.WriteLine("Employee number: " + employee?.Number);
+                Console.WriteLine("Employee hired: " + employee?.HireDate.ToShortDateString());
 
             }
         }
@@ -117,8 +117,10 @@ namespace VogtEventsEmp
 
                     while (choice < 1 || choice > 2)
                     {
-                        Console.WriteLine("Would you like to add another employee?");
+                        ClearConsole();
+                        Console.WriteLine("What would you like to do: ");
                         DisplayOptionsForMenu();
+                        Console.Write("\nSELECTION: ");
                         choice = Convert.ToInt32(Console.ReadLine());
 
                     }
@@ -173,19 +175,20 @@ namespace VogtEventsEmp
                 var month = 1;
                 var day = 1;
 
-                Console.WriteLine("\nWhat is the employee's name?");
+                ClearConsole();
+                Console.Write("\nWhat is the employee's name: ");
                 employee.Name = Console.ReadLine();
 
-                Console.WriteLine("What is the employee's number?");
+                Console.Write("What is the employee's number: ");
                 employee.Number = Convert.ToInt32(Console.ReadLine());
 
-                Console.WriteLine("What year was the employee hired?");
+                Console.Write("What year was the employee hired: ");
                 year = Convert.ToInt32(Console.ReadLine());
 
-                Console.WriteLine("What month was the employee hired?");
+                Console.Write("What month was the employee hired: ");
                 month = Convert.ToInt32(Console.ReadLine());
 
-                Console.WriteLine("What day was the employee hired?");
+                Console.Write("What day was the employee hired: ");
                 day = Convert.ToInt32(Console.ReadLine());
 
                 employee.HireDate = new DateTime(year, month, day);
@@ -236,8 +239,9 @@ namespace VogtEventsEmp
             {
                 while (choice < 1 || choice > 2)
                 {
-                    Console.WriteLine("What is your selection?");
+                    Console.WriteLine("What is your selection: ");
                     DisplayOptionsForMenu();
+                    Console.Write("\nSELECTION: ");
                     choice = Convert.ToInt32(Console.ReadLine());
                 }
                 Choice(choice);
@@ -264,6 +268,8 @@ namespace VogtEventsEmp
         /// <param name="userName"></param>
         public static void ShowGreetingToUser(string userName)
         {
+            ClearConsole();
+
             // Standard message for a greeting
             Console.WriteLine($"Greetings {userName}! Please select one of the following options below. \n");
 

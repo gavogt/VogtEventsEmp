@@ -26,7 +26,7 @@ namespace VogtEventsEmp
 
         private void DisplayInformation_DisplayEventAddedMessage()
         {
-            Console.WriteLine("Employee added: ");
+            Console.WriteLine("\nEmployee added: ");
 
         }
 
@@ -83,9 +83,10 @@ namespace VogtEventsEmp
             SpeechSynthesizer speaker = new SpeechSynthesizer();
             DisplayEventAddedMessage();
 
+            Console.Clear();
             Console.WriteLine($"The employee's name is {name}, number is {number} and hired {hiredate.ToShortDateString()}");
 
-            speaker.Speak($"The employee's name is {name}, number is {number} and hired {hiredate}");
+            speaker.Speak($"The employee's name is {name}, number is {number} and hired {hiredate.ToShortDateString()}");
 
             Console.WriteLine("");
 
