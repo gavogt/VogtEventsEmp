@@ -79,8 +79,7 @@ namespace VogtEventsEmp
 
         #region AllPersonnel
         /// <summary>
-        /// A method that takes an employee list of date time, and a list of admin in order to add them to a list
-        /// A method that takes an employee list of date time, and a list of admin in order to add them to a list
+        /// Method that takes an employee list of date time, and a list of admin in order to add them to a list
         /// </summary>
         /// <param name="empList">An list of type employee datetime to pass in</param>
         /// <param name="adminList">An a list of type admin</param>
@@ -111,7 +110,7 @@ namespace VogtEventsEmp
 
         #region WriteSortedDictionaryToFile
         /// <summary>
-        /// A method that takes a sorted dictionary and writes the PK and Values to it
+        /// Method that takes a sorted dictionary and writes the PK and Values to it
         /// </summary>
         /// <param name="sortedDictionary">The sorted dictionary to pass in</param>
         public static void WriteSortedDictionaryToFile(SortedDictionary<int, string> sortedDictionary)
