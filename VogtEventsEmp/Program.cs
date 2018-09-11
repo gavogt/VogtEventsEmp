@@ -60,6 +60,28 @@ namespace VogtEventsEmp
 
         }
 
+        /// <summary>
+        /// Checks if the employee type is an admin
+        /// </summary>
+        /// <returns>default</returns>
+        public static bool IsItAnAdmin(SortedDictionary<int, string> sortedPersonnel)
+        {
+            foreach (var personnel in sortedPersonnel)
+            {
+                if (sortedPersonnel.Equals(typeof(Admin)))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return default;
+
+        }
+
         #region DisplaySortedDictionary
         /// <summary>
         /// Runs a loop through a sorted dictionary to display keys and value
