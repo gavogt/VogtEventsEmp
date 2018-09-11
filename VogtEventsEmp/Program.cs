@@ -640,6 +640,7 @@ namespace VogtEventsEmp
         public static void DisplayGreeting() => Console.WriteLine("Welcome to the employee solution!\n");
         #endregion
 
+        #region EncryptByAESStandard
         /// <summary>
         /// Method that takes a string to be encrypted by AES
         /// </summary>
@@ -649,6 +650,7 @@ namespace VogtEventsEmp
         /// <returns></returns>
         public static byte[] Encrypt(string str, byte[] Key, byte[] IV)
         {
+            // AES Object
             Aes aes = Aes.Create();
 
             MemoryStream ms = new MemoryStream();
@@ -679,12 +681,12 @@ namespace VogtEventsEmp
         /// <returns></returns>
         public static string Decrypt(byte[] Data, byte[] Key, byte[] IV)
         {
+            // AES Objects
             Aes aes = Aes.Create();
 
             MemoryStream ms = new MemoryStream(Data);
             CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(Key, IV), CryptoStreamMode.Read);
 
-            // Couldn't remember
             byte[] decrypted = new byte[Data.Length];
 
             cs.Read(decrypted, 0, decrypted.Length);
