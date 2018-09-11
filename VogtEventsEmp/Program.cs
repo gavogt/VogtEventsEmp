@@ -648,7 +648,7 @@ namespace VogtEventsEmp
         /// <param name="Key">Key for the data</param>
         /// <param name="IV">Initialization Vector for the data</param>
         /// <returns></returns>
-        public static byte[] Encrypt(string str, byte[] Key, byte[] IV)
+        public static byte[] EncryptByAES(string str, byte[] Key, byte[] IV)
         {
             // AES Object
             Aes aes = Aes.Create();
@@ -669,6 +669,7 @@ namespace VogtEventsEmp
             return encrypted;
 
         }
+        #endregion
 
 
         #region Decrypt
@@ -679,7 +680,7 @@ namespace VogtEventsEmp
         /// <param name="Key">Key for the data</param>
         /// <param name="IV">Initialization Vector for the data</param>
         /// <returns></returns>
-        public static string Decrypt(byte[] Data, byte[] Key, byte[] IV)
+        public static string DecryptByAES(byte[] Data, byte[] Key, byte[] IV)
         {
             // AES Objects
             Aes aes = Aes.Create();
