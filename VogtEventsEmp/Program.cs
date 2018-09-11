@@ -135,6 +135,26 @@ namespace VogtEventsEmp
         }
         #endregion
 
+        #region WriteToPasswordFile
+        /// <summary>
+        /// Takes the admin object and saves the password to a file
+        /// </summary>
+        /// <param name="admin">The admin to pass in</param>
+        /// <param name="encryptedPassword">Encrypted password</param>
+        public static void WriteToPasswordFile(Admin admin, byte[] encryptedPassword) // Setup before SQL. No testing done
+        {
+            // Open new stream
+            StreamWriter File = new StreamWriter(@"C:\WorkLists\PasswordList.txt");
+
+            File.WriteLine($"Admin # {admin.Number} Password: {encryptedPassword}");
+
+            Console.WriteLine("Password has been upated");
+
+            File.Close();
+
+        }
+        #endregion
+
         #region WriteSortedDictionaryToFile
         /// <summary>
         /// Method that takes a sorted dictionary and writes the PK and Values to it
@@ -147,7 +167,7 @@ namespace VogtEventsEmp
 
             foreach (var personnel in sortedDictionary)
             {
-                File.Write($"PK: {personnel.Key} Value: {personnel.Value} ");
+                File.WriteLine($"PK: {personnel.Key} Value: {personnel.Value} ");
 
             }
 
@@ -168,7 +188,7 @@ namespace VogtEventsEmp
             StreamWriter File = new StreamWriter(@"C:\WorkLists\AdminList.txt");
 
             // Write user to file
-            File.Write($"{admin.Name} {admin.Number} " + accessed.ToLocalTime());
+            File.WriteLine($"{admin.Name} {admin.Number} " + accessed.ToLocalTime());
 
             File.Close();
 
@@ -188,7 +208,7 @@ namespace VogtEventsEmp
             // Loop through employee list
             foreach (var employee in employeeList)
             {
-                File.Write($"{employee.Name} {employee.Number} {employee.HireDate.ToShortDateString()} ");
+                File.WriteLine($"{employee.Name} {employee.Number} {employee.HireDate.ToShortDateString()} ");
             }
 
             File.Close();
