@@ -8,7 +8,7 @@ using System.Speech.Synthesis;
 namespace VogtEventsEmp
 {
 
-    class Admin
+    class Admin: Employee<DateTime>
     {
         private DisplayAdminInformation displayAdminInformation;
 
@@ -23,25 +23,6 @@ namespace VogtEventsEmp
         private void DisplayAdminInformation_DisplayEventAddedMessage()
         {
             Console.WriteLine("Your admin name has been added!");
-
-        }
-
-        // Propfulls
-        private string name;
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-
-        }
-
-        private int number;
-
-        public int Number
-        {
-            get { return number; }
-            set { number = value; }
 
         }
 
