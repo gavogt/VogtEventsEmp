@@ -60,6 +60,7 @@ namespace VogtEventsEmp
 
         }
 
+        #region IsItAnAdmin
         /// <summary>
         /// Checks if the employee type is an admin
         /// </summary>
@@ -81,6 +82,7 @@ namespace VogtEventsEmp
             return default;
 
         }
+        #endregion
 
         #region DisplaySortedDictionary
         /// <summary>
