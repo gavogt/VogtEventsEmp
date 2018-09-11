@@ -19,19 +19,16 @@ namespace VogtEventsEmp
         static void Main(string[] args)
         {
             // Variables  
-            byte[] encrypted = default;
             string adminName = default;
             string empName = default;
+            byte[] encryptedPassword = default;
             string password = default;
             string decrypted = default;
             var admin = new Admin();
-            var employeeList = new List<Employee<DateTime>>();
             var adminList = new List<Admin>();
             var emp = new Employee<DateTime>();
+            var employeeList = new List<Employee<DateTime>>();
             var sortedDictionary = new SortedDictionary<int, string>();
-
-            // AES
-            Aes aes = Aes.Create();
 
             // Displays
             InitialDisplayForProgram();
@@ -73,9 +70,20 @@ namespace VogtEventsEmp
         /// </summary>
         /// <param name="password">A string for password to pass in</param>
         /// <returns>The password to be encrypted</returns>
-        public static string AskPassword(string password)
+        public static byte[] AskPassword(string password)
         {
-            return password;
+            // Variable
+            byte[] encryptedPassword = default;
+
+            // AES
+            Aes aes = Aes.Create();
+            Console.WriteLine("Please enter your password");
+            password = Console.ReadLine();
+
+            // Encrypt
+            encryptedPassword = EncryptByAES(password, aes.Key, aes.IV);
+
+            return encryptedPassword;
 
         }
         #endregion
@@ -691,7 +699,7 @@ namespace VogtEventsEmp
         #endregion
 
 
-        #region Decrypt
+        #region DecryptByAES standard
         /// <summary>
         /// Method that decrypts AES
         /// </summary>
