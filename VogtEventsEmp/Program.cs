@@ -30,6 +30,10 @@ namespace VogtEventsEmp
             var employeeList = new List<Employee<DateTime>>();
             var sortedDictionary = new SortedDictionary<int, string>();
 
+            // Checking how I would save a byte to SQL ?
+            encryptedPassword = AskPassword();
+            Console.WriteLine(new ASCIIEncoding().GetString(encryptedPassword));
+
             // Displays
             InitialDisplayForProgram();
 
@@ -70,10 +74,11 @@ namespace VogtEventsEmp
         /// </summary>
         /// <param name="password">A string for password to pass in</param>
         /// <returns>The password to be encrypted</returns>
-        public static byte[] AskPassword(string password)
+        public static byte[] AskPassword()
         {
             // Variable
             byte[] encryptedPassword = default;
+            string password = String.Empty;
 
             // AES
             Aes aes = Aes.Create();
@@ -148,7 +153,7 @@ namespace VogtEventsEmp
 
             File.WriteLine($"Admin # {admin.Number} Password: {encryptedPassword}");
 
-            Console.WriteLine("Password has been upated");
+            Console.WriteLine("Password has been updated");
 
             File.Close();
 
