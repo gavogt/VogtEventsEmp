@@ -28,11 +28,13 @@ namespace VogtEventsEmp
             var adminList = new List<Admin>();
             var emp = new Employee<DateTime>();
             var employeeList = new List<Employee<DateTime>>();
+            var password = String.Empty;
             var sortedDictionary = new SortedDictionary<int, string>();
-            SHA256 shaHashed = default;
 
             // Checking how I would save a byte to SQL ?
             encryptedPassword = AskPassword();
+
+            var hashedPassword = Hash(encryptedPassword);
 
             Console.WriteLine(new ASCIIEncoding().GetString(encryptedPassword));
 
@@ -79,14 +81,16 @@ namespace VogtEventsEmp
         /// </summary>
         /// <param name="password">A string to pass in</param>
         /// <returns>A hashed string by SHA256</returns>
-        public static SHA256 Hash(string password)
+        public static string Hash(byte[] password)
         {
-            SHA256 shaHashed = SHA256.Create();
-            Encoding encoding = Encoding.UTF8;
+            // Variables
+            string hashedPassword = string.Empty;
+            SHA512CryptoServiceProvider sha512 = new SHA512CryptoServiceProvider();
 
-            shaHashed.ComputeHash(encoding.GetBytes(password));
+            // SHA512
+            hashedPassword = Convert.ToBase64String(sha512.ComputeHash(password));
 
-            return shaHashed;
+            return hashedPassword;
 
         }
         #endregion
