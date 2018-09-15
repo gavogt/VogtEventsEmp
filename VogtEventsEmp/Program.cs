@@ -19,7 +19,6 @@ namespace VogtEventsEmp
 
         static void Main(string[] args)
         {
-            SQLInsert();
 
             // Variables  
             string adminName = default;
@@ -67,27 +66,15 @@ namespace VogtEventsEmp
             // Write the sorted dictionary to a file
             WriteSortedDictionaryToFile(sortedDictionary);
 
+            // Enum
+            //IEnumerable<Employee<int>> enumEmployee
+
         }
 
-        #region SQLInsert
-        /// <summary>
-        /// A method to insert employee details into a SQL server 
-        /// </summary>
         public static void SQLInsert()
         {
-            SqlConnection sql = new SqlConnection("");
-
-            try
-            {
-                sql.Open();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-
+            SqlConnection sql = new SqlConnection();
         }
-        #endregion
 
         #region AskPassword
         /// <summary>
