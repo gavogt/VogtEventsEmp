@@ -31,15 +31,16 @@ namespace VogtEventsEmp
             var hashedPassword = String.Empty;
             var password = String.Empty;
             var sortedDictionary = new SortedDictionary<int, string>();
+            SHA512Crypto sha512C = new SHA512Crypto();
+
+            // Displays
+            InitialDisplayForProgram();
 
             // Checking how I would save a byte to SQL ?
             encryptedPassword = AskPassword();
 
             // AES to SHA512
-            hashedPassword = Hash(encryptedPassword);
-
-            // Displays
-            InitialDisplayForProgram();
+            hashedPassword = SHA512Crypto.Hash(encryptedPassword);
 
             // Ask Admin's name
             adminName = AskAdminName();
@@ -86,26 +87,6 @@ namespace VogtEventsEmp
             bool doTheyMatch = default;
 
             return doTheyMatch;
-
-        }
-        #endregion
-
-        #region SHA512
-        /// <summary>
-        /// A method that takes a string and returns a hash
-        /// </summary>
-        /// <param name="password">A string to pass in</param>
-        /// <returns>A hashed string by SHA256</returns>
-        public static string Hash(byte[] password)
-        {
-            // Variables
-            string hashedPassword = string.Empty;
-            SHA512CryptoServiceProvider sha512 = new SHA512CryptoServiceProvider();
-
-            // SHA512
-            hashedPassword = Convert.ToBase64String(sha512.ComputeHash(password));
-
-            return hashedPassword;
 
         }
         #endregion
@@ -158,6 +139,7 @@ namespace VogtEventsEmp
                 sqlConn.Close();
 
             }
+
         }
         #endregion
 
