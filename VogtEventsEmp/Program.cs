@@ -69,7 +69,7 @@ namespace VogtEventsEmp
             WriteSortedDictionaryToFile(sortedDictionary);
 
             // DB Insert
-            SQLInsert(sortedDictionary);
+            //SQLInsert(sortedDictionary);
 
         }
 
@@ -77,7 +77,7 @@ namespace VogtEventsEmp
         /// <summary>
         /// A method that takes a string and returns a hash
         /// </summary>
-        /// <param name="password">A string to pass n</param>
+        /// <param name="password">A string to pass in</param>
         /// <returns>A hashed string by SHA256</returns>
         public static SHA256 Hash(string password)
         {
@@ -142,6 +142,23 @@ namespace VogtEventsEmp
         }
         #endregion
 
+        #region Password
+        /// <summary>
+        /// Password portion for the AskPassword method
+        /// </summary>
+        /// <returns>A string the user entered in</returns>
+        public static string Password()
+        {
+            string password = String.Empty;
+
+            Console.WriteLine("Please enter your password");
+            password = Console.ReadLine();
+
+            return password;
+
+        }
+        #endregion
+
         #region AskPassword
         /// <summary>
         /// Ask the admin what his or her password is
@@ -158,10 +175,11 @@ namespace VogtEventsEmp
             // New SHA256 object
             strongSHA = SHA256.Create();
 
+            // CW for the password
+            password = Password();
+
             // AES
             Aes aes = Aes.Create();
-            Console.WriteLine("Please enter your password");
-            password = Console.ReadLine();
 
             // Encrypt
             encryptedPassword = EncryptByAES(password, aes.Key, aes.IV);
