@@ -65,7 +65,7 @@ namespace VogtEventsEmp
             sortedDictionary = AllPersonnel(employeeList, adminList);
 
             // Display the sorted dictionary on console
-            DisplaySortedDictionary(sortedDictionary);
+            Displays.DisplaySortedDictionary(sortedDictionary);
 
             // Write the sorted dictionary to a file
             WriteToFile.WriteSortedDictionaryToFile(sortedDictionary);
@@ -133,23 +133,6 @@ namespace VogtEventsEmp
             encryptedPassword = AESC.EncryptByAES(password, aes.Key, aes.IV);
 
             return encryptedPassword;
-
-        }
-        #endregion
-
-        #region DisplaySortedDictionary
-        /// <summary>
-        /// Runs a loop through a sorted dictionary to display keys and value
-        /// </summary>
-        /// <param name="sortedPersonnel">A sorted dictionary to pass in</param>
-        public static void DisplaySortedDictionary(SortedDictionary<int, string> sortedPersonnel)
-        {
-            foreach (var personnel in sortedPersonnel)
-            {
-                // Have to make unique
-                Console.WriteLine("--------- Sorted Dictionary ---------");
-                Console.WriteLine($"Primary key: {personnel.Key.ToString()} Personnel name: {personnel.Value} ");
-            }
 
         }
         #endregion
