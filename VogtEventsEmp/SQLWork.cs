@@ -22,7 +22,7 @@ namespace VogtEventsEmp
 
             // Build a string for connection details
             SqlConnectionStringBuilder sqlString = new SqlConnectionStringBuilder();
-            sqlString.DataSource = "DESKTOP-DP8TQA\\VOGTSS";
+            sqlString.DataSource = "DESKTOP-DP8TQ6A\\VOGTSS";
             sqlString.InitialCatalog = "employee_db";
             sqlString.IntegratedSecurity = true;
 

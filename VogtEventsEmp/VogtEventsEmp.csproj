@@ -51,6 +51,7 @@
     <Compile Include="Admin.cs" />
     <Compile Include="SHA512Crypto.cs" />
     <Compile Include="SQLWork.cs" />
+    <Compile Include="WriteToFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
