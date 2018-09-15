@@ -31,7 +31,6 @@ namespace VogtEventsEmp
             var hashedPassword = String.Empty;
             var password = String.Empty;
             var sortedDictionary = new SortedDictionary<int, string>();
-            SHA512Crypto sha512C = new SHA512Crypto();
 
             // Displays
             InitialDisplayForProgram();
@@ -72,7 +71,7 @@ namespace VogtEventsEmp
             WriteSortedDictionaryToFile(sortedDictionary);
 
             // DB Insert
-            //SQLInsert(sortedDictionary);
+            SQLWork.SQLInsert(sortedDictionary);
 
         }
 
@@ -87,58 +86,6 @@ namespace VogtEventsEmp
             bool doTheyMatch = default;
 
             return doTheyMatch;
-
-        }
-        #endregion
-
-        #region SQLINSERT
-        /// <summary>
-        /// A method that takes all personnel and inserts it into a DB
-        /// </summary>
-        /// <param name="sortedPersonnel">All combined workers in a sorted dictionary</param>
-        public static void SQLInsert(SortedDictionary<int, string> sortedPersonnel)
-        {
-            // New DateTime should be swapped with added information
-            DateTime date = DateTime.Now;
-
-            // Build a string for connection details
-            SqlConnectionStringBuilder sqlString = new SqlConnectionStringBuilder();
-            sqlString.DataSource = "Removed for security purposes";
-            sqlString.InitialCatalog = "employee_db";
-            sqlString.IntegratedSecurity = true;
-
-            // Declare and initialize a new connection
-            SqlConnection sqlConn = new SqlConnection(sqlString.ToString());
-
-            try
-            {
-                sqlConn.Open();
-
-                string sqlInsert = "INSERT INTO dbo.Employee_Table(emp_number, emp_name, date_added) VALUES(@emp_number, @emp_name, @date_added)";
-
-                foreach (var personnel in sortedPersonnel)
-                {
-                    // Prepare the insert statement
-                    SqlCommand sqlCmd = new SqlCommand(sqlInsert, sqlConn);
-
-                    sqlCmd.Parameters.AddWithValue("@emp_number", personnel.Key.ToString());
-                    sqlCmd.Parameters.AddWithValue("@emp_name", personnel.Value);
-                    sqlCmd.Parameters.AddWithValue("@date_added", date.ToShortDateString());
-
-                    sqlCmd.ExecuteNonQuery();
-
-                }
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Error! Contact your admin!");
-
-            }
-            finally
-            {
-                sqlConn.Close();
-
-            }
 
         }
         #endregion
