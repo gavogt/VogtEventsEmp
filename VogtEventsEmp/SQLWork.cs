@@ -9,6 +9,39 @@ namespace VogtEventsEmp
 {
     class SQLWork
     {
+        #region
+        /// <summary>
+        /// A method that queries the DB to see if the admin can log in successfully
+        /// </summary>
+        /// <returns>A bool of wether or not the password was correct</returns>
+        public static bool SQLPasswordMatch()
+        {
+            // True or false if the passwords matched
+            bool passwordsMatch = default;
+
+            return passwordsMatch;
+
+        }
+        #endregion
+
+        #region SQLConnect
+        /// <summary>
+        /// String builder to connect to the DB
+        /// </summary>
+        /// <returns>A string with the local DB credentials</returns>
+        public static SqlConnectionStringBuilder SQLConnect()
+        {
+            // Build a string for connection details
+            SqlConnectionStringBuilder sqlString = new SqlConnectionStringBuilder();
+            sqlString.DataSource = "DESKTOP-DP8TQ6A\\VOGTSS";
+            sqlString.InitialCatalog = "employee_db";
+            sqlString.IntegratedSecurity = true;
+
+            return sqlString;
+
+        }
+        #endregion
+
         #region SQLINSERT
         /// <summary>
         /// A method that takes all personnel and inserts it into a DB
@@ -16,14 +49,11 @@ namespace VogtEventsEmp
         /// <param name="sortedPersonnel">All combined workers in a sorted dictionary</param>
         public static void SQLInsert(SortedDictionary<int, Tuple<string, char, string>> sortedPersonnel)
         {
+            SqlConnectionStringBuilder sqlString;
             // New DateTime should be swapped with added information
             DateTime date = DateTime.Now;
 
-            // Build a string for connection details
-            SqlConnectionStringBuilder sqlString = new SqlConnectionStringBuilder();
-            sqlString.DataSource = "DESKTOP-DP8TQ6A\\VOGTSS";
-            sqlString.InitialCatalog = "employee_db";
-            sqlString.IntegratedSecurity = true;
+            sqlString = SQLConnect();
 
             // Declare and initialize a new connection
             SqlConnection sqlConn = new SqlConnection(sqlString.ToString());
