@@ -22,7 +22,7 @@ namespace VogtEventsEmp
 
             // Build a string for connection details
             SqlConnectionStringBuilder sqlString = new SqlConnectionStringBuilder();
-            sqlString.DataSource = "Removed for security purposes";
+            sqlString.DataSource = "DESKTOP-DP8TQA\\VOGTSS";
             sqlString.InitialCatalog = "employee_db";
             sqlString.IntegratedSecurity = true;
 
