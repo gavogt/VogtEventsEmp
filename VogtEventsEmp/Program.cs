@@ -28,15 +28,15 @@ namespace VogtEventsEmp
             var adminList = new List<Admin>();
             var emp = new Employee<DateTime>();
             var employeeList = new List<Employee<DateTime>>();
+            var hashedPassword = String.Empty;
             var password = String.Empty;
             var sortedDictionary = new SortedDictionary<int, string>();
 
             // Checking how I would save a byte to SQL ?
             encryptedPassword = AskPassword();
 
-            var hashedPassword = Hash(encryptedPassword);
-
-            Console.WriteLine(new ASCIIEncoding().GetString(encryptedPassword));
+            // AES to SHA512
+            hashedPassword = Hash(encryptedPassword);
 
             // Displays
             InitialDisplayForProgram();
@@ -75,7 +75,22 @@ namespace VogtEventsEmp
 
         }
 
-        #region SHA256
+        #region MyRegion 
+        /// <summary>
+        /// A method lets the user know if his or her password matches the DB
+        /// </summary>
+        /// <param name="match">a hashed string to pass in</param>
+        /// <returns>True or false</returns>
+        public static bool PasswordsMatch(string match)
+        {
+            bool doTheyMatch = default;
+
+            return doTheyMatch;
+
+        }
+        #endregion
+
+        #region SHA512
         /// <summary>
         /// A method that takes a string and returns a hash
         /// </summary>
