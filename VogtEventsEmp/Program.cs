@@ -66,6 +66,7 @@ namespace VogtEventsEmp
             // Write the sorted dictionary to a file
             WriteSortedDictionaryToFile(sortedDictionary);
 
+            // DB Insert
             SQLInsert(sortedDictionary);
 
         }
@@ -94,7 +95,7 @@ namespace VogtEventsEmp
                 sqlConn.Open();
 
                 string sqlInsert = "INSERT INTO dbo.Employee_Table(emp_number, emp_name, date_added) VALUES(@emp_number, @emp_name, @date_added)";
-              
+
                 foreach (var personnel in sortedPersonnel)
                 {
                     // Prepare the insert statement
@@ -129,9 +130,13 @@ namespace VogtEventsEmp
         /// <returns>The password to be encrypted</returns>
         public static byte[] AskPassword()
         {
-            // Variable
+            // Variables
             byte[] encryptedPassword = default;
+            SHA256 strongSHA = default;
             string password = String.Empty;
+
+            // New SHA256 object
+            strongSHA = SHA256.Create();
 
             // AES
             Aes aes = Aes.Create();
