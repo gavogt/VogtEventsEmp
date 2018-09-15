@@ -31,51 +31,59 @@ namespace VogtEventsEmp
             var hashedPassword = String.Empty;
             var password = String.Empty;
             var sortedDictionary = new SortedDictionary<int, Tuple<string, char, string>>();
+            int choice = default;
 
             // Displays
-            Displays.InitialDisplayForProgram();
+            choice = Displays.InitialDisplayForProgram();
 
-            // Checking how I would save a byte to SQL ?
-            encryptedPassword = AskPassword();
+            if (choice == 1)
+            {
+                // Checking how I would save a byte to SQL ?
+                encryptedPassword = AskPassword();
 
-            // AES to SHA512
-            hashedPassword = SHA512Crypto.Hash(encryptedPassword);
+                // AES to SHA512
+                hashedPassword = SHA512Crypto.Hash(encryptedPassword);
 
-            // Ask Admin's name
-            adminName = AskAdminName();
-            admin = AddAdministrator(adminName, hashedPassword);
+                // Ask Admin's name
+                adminName = AskAdminName();
+                admin = AddAdministrator(adminName, hashedPassword);
 
-            // Add admin to a list
-            adminList.Add(admin);
+                // Add admin to a list
+                adminList.Add(admin);
 
-            // Menu
-            Menu(adminName);
+                // Menu
+                Menu(adminName);
 
-            // Add employee and return to list
-            employeeList = AddEmployeeToList(empName);
+                // Add employee and return to list
+                employeeList = AddEmployeeToList(empName);
 
-            // Loop through Employee
-            LoopThroughEmployeeList(employeeList);
+                // Loop through Employee
+                LoopThroughEmployeeList(employeeList);
 
-            // Add Employee list to a file
-            WriteToFile.WriteEmployeeListToFile(employeeList);
-            WriteToFile.WriteAdminToFile(admin, DateTime.Now);
+                // Add Employee list to a file
+                WriteToFile.WriteEmployeeListToFile(employeeList);
+                WriteToFile.WriteAdminToFile(admin, DateTime.Now);
 
-            // Assign a sorted dictionary from emp list and adminlist
-            sortedDictionary = AllPersonnel(employeeList, adminList);
+                // Assign a sorted dictionary from emp list and adminlist
+                sortedDictionary = AllPersonnel(employeeList, adminList);
 
-            // Display the sorted dictionary on console
-            Displays.DisplaySortedDictionary(sortedDictionary);
+                // Display the sorted dictionary on console
+                Displays.DisplaySortedDictionary(sortedDictionary);
 
-            // Write the sorted dictionary to a file
-            WriteToFile.WriteSortedDictionaryToFile(sortedDictionary);
+                // Write the sorted dictionary to a file
+                WriteToFile.WriteSortedDictionaryToFile(sortedDictionary);
 
-            // Write password to File
-            WriteToFile.WriteToPasswordFile(admin, hashedPassword);
+                // Write password to File
+                WriteToFile.WriteToPasswordFile(admin, hashedPassword);
 
-            // DB Insert
-            SQLWork.SQLInsert(sortedDictionary);
-
+                // DB Insert
+                SQLWork.SQLInsert(sortedDictionary);
+            }
+            if (choice == 2)
+            {
+                Console.WriteLine("Not implemented!");
+                Environment.Exit(0);
+            }
         }
 
         #region MyRegion 

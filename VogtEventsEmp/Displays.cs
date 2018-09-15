@@ -41,11 +41,38 @@ namespace VogtEventsEmp
         /// <summary>
         /// Method to display when the program starts
         /// </summary>
-        public static void InitialDisplayForProgram()
+        public static int InitialDisplayForProgram()
         {
+            int choice = default;
+
             // Standard system messages
             DisplayHeader();
             DisplayGreeting();
+            choice = DisplayForAdmin();
+
+            return choice;
+
+        }
+        #endregion
+
+        #region DisplayForAdmin
+        /// <summary>
+        /// Display the initial choice for the admin
+        /// </summary>
+        /// <returns>The selection made</returns>
+        public static int DisplayForAdmin()
+        {
+            int choice = default;
+
+            // Ask the admin if they'd like to login or sign up
+            Console.WriteLine("1. Login");
+            Console.WriteLine("2. Sign up\n");
+            Console.Write("SELECTION: ");
+            choice = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine(" ");
+
+            return choice;
 
         }
         #endregion
