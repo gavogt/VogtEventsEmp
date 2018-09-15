@@ -12,6 +12,15 @@ namespace VogtEventsEmp
     {
         private DisplayAdminInformation displayAdminInformation;
 
+        // Propfull
+        private string passwod;
+
+        public string Password
+        {
+            get { return passwod; }
+            set { passwod = value; }
+        }
+
         // Ctor
         public Admin()
         {

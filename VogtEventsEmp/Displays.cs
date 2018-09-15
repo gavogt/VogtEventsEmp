@@ -25,7 +25,7 @@ namespace VogtEventsEmp
         /// Runs a loop through a sorted dictionary to display keys and value
         /// </summary>
         /// <param name="sortedPersonnel">A sorted dictionary to pass in</param>
-        public static void DisplaySortedDictionary(SortedDictionary<int, Tuple<string, char>> sortedPersonnel)
+        public static void DisplaySortedDictionary(SortedDictionary<int, Tuple<string, char, string>> sortedPersonnel)
         {
             foreach (var personnel in sortedPersonnel)
             {

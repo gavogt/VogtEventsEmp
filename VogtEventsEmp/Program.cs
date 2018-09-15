@@ -30,7 +30,7 @@ namespace VogtEventsEmp
             var employeeList = new List<Employee<DateTime>>();
             var hashedPassword = String.Empty;
             var password = String.Empty;
-            var sortedDictionary = new SortedDictionary<int, Tuple<string, char>>();
+            var sortedDictionary = new SortedDictionary<int, Tuple<string, char, string>>();
 
             // Displays
             Displays.InitialDisplayForProgram();
@@ -147,22 +147,22 @@ namespace VogtEventsEmp
         /// <param name="empList">An list of type employee datetime to pass in</param>
         /// <param name="adminList">An a list of type admin</param>
         /// <returns></returns>
-        public static SortedDictionary<int, Tuple<string, char>> AllPersonnel(List<Employee<DateTime>> empList, List<Admin> adminList)
+        public static SortedDictionary<int, Tuple<string, char, string>> AllPersonnel(List<Employee<DateTime>> empList, List<Admin> adminList)
         {
             // A new sorted dictionary
-            SortedDictionary<int, Tuple<string, char>> mySortedDictionary = new SortedDictionary<int, Tuple<string, char>>();
+            SortedDictionary<int, Tuple<string, char, string>> mySortedDictionary = new SortedDictionary<int, Tuple<string, char, string>>();
 
             // Loop through emp list
             foreach (var personnel in empList)
             {
-                mySortedDictionary.Add(personnel.Number, Tuple.Create(personnel.Name, 'E'));
+                mySortedDictionary.Add(personnel.Number, Tuple.Create(personnel.Name, 'E', "No Pass"));
 
             }
 
             // Loop through admin list
             foreach (var personnel in adminList)
             {
-                mySortedDictionary.Add(personnel.Number, Tuple.Create(personnel.Name, 'A'));
+                mySortedDictionary.Add(personnel.Number, Tuple.Create(personnel.Name, 'A', personnel.Password));
 
             }
 
@@ -280,6 +280,9 @@ namespace VogtEventsEmp
 
             // Assign passed in string to admin name
             admin.Name = adminName;
+
+            // Assigned passed in hash to admin's password property
+            admin.Password = hashedPassword;
 
             // Color for error throws 
             string color = default;

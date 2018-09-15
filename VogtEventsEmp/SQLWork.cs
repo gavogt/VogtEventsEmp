@@ -14,7 +14,7 @@ namespace VogtEventsEmp
         /// A method that takes all personnel and inserts it into a DB
         /// </summary>
         /// <param name="sortedPersonnel">All combined workers in a sorted dictionary</param>
-        public static void SQLInsert(SortedDictionary<int, Tuple<string, char>> sortedPersonnel)
+        public static void SQLInsert(SortedDictionary<int, Tuple<string, char, string>> sortedPersonnel)
         {
             // New DateTime should be swapped with added information
             DateTime date = DateTime.Now;
@@ -32,7 +32,7 @@ namespace VogtEventsEmp
             {
                 sqlConn.Open();
 
-                string sqlInsert = "INSERT INTO dbo.Employee_Table(emp_number, emp_name, date_added, emp_type) VALUES(@emp_number, @emp_name, @date_added, @emp_type)";
+                string sqlInsert = "INSERT INTO dbo.Employee_Table(emp_number, emp_name, date_added, emp_type, emp_password) VALUES(@emp_number, @emp_name, @date_added, @emp_type, @emp_password)";
 
                 foreach (var personnel in sortedPersonnel)
                 {
@@ -43,6 +43,7 @@ namespace VogtEventsEmp
                     sqlCmd.Parameters.AddWithValue("@emp_name", personnel.Value.Item1);
                     sqlCmd.Parameters.AddWithValue("@date_added", date.ToShortDateString());
                     sqlCmd.Parameters.AddWithValue("@emp_type", personnel.Value.Item2);
+                    sqlCmd.Parameters.AddWithValue("@emp_password", personnel.Value.Item3);
 
                     sqlCmd.ExecuteNonQuery();
 
