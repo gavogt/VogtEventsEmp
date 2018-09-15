@@ -34,7 +34,7 @@ namespace VogtEventsEmp
         /// Method that takes a sorted dictionary and writes the PK and Values to it
         /// </summary>
         /// <param name="sortedDictionary">The sorted dictionary to pass in</param>
-        public static void WriteSortedDictionaryToFile(SortedDictionary<int, string> sortedDictionary)
+        public static void WriteSortedDictionaryToFile(SortedDictionary<int, Tuple<string, char>> sortedDictionary)
         {
             // Open new stream
             StreamWriter File = new StreamWriter(@"C:\WorkLists\SortedDictionaryList.txt");
