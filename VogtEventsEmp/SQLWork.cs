@@ -9,7 +9,6 @@ namespace VogtEventsEmp
 {
     class SQLWork
     {
-
         #region SQLINSERT
         /// <summary>
         /// A method that takes all personnel and inserts it into a DB

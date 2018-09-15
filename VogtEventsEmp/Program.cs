@@ -33,7 +33,7 @@ namespace VogtEventsEmp
             var sortedDictionary = new SortedDictionary<int, string>();
 
             // Displays
-            InitialDisplayForProgram();
+            Displays.InitialDisplayForProgram();
 
             // Checking how I would save a byte to SQL ?
             encryptedPassword = AskPassword();
@@ -185,18 +185,6 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        #region DisplayOptionsForMenu
-        /// <summary>
-        /// Ask the admin if they'd like to add another employee or to Exit
-        /// </summary>
-        public static void DisplayOptionsForMenu()
-        {
-            Console.WriteLine("1. Add an employee");
-            Console.WriteLine("2. Exit");
-
-        }
-        #endregion
-
         #region LoopThroughEmployeeList
         public static void LoopThroughEmployeeList(List<Employee<DateTime>> employeeList)
         {
@@ -245,7 +233,7 @@ namespace VogtEventsEmp
                     {
                         ClearConsole();
                         Console.WriteLine("What would you like to do: ");
-                        DisplayOptionsForMenu();
+                        Displays.DisplayOptionsForMenu();
                         Console.Write("\nSELECTION: ");
                         choice = Convert.ToInt32(Console.ReadLine());
 
@@ -479,7 +467,7 @@ namespace VogtEventsEmp
                 while (choice < 1 || choice > 2)
                 {
                     Console.WriteLine("What is your selection: ");
-                    DisplayOptionsForMenu();
+                    Displays.DisplayOptionsForMenu();
                     Console.Write("\nSELECTION: ");
                     choice = Convert.ToInt32(Console.ReadLine());
                 }
@@ -564,19 +552,6 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        #region InitialDisplayForProgram
-        /// <summary>
-        /// Method to display when the program starts
-        /// </summary>
-        public static void InitialDisplayForProgram()
-        {
-            // Standard system messages
-            DisplayHeader();
-            DisplayGreeting();
-
-        }
-        #endregion
-
         #region DisplayUsername
         /// <summary>
         /// Method for displaying the admin's name in an error message
@@ -646,14 +621,6 @@ namespace VogtEventsEmp
             speaker.Speak($"Greetings {admin}! Please enter your admin number, and then select one of the proceeding options. \n");
 
         }
-        #endregion
-
-        #region Lambdas
-        /// <summary>
-        /// Lambda for display
-        /// </summary>
-        public static void DisplayHeader() => Console.WriteLine("**************EMPLOYEE SOLUTION**************");
-        public static void DisplayGreeting() => Console.WriteLine("Welcome to the employee solution!\n");
         #endregion
 
     }

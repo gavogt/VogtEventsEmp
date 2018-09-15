@@ -9,7 +9,6 @@ namespace VogtEventsEmp
 {
     class SHA512Crypto
     {
-        
         #region SHA512
         /// <summary>
         /// A method that takes a string and returns a hash
