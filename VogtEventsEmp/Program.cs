@@ -8,6 +8,7 @@ using System.Speech.Synthesis;
 using System.IO;
 using System.Threading;
 using System.Security.Cryptography;
+using System.Data.SqlClient;
 
 namespace VogtEventsEmp
 {
@@ -18,12 +19,11 @@ namespace VogtEventsEmp
 
         static void Main(string[] args)
         {
+
             // Variables  
             string adminName = default;
             string empName = default;
             byte[] encryptedPassword = default;
-            string password = default;
-            string decrypted = default;
             var admin = new Admin();
             var adminList = new List<Admin>();
             var emp = new Employee<DateTime>();
@@ -66,6 +66,14 @@ namespace VogtEventsEmp
             // Write the sorted dictionary to a file
             WriteSortedDictionaryToFile(sortedDictionary);
 
+            // Enum
+            //IEnumerable<Employee<int>> enumEmployee
+
+        }
+
+        public static void SQLInsert()
+        {
+            SqlConnection sql = new SqlConnection();
         }
 
         #region AskPassword
@@ -106,6 +114,7 @@ namespace VogtEventsEmp
                 Console.WriteLine("--------- Sorted Dictionary ---------");
                 Console.WriteLine($"Primary key: {personnel.Key.ToString()} Personnel name: {personnel.Value} ");
             }
+
         }
         #endregion
 
