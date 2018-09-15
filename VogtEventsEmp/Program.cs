@@ -485,7 +485,7 @@ namespace VogtEventsEmp
 
             // Standard message for a greeting
             Console.WriteLine($"Greetings {adminName}! Please enter your admin number, and then select one of the proceeding options. \n");
-            Speak(adminName);
+            //Speak(adminName);
 
         }
         #endregion
@@ -604,7 +604,7 @@ namespace VogtEventsEmp
         public static void Speak(string admin)
         {
             SpeechSynthesizer speaker = new SpeechSynthesizer();
-            speaker.Speak($"Greetings {admin}! Please enter your admin number, and then select one of the proceeding options. \n");
+            //speaker.Speak($"Greetings {admin}! Please enter your admin number, and then select one of the proceeding options. \n");
 
         }
         #endregion

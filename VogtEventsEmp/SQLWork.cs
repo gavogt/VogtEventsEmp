@@ -32,7 +32,7 @@ namespace VogtEventsEmp
             {
                 sqlConn.Open();
 
-                string sqlInsert = "INSERT INTO dbo.Employee_Table(emp_number, emp_name, date_added, emp_type) VALUES(@emp_number, @emp_name, @date_added, emp_type)";
+                string sqlInsert = "INSERT INTO dbo.Employee_Table(emp_number, emp_name, date_added, emp_type) VALUES(@emp_number, @emp_name, @date_added, @emp_type)";
 
                 foreach (var personnel in sortedPersonnel)
                 {
