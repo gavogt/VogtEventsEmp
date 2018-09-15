@@ -43,7 +43,7 @@ namespace VogtEventsEmp
 
             // Ask Admin's name
             adminName = AskAdminName();
-            admin = AddAdministrator(adminName);
+            admin = AddAdministrator(adminName, hashedPassword);
 
             // Add admin to a list
             adminList.Add(admin);
@@ -69,6 +69,9 @@ namespace VogtEventsEmp
 
             // Write the sorted dictionary to a file
             WriteToFile.WriteSortedDictionaryToFile(sortedDictionary);
+
+            // Write password to File
+            WriteToFile.WriteToPasswordFile(admin, hashedPassword);
 
             // DB Insert
             SQLWork.SQLInsert(sortedDictionary);
@@ -270,7 +273,7 @@ namespace VogtEventsEmp
         /// Method for adding a user
         /// </summary>
         /// <returns>A new admin object</returns>
-        public static Admin AddAdministrator(string adminName)
+        public static Admin AddAdministrator(string adminName, string hashedPassword)
         {
             // Initialize an admin object
             var admin = new Admin();

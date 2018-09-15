@@ -15,12 +15,12 @@ namespace VogtEventsEmp
         /// </summary>
         /// <param name="admin">The admin to pass in</param>
         /// <param name="encryptedPassword">Encrypted password</param>
-        public static void WriteToPasswordFile(Admin admin, byte[] encryptedPassword) // Setup before SQL. No testing done
+        public static void WriteToPasswordFile(Admin admin, string hashedPassword) // Setup before SQL. No testing done
         {
             // Open new stream
             StreamWriter File = new StreamWriter(@"C:\WorkLists\PasswordList.txt");
 
-            File.WriteLine($"Admin # {admin.Number} Password: {encryptedPassword}");
+            File.WriteLine($"Admin # {admin.Number} Password: {hashedPassword}");
 
             Console.WriteLine("Password has been updated");
 
