@@ -71,6 +71,20 @@ namespace VogtEventsEmp
 
         }
 
+        #region SHA256
+        /// <summary>
+        /// A method that takes a string and returns a hash
+        /// </summary>
+        /// <param name="hash">A string to pass n</param>
+        /// <returns>A hashed string by SHA256</returns>
+        public static SHA256 Hash(string hash)
+        {
+            SHA256 shaHashed = default;
+
+            return shaHashed;
+        }
+        #endregion
+
         #region SQLINSERT
         /// <summary>
         /// A method that takes all personnel and inserts it into a DB
