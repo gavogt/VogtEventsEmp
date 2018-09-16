@@ -491,7 +491,7 @@ namespace VogtEventsEmp
         {
             bool run = false;
 
-            Console.Write("What is your Admin number: ");
+            Console.Write("Please enter your admin number: ");
             run = int.TryParse(Console.ReadLine(), out int number) && number >= 100 && number <= 200;
 
             while (!run)
@@ -667,8 +667,11 @@ namespace VogtEventsEmp
             // Clear Console
             ClearConsole();
 
+            // AdminDisplay for Sign up
+            Displays.AdminDisplayForSignUp();
+
             // Standard message for a greeting
-            Console.WriteLine($"Greetings {adminName}! Please enter your admin number, and then select one of the proceeding options. \n");
+            Console.WriteLine($"\nGreetings {adminName}! Please enter your password and admin number, and then select one of the proceeding options. \n");
             Speak(adminName);
 
         }
@@ -811,7 +814,7 @@ namespace VogtEventsEmp
         public static void Speak(string admin)
         {
             SpeechSynthesizer speaker = new SpeechSynthesizer();
-            speaker.Speak($"Greetings {admin}! Please enter your admin number, and then select one of the proceeding options. \n");
+            speaker.Speak($"Greetings {admin}! Please enter your password and admin number, and then select one of the proceeding options. \n");
 
         }
         #endregion

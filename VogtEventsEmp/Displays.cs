@@ -81,6 +81,17 @@ namespace VogtEventsEmp
         }
         #endregion
 
+        #region AdmnDisplayForSignUp
+        /// <summary>
+        /// Display the admin entry
+        /// </summary>
+        public static void AdminDisplayForSignUp()
+        {
+            Console.WriteLine("ADMIN ENTRY ~~~~~~~");
+
+        }
+        #endregion
+
         #region Lambdas
         /// <summary>
         /// Lambda for display
