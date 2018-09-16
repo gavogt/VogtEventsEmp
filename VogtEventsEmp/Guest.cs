@@ -8,9 +8,7 @@ namespace VogtEventsEmp
 {
     class Guest
     {
-        /// <summary>
-        ///  Propfulls
-        /// </summary>
+        // Propfulls
         private int number;
 
         public int Number

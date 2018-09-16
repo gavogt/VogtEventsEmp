@@ -7,7 +7,6 @@ using System.Speech.Synthesis;
 
 namespace VogtEventsEmp
 {
-
     class Admin : Employee<DateTime>
     {
         private DisplayAdminInformation displayAdminInformation;

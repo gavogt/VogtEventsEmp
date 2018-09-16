@@ -31,6 +31,7 @@ namespace VogtEventsEmp
                 // Variables for brute force and running while true
                 int bruteForce = 0;
                 bool run = true;
+                DateTime date = new DateTime();
 
                 while (run == true)
                 {
@@ -45,6 +46,9 @@ namespace VogtEventsEmp
 
                     if (bruteForce >= 3)
                     {
+                        // Write the bruteforce attempts to a file
+                        WriteToFile.WriteBruteForceAttemptsToFile(guest, date);
+
                         // Display the brute force message
                         BruteForceMessage();
 
@@ -163,7 +167,7 @@ namespace VogtEventsEmp
         {
             string password = String.Empty;
 
-            Console.WriteLine("Please enter your password");
+            Console.Write("Please enter your password: ");
             password = Console.ReadLine();
 
             return password;
@@ -516,16 +520,19 @@ namespace VogtEventsEmp
             {
                 while (choice < 1 || choice > 2)
                 {
+                    // Display menu with selection
                     Console.WriteLine("What is your selection: ");
                     Displays.DisplayOptionsForMenu();
                     Console.Write("\nSELECTION: ");
                     choice = Convert.ToInt32(Console.ReadLine());
                 }
+                // Send choice to a switch satement
                 Choice(choice);
 
             }
             catch
             {
+                // Display an error the username
                 ClearConsole();
                 usernameDefault(admin);
                 color = "RED";
@@ -564,7 +571,7 @@ namespace VogtEventsEmp
             string adminName = default;
 
             // Assign the user
-            Console.WriteLine("What your name?");
+            Console.Write("Please enter your name: ");
             adminName = Console.ReadLine().ToUpper();
             Console.WriteLine("");
 

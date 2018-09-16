@@ -15,15 +15,18 @@ namespace VogtEventsEmp
         /// </summary>
         /// <param name="admin">The admin to pass in</param>
         /// <param name="encryptedPassword">Encrypted password</param>
-        public static void WriteToPasswordFile(Admin admin, string hashedPassword) // Setup before SQL. No testing done
+        public static void WriteToPasswordFile(Admin admin, string hashedPassword)
         {
             // Open new stream
             StreamWriter File = new StreamWriter(@"C:\WorkLists\PasswordList.txt");
 
+            // Write the admin's number with a secure hash
             File.WriteLine($"Admin # {admin.Number} Password: {hashedPassword}");
 
+            // Display that the password list has been updated
             Console.WriteLine("Password has been updated");
 
+            // Close stream
             File.Close();
 
         }
@@ -39,12 +42,14 @@ namespace VogtEventsEmp
             // Open new stream
             StreamWriter File = new StreamWriter(@"C:\WorkLists\SortedDictionaryList.txt");
 
+            // Loop trough personnel for key and value pairs
             foreach (var personnel in sortedDictionary)
             {
                 File.WriteLine($"PK: {personnel.Key} Value: {personnel.Value} ");
 
             }
 
+            // Close stream
             File.Close();
 
         }
@@ -64,6 +69,27 @@ namespace VogtEventsEmp
             // Write user to file
             File.WriteLine($"{admin.Name} {admin.Number} " + accessed.ToLocalTime());
 
+            // Close stream
+            File.Close();
+
+        }
+        #endregion
+
+        #region WriteBruteForceAttemptsToFile
+        /// <summary>
+        /// Method for writing attempted bruteforce list to a file as a simple dectection system
+        /// </summary>
+        /// <param name="guest">Guest that gets passed in</param>
+        /// <param name="occured">DateTime when attempted bruteforce happened</param>
+        public static void WriteBruteForceAttemptsToFile(Guest guest, DateTime occured)
+        {
+            // Open new stream
+            StreamWriter File = new StreamWriter(@"C:\WorkLists\BruteForceList.txt");
+
+            // Write brute force to file
+            File.WriteLine($"Employee number: {guest.Number} at {occured.ToLocalTime()}");
+
+            // Close stream
             File.Close();
 
         }
@@ -85,6 +111,7 @@ namespace VogtEventsEmp
                 File.WriteLine($"{employee.Name} {employee.Number} {employee.HireDate.ToShortDateString()} ");
             }
 
+            // Close stream
             File.Close();
 
         }

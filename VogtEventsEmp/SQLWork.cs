@@ -174,7 +174,7 @@ namespace VogtEventsEmp
                     // Prepare the insert statement
                     SqlCommand sqlCmd = new SqlCommand(sqlInsert, sqlConn);
 
-                    // Add variables
+                    // Insert personnel properties
                     sqlCmd.Parameters.AddWithValue("@emp_number", personnel.Key.ToString());
                     sqlCmd.Parameters.AddWithValue("@emp_name", personnel.Value.Item1);
                     sqlCmd.Parameters.AddWithValue("@date_added", date.ToShortDateString());
@@ -187,13 +187,19 @@ namespace VogtEventsEmp
             }
             catch (SqlException sqlE)
             {
-                // Print sql exception
-                Console.WriteLine(sqlE.ToString());
+                // Display custom message for taken PK
+                if (sqlE.Number == 2627)
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("\nEmployee number is already taken: " + sqlE.Message + "\n");
+                    Console.ResetColor();
 
+                }
             }
             catch (Exception e)
             {
-                // Error inserting into the DB
+                // General exception
                 Console.WriteLine(e.ToString());
 
             }

@@ -10,7 +10,7 @@ namespace VogtEventsEmp
 {
     class AESC
     {
-        #region EncryptByAESStandard
+        #region EncryptByAES
         /// <summary>
         /// Method that takes a string to be encrypted by AES
         /// </summary>
@@ -41,7 +41,7 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        #region DecryptByAES standard
+        #region DecryptByAES
         /// <summary>
         /// Method that decrypts AES
         /// </summary>
