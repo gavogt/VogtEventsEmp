@@ -54,7 +54,7 @@ namespace VogtEventsEmp
                     Console.WriteLine("Login information was correct! Proceeding...");
 
                     // Passwords match
-                    passwordsMatch = true;
+                    //passwordsMatch = true;
 
                 }
                 catch (Exception)

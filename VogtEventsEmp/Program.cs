@@ -39,9 +39,26 @@ namespace VogtEventsEmp
 
             if (choice == 1)
             {
-                guest = PasswordLogin();
-                SQLWork.SQLPasswordMatch(guest);
+                int bruteForce = 0;
+                bool run = true;
 
+                while (run == true)
+                {
+                    // Check the guest's credentials
+                    guest = PasswordLogin();
+
+                    // Run a query with the information
+                    run = SQLWork.SQLPasswordMatch(guest);
+
+                    bruteForce += 1;
+
+                    if (bruteForce >= 3)
+                    {
+                        Console.WriteLine("\n Brute force detected! Exiting...");
+                        Environment.Exit(0);
+
+                    }
+                }
             }
             if (choice == 2)
             {
