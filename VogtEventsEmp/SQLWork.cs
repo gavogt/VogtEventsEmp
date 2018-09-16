@@ -16,7 +16,7 @@ namespace VogtEventsEmp
         /// <returns>A bool of wether or not the password was correct</returns>
         public static bool SQLPasswordMatch(Guest guest)
         {
-            // True or false if the passwords matched
+            // True or false to continue running
             bool run = true;
 
             // SQLStringConnect variable
@@ -41,20 +41,44 @@ namespace VogtEventsEmp
                     // Prepare a select statement
                     SqlCommand sqlCmd = new SqlCommand(sqlInsert, sqlConn);
 
+                    // Prepare to read the DB with the SQLcmd
+                    var sqlCheck = sqlCmd.ExecuteScalar();
+
                     // Admin properties to query
                     sqlCmd.Parameters.AddWithValue("@emp_number", guest.Number);
                     sqlCmd.Parameters.AddWithValue("@emp_password", guest.Password);
 
-                    sqlCmd.ExecuteNonQuery();
+                    if (sqlCheck != null)
+                    {
+                        // Display showing that the credentials are correct
+                        Console.WriteLine("Login information was correct! Proceeding...");
 
-                    // If they exist display
-                    Console.WriteLine("Login information was correct! Proceeding...");
+                        // Stop running and proceed
+                        run = false;
 
+                    }
+                    else
+                    {
+                        // Display an error that the guests credentials don't match in the DB
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("Incorrect!");
+                        Console.ResetColor();
+
+                        // Continue running
+                        run = true;
+
+                    }
                 }
                 catch (Exception)
                 {
+                    // Display an error that the guests credentials don't match in the DB
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+
                     // Error with the credentials
                     Console.WriteLine("Your login information is incorrect!");
+                    Console.ResetColor();
 
                     // Passwords don't match
                     run = true;
@@ -64,7 +88,6 @@ namespace VogtEventsEmp
                 {
                     // Close the connection
                     sqlConn.Close();
-
 
                 }
             }

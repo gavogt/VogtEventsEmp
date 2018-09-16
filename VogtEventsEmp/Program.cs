@@ -62,6 +62,8 @@ namespace VogtEventsEmp
                         // Display a red warning messae
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine("\nBrute force detected! Exiting...\n");
+                        SpeakBruteForce();
+
                         Console.ResetColor();
 
                         // Exit the system
@@ -116,7 +118,7 @@ namespace VogtEventsEmp
             }
         }
 
-        #region MyRegion 
+        #region PasswordsMatch 
         /// <summary>
         /// A method lets the user know if his or her password matches the DB
         /// </summary>
@@ -668,6 +670,24 @@ namespace VogtEventsEmp
         {
             SpeechSynthesizer speaker = new SpeechSynthesizer();
             //speaker.Speak($"Greetings {admin}! Please enter your admin number, and then select one of the proceeding options. \n");
+
+        }
+        #endregion
+
+        #region SpeakBruteForce
+        /// <summary>
+        /// Have an announcer for bruteforce error
+        /// </summary>
+        public static void SpeakBruteForce()
+        {
+            // declare and initialize a new speaker
+            SpeechSynthesizer speaker = new SpeechSynthesizer();
+
+            // Have a lady announce brute force detected
+            speaker.SelectVoiceByHints(VoiceGender.Female);
+
+            // Speak
+            speaker.Speak("Potential brute force detected...");
 
         }
         #endregion
