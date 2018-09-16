@@ -38,6 +38,12 @@ namespace VogtEventsEmp
 
             if (choice == 1)
             {
+                admin = PasswordLogin();
+                SQLWork.SQLPasswordMatch(admin);
+
+            }
+            if (choice == 2)
+            {
                 // Checking how I would save a byte to SQL ?
                 encryptedPassword = AskPassword();
 
@@ -78,11 +84,7 @@ namespace VogtEventsEmp
 
                 // DB Insert
                 SQLWork.SQLInsert(sortedDictionary);
-            }
-            if (choice == 2)
-            {
-                Console.WriteLine("Not implemented!");
-                Environment.Exit(0);
+
             }
         }
 
@@ -105,12 +107,13 @@ namespace VogtEventsEmp
         /// <summary>
         /// Password portion for the AskPassword method
         /// </summary>
-        /// <returns>A string the user entered in</returns>
+        /// <returns>An temporary admin assigned with properties. I should make a guest class</returns>
         public static Admin PasswordLogin()
         {
             // New admin object
             Admin tempAdmin = new Admin();
 
+            // Ask for admin properties
             Console.WriteLine("Enter your employee number");
             tempAdmin.Number = Convert.ToInt32(Console.ReadLine());
 

@@ -33,52 +33,55 @@ namespace VogtEventsEmp
 
             try
             {
+                // Open a new connection
                 sqlConn.Open();
 
+                // Select from the DB
                 string sqlInsert = $"SELECT emp_number FROM dbo.Employee_Table WHERE emp_number = @emp_number AND password = @emp_password";
 
                 try
                 {
+                    // Prepare a select statement
                     SqlCommand sqlCmd = new SqlCommand(sqlInsert, sqlConn);
+
+                    // Admin properties to query
                     sqlCmd.Parameters.AddWithValue("@emp_number", admin.Number);
                     sqlCmd.Parameters.AddWithValue("@emp_password", admin.Password);
 
                     sqlCmd.ExecuteNonQuery();
+
+                    // If they exist display
+                    Console.WriteLine("Login information was correct! Proceeding...");
+
+                    // Passwords match
+                    passwordsMatch = true;
+
                 }
-                catch
+                catch (Exception)
                 {
+                    // Error with the credentials
                     Console.WriteLine("Your login information is incorrect!");
+
+                    // Passwords don't match
+                    passwordsMatch = false;
+
                 }
                 finally
                 {
+                    // Close the connection
                     sqlConn.Close();
-                }
-                /*
-                foreach (var personnel in sortedPersonnel)
-                {
-                    // Prepare the insert statement
-                    SqlCommand sqlCmd = new SqlCommand(sqlInsert, sqlConn);
-
-                    sqlCmd.Parameters.AddWithValue("@emp_number", personnel.Key.ToString());
-                    sqlCmd.Parameters.AddWithValue("@emp_name", personnel.Value.Item1);
-                    sqlCmd.Parameters.AddWithValue("@date_added", date.ToShortDateString());
-                    sqlCmd.Parameters.AddWithValue("@emp_type", personnel.Value.Item2);
-                    sqlCmd.Parameters.AddWithValue("@emp_password", personnel.Value.Item3);
-
-                    sqlCmd.ExecuteNonQuery();
 
                 }
-                */
             }
-            catch (Exception)
+            catch
             {
-                Console.WriteLine("Error! Contact your DB admin!");
-
+                // SELECT statement is off
+                Console.WriteLine("Error with the query!");
             }
             finally
             {
+                // Might be redunant
                 sqlConn.Close();
-
             }
 
             return passwordsMatch;
@@ -142,8 +145,10 @@ namespace VogtEventsEmp
 
             try
             {
+                // Open th connection
                 sqlConn.Open();
 
+                // Insert into DB
                 string sqlInsert = "INSERT INTO dbo.Employee_Table(emp_number, emp_name, date_added, emp_type, emp_password) VALUES(@emp_number, @emp_name, @date_added, @emp_type, @emp_password)";
 
                 foreach (var personnel in sortedPersonnel)
@@ -151,6 +156,7 @@ namespace VogtEventsEmp
                     // Prepare the insert statement
                     SqlCommand sqlCmd = new SqlCommand(sqlInsert, sqlConn);
 
+                    // Add variables
                     sqlCmd.Parameters.AddWithValue("@emp_number", personnel.Key.ToString());
                     sqlCmd.Parameters.AddWithValue("@emp_name", personnel.Value.Item1);
                     sqlCmd.Parameters.AddWithValue("@date_added", date.ToShortDateString());
@@ -163,6 +169,7 @@ namespace VogtEventsEmp
             }
             catch (Exception)
             {
+                // Error inserting into the DB
                 Console.WriteLine("Error! Contact your DB admin!");
 
             }
@@ -174,5 +181,6 @@ namespace VogtEventsEmp
 
         }
         #endregion
+
     }
 }
