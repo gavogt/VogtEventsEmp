@@ -101,6 +101,27 @@ namespace VogtEventsEmp
         }
         #endregion
 
+        #region PasswordLogin
+        /// <summary>
+        /// Password portion for the AskPassword method
+        /// </summary>
+        /// <returns>A string the user entered in</returns>
+        public static Admin PasswordLogin()
+        {
+            // New admin object
+            Admin tempAdmin = new Admin();
+
+            Console.WriteLine("Enter your employee number");
+            tempAdmin.Number = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Please enter your password");
+            tempAdmin.Password = Console.ReadLine();
+
+            return tempAdmin;
+
+        }
+        #endregion
+
         #region Password
         /// <summary>
         /// Password portion for the AskPassword method

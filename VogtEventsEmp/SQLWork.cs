@@ -14,7 +14,7 @@ namespace VogtEventsEmp
         /// A method that queries the DB to see if the admin can log in successfully
         /// </summary>
         /// <returns>A bool of wether or not the password was correct</returns>
-        public static bool SQLPasswordMatch(SortedDictionary<int, Tuple<string, char, string>> sortedPersonnel)
+        public static bool SQLPasswordMatch(Admin admin)
         {
             // True or false if the passwords matched
             bool passwordsMatch = default;
@@ -35,8 +35,25 @@ namespace VogtEventsEmp
             {
                 sqlConn.Open();
 
-                string sqlInsert = "INSERT INTO dbo.Employee_Table(emp_number, emp_name, date_added, emp_type, emp_password) VALUES(@emp_number, @emp_name, @date_added, @emp_type, @emp_password)";
+                string sqlInsert = $"SELECT emp_number FROM dbo.Employee_Table WHERE emp_number = @emp_number AND password = @emp_password";
 
+                try
+                {
+                    SqlCommand sqlCmd = new SqlCommand(sqlInsert, sqlConn);
+                    sqlCmd.Parameters.AddWithValue("@emp_number", admin.Number);
+                    sqlCmd.Parameters.AddWithValue("@emp_password", admin.Password);
+
+                    sqlCmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    Console.WriteLine("Your login information is incorrect!");
+                }
+                finally
+                {
+                    sqlConn.Close();
+                }
+                /*
                 foreach (var personnel in sortedPersonnel)
                 {
                     // Prepare the insert statement
@@ -51,6 +68,7 @@ namespace VogtEventsEmp
                     sqlCmd.ExecuteNonQuery();
 
                 }
+                */
             }
             catch (Exception)
             {
