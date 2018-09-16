@@ -39,6 +39,7 @@ namespace VogtEventsEmp
 
             if (choice == 1)
             {
+                // Variables for brute force and running while true
                 int bruteForce = 0;
                 bool run = true;
 
@@ -50,11 +51,20 @@ namespace VogtEventsEmp
                     // Run a query with the information
                     run = SQLWork.SQLPasswordMatch(guest);
 
+                    // Count login attempts
                     bruteForce += 1;
 
                     if (bruteForce >= 3)
                     {
-                        Console.WriteLine("\n Brute force detected! Exiting...");
+                        // Clear the console
+                        ClearConsole();
+
+                        // Display a red warning messae
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("\nBrute force detected! Exiting...\n");
+                        Console.ResetColor();
+
+                        // Exit the system
                         Environment.Exit(0);
 
                     }

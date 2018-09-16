@@ -17,10 +17,7 @@ namespace VogtEventsEmp
         public static bool SQLPasswordMatch(Guest guest)
         {
             // True or false if the passwords matched
-            bool passwordsMatch = default;
-
-            // New DateTime should be swapped with added information
-            DateTime date = DateTime.Now;
+            bool run = true;
 
             // SQLStringConnect variable
             SqlConnectionStringBuilder sqlString = SQLString();
@@ -37,7 +34,7 @@ namespace VogtEventsEmp
                 sqlConn.Open();
 
                 // Select from the DB
-                string sqlInsert = $"SELECT emp_number FROM dbo.Employee_Table WHERE emp_number = @emp_number AND emp_password = @emp_password";
+                string sqlInsert = "SELECT emp_number FROM dbo.Employee_Table WHERE emp_number = @emp_number AND emp_password = @emp_password";
 
                 try
                 {
@@ -53,9 +50,6 @@ namespace VogtEventsEmp
                     // If they exist display
                     Console.WriteLine("Login information was correct! Proceeding...");
 
-                    // Passwords match
-                    //passwordsMatch = true;
-
                 }
                 catch (Exception)
                 {
@@ -63,7 +57,7 @@ namespace VogtEventsEmp
                     Console.WriteLine("Your login information is incorrect!");
 
                     // Passwords don't match
-                    passwordsMatch = false;
+                    run = true;
 
                 }
                 finally
@@ -71,20 +65,23 @@ namespace VogtEventsEmp
                     // Close the connection
                     sqlConn.Close();
 
+
                 }
             }
             catch
             {
                 // SELECT statement is off
                 Console.WriteLine("Error with the query!");
+
             }
             finally
             {
                 // Might be redunant
                 sqlConn.Close();
+
             }
 
-            return passwordsMatch;
+            return run;
 
         }
         #endregion
