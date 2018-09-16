@@ -28,6 +28,7 @@ namespace VogtEventsEmp
             var adminList = new List<Admin>();
             var emp = new Employee<DateTime>();
             var employeeList = new List<Employee<DateTime>>();
+            var guest = new Guest();
             var hashedPassword = String.Empty;
             var password = String.Empty;
             var sortedDictionary = new SortedDictionary<int, Tuple<string, char, string>>();
@@ -38,8 +39,8 @@ namespace VogtEventsEmp
 
             if (choice == 1)
             {
-                admin = PasswordLogin();
-                SQLWork.SQLPasswordMatch(admin);
+                guest = PasswordLogin();
+                SQLWork.SQLPasswordMatch(guest);
 
             }
             if (choice == 2)
@@ -108,19 +109,19 @@ namespace VogtEventsEmp
         /// Password portion for the AskPassword method
         /// </summary>
         /// <returns>An temporary admin assigned with properties. I should make a guest class</returns>
-        public static Admin PasswordLogin()
+        public static Guest PasswordLogin()
         {
-            // New admin object
-            Admin tempAdmin = new Admin();
+            // New guest object
+            Guest guest = new Guest();
 
             // Ask for admin properties
-            Console.WriteLine("Enter your employee number");
-            tempAdmin.Number = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter your number");
+            guest.Number = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Please enter your password");
-            tempAdmin.Password = Console.ReadLine();
+            Console.WriteLine("Please enter password");
+            guest.Password = Console.ReadLine();
 
-            return tempAdmin;
+            return guest;
 
         }
         #endregion

@@ -14,7 +14,7 @@ namespace VogtEventsEmp
         /// A method that queries the DB to see if the admin can log in successfully
         /// </summary>
         /// <returns>A bool of wether or not the password was correct</returns>
-        public static bool SQLPasswordMatch(Admin admin)
+        public static bool SQLPasswordMatch(Guest guest)
         {
             // True or false if the passwords matched
             bool passwordsMatch = default;
@@ -45,8 +45,8 @@ namespace VogtEventsEmp
                     SqlCommand sqlCmd = new SqlCommand(sqlInsert, sqlConn);
 
                     // Admin properties to query
-                    sqlCmd.Parameters.AddWithValue("@emp_number", admin.Number);
-                    sqlCmd.Parameters.AddWithValue("@emp_password", admin.Password);
+                    sqlCmd.Parameters.AddWithValue("@emp_number", guest.Number);
+                    sqlCmd.Parameters.AddWithValue("@emp_password", guest.Password);
 
                     sqlCmd.ExecuteNonQuery();
 
