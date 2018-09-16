@@ -185,14 +185,21 @@ namespace VogtEventsEmp
 
                 }
             }
-            catch (Exception)
+            catch (SqlException sqlE)
+            {
+                // Print sql exception
+                Console.WriteLine(sqlE.ToString());
+
+            }
+            catch (Exception e)
             {
                 // Error inserting into the DB
-                Console.WriteLine("Error! Contact your DB admin!");
+                Console.WriteLine(e.ToString());
 
             }
             finally
             {
+                // Close DB
                 sqlConn.Close();
 
             }
