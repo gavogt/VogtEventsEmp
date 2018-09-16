@@ -24,7 +24,7 @@ namespace VogtEventsEmp
             File.WriteLine($"Admin # {admin.Number} Password: {hashedPassword}");
 
             // Display that the password list has been updated
-            Console.WriteLine("Password has been updated");
+            Console.WriteLine("\nPassword has been written to the DB!");
 
             // Close stream
             File.Close();

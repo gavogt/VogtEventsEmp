@@ -27,12 +27,16 @@ namespace VogtEventsEmp
         /// <param name="sortedPersonnel">A sorted dictionary to pass in</param>
         public static void DisplaySortedDictionary(SortedDictionary<int, Tuple<string, char, string>> sortedPersonnel)
         {
+            Console.WriteLine("");
+
             foreach (var personnel in sortedPersonnel)
             {
                 // Have to make unique
                 Console.WriteLine("--------- Sorted Dictionary ---------");
                 Console.WriteLine($"Primary key: {personnel.Key.ToString()} Personnel name: {personnel.Value} ");
             }
+
+            Console.ReadKey();
 
         }
         #endregion

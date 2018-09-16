@@ -76,14 +76,15 @@ namespace VogtEventsEmp
             var password = String.Empty;
             var sortedDictionary = new SortedDictionary<int, Tuple<string, char, string>>();
 
+            // Ask Admin's name
+            adminName = AskAdminName();
+
             // Checking how I would save a byte to SQL ?
             encryptedPassword = AskPassword();
 
             // AES to SHA512
             hashedPassword = SHA512Crypto.Hash(encryptedPassword);
 
-            // Ask Admin's name
-            adminName = AskAdminName();
             admin = AddAdministrator(adminName, hashedPassword);
 
             // Add admin to a list
@@ -138,15 +139,27 @@ namespace VogtEventsEmp
         /// <summary>
         /// Password portion for the AskPassword method
         /// </summary>
-        /// <returns>An temporary admin assigned with properties. I should make a guest class</returns>
+        /// <returns>A temporary guest class</returns>
         public static Guest PasswordLogin()
         {
+            // Declare and initalize a bool for tp 
+            bool run = false;
+
             // New guest object
             Guest guest = new Guest();
 
             // Ask for admin number
             Console.Write("Please enter your admin number: ");
-            guest.Number = Convert.ToInt32(Console.ReadLine());
+            run = int.TryParse(Console.ReadLine(), out int number) && number >= 100 && number <= 200;
+
+            while (!run)
+            {
+                // Provide a custom message if the number isn't correct
+                EnterValidInformation(number, "The admin number must be between 100 and 200");
+                Console.Write("Please try again: ");
+                run = int.TryParse(Console.ReadLine(), out number) && number >= 100 && number <= 200;
+
+            }
 
             // Ask for admin password
             Console.Write("Please enter your password: ");
@@ -354,23 +367,38 @@ namespace VogtEventsEmp
 
             try // Try catch for adding an administrator's properties
             {
-                Console.Write("What is your number: ");
-                while (admin.Number < 100 || admin.Number > 200)
+
+                admin.Number = AdminNumber();
+
+                try
                 {
-                    admin.Number = Convert.ToInt32(Console.ReadLine());
+                    SQLWork.SqlInsertAdmin(admin);
 
-                    if (admin.Number < 100 || admin.Number > 200)
+                }
+                catch (SqlException sqlE)
+                {
+                    // Display custom message for taken PK
+                    if (sqlE.Number == 2627)
                     {
-                        EnterValidInformation(admin.Number, "The admin number must be between 100 and 200");
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("\nAdmin number is already taken: " + sqlE.Message + ". Please hit any key and try again. \n");
+                        Console.ResetColor();
+                        Console.ReadKey();
+                        Console.Clear();
+                        AddAdministrator(adminName, hashedPassword);
 
-                        Console.Write("What is your number: ");
-                        admin.Number = Convert.ToInt32(Console.ReadLine());
+                    }
+                    else
+                    {
+                        Console.WriteLine("Another error occured!");
                     }
                 }
             }
-            catch (FormatException)
+            catch (FormatException e)
             {
                 ClearConsole();
+                Console.WriteLine(e.ToString());
                 color = "RED";
                 ChangeConsoleColor(color);
 
@@ -410,70 +438,23 @@ namespace VogtEventsEmp
 
             try // Try catch for adding an employee's properties
             {
-                var year = -1;
-                var month = -1;
-                var day = -1;
+                int year;
+                int month;
+                int day;
 
                 ClearConsole();
                 Console.Write("\nWhat is the employee's name: ");
                 employee.Name = Console.ReadLine().ToUpper();
 
-                Console.Write("What is the employee's number: ");
-                while (employee.Number < 1000 || employee.Number > 2000)
-                {
-                    employee.Number = Convert.ToInt32(Console.ReadLine());
-
-                    if (employee.Number < 1000 || employee.Number > 2000)
-                    {
-                        EnterValidInformation(employee.Number, "The number must be between 1000 and 2000");
-
-                        Console.Write("What is the employee's number: ");
-                        employee.Number = Convert.ToInt32(Console.ReadLine());
-                    }
-                }
-                while (year < 1935 || year > 2018)
-                {
-                    Console.Write("What year was the employee hired: ");
-                    year = Convert.ToInt32(Console.ReadLine());
-
-                    if (year < 1935 || year > 2018)
-                    {
-                        EnterValidInformation(year, "Year must be after 1935 and before 2018!");
-
-                        Console.Write("What year was the employee hired: ");
-                        year = Convert.ToInt32(Console.ReadLine());
-                    }
-                }
-                while (month < 1 || month > 12)
-                {
-                    Console.Write("What month was the employee hired: ");
-                    month = Convert.ToInt32(Console.ReadLine());
-
-                    if (month < 1 || month > 12)
-                    {
-                        EnterValidInformation(month, "Month must be between 1 and 12!");
-
-                        Console.Write("What month was the employee hired: ");
-                        month = Convert.ToInt32(Console.ReadLine());
-
-                    }
-                }
-                while (day < 1 || day > 31)
-                {
-                    Console.Write("What day was the employee hired: ");
-                    day = Convert.ToInt32(Console.ReadLine());
-
-                    if (day < 1 || day > 12)
-                    {
-                        EnterValidInformation(month, "Day must be between 1 and 31!");
-
-                        Console.Write("What day was the employee hired: ");
-                        day = Convert.ToInt32(Console.ReadLine());
-
-                    }
-                }
+                employee.Number = EmployeeNumber();
+                year = EmployeeYearHired();
+                month = EmployeeMonthHired();
+                day = EmployeeDayHired();
 
                 employee.HireDate = new DateTime(year, month, day);
+
+                // Display emp information off an event
+                employee.DisplayEmployeeInfo(employee.Name, employee.Number, employee.HireDate);
 
             }
             catch (FormatException)
@@ -493,10 +474,138 @@ namespace VogtEventsEmp
 
             }
 
-            // Display emp information off an event
-            employee.DisplayEmployeeInfo(employee.Name, employee.Number, employee.HireDate);
-
             return employee;
+
+        }
+        #endregion
+
+        #region AdminNumber
+        /// <summary>
+        /// Method that assigns the number to an admin property
+        /// </summary>
+        /// <returns>The number that the admin has</returns>
+        public static int AdminNumber()
+        {
+            bool run = false;
+
+            Console.Write("What is your Admin number: ");
+            run = int.TryParse(Console.ReadLine(), out int number) && number >= 100 && number <= 200;
+
+            while (!run)
+            {
+                // Provide a custom message if the number isn't correct
+                EnterValidInformation(number, "The admin number must be between 100 and 200");
+                Console.Write("Please try again: ");
+                run = int.TryParse(Console.ReadLine(), out number) && number >= 100 && number <= 200;
+
+            }
+
+            return number;
+
+        }
+        #endregion
+
+        #region EmployeDayHired
+        /// <summary>
+        /// Method that assigns what day an employee was hired
+        /// </summary>
+        /// <returns>The day the employee was hired</returns>
+        public static int EmployeeDayHired()
+        {
+            bool run = false;
+
+            Console.Write("What day was the employee hired: ");
+            run = int.TryParse(Console.ReadLine(), out int day) && day >= 1 && day <= 31;
+
+            while (!run)
+            {
+                // Provide a custom message if the day isn't correct
+                EnterValidInformation(day, "Day must be between 1 and 31!");
+                Console.Write("Please try agan: ");
+                run = int.TryParse(Console.ReadLine(), out day) && day >= 1 && day <= 31;
+
+            }
+
+            return day;
+
+        }
+        #endregion
+
+        #region EmployeeMonthHired
+        /// <summary>
+        /// Method that assigns what month an employee was hired
+        /// </summary>
+        /// <returns>Returns what month an employee was hired</returns>
+        public static int EmployeeMonthHired()
+        {
+            bool run = false;
+
+            Console.Write("What month was the employee hired: ");
+            run = int.TryParse(Console.ReadLine(), out int month) && month >= 1 && month <= 12;
+
+            while (!run)
+            {
+                // Provide a custom message if the month isn't correct
+                EnterValidInformation(month, "Month must be between 1 and 12!");
+                Console.Write("Please try agan: ");
+                run = int.TryParse(Console.ReadLine(), out month) && month >= 1 && month <= 12;
+
+            }
+
+            return month;
+
+        }
+        #endregion
+
+        #region EmployeeYearHired
+        /// <summary>
+        /// A method that assigns what year an employee was hired
+        /// </summary>
+        /// <returns>Returns what year an employee was hired</returns>
+        public static int EmployeeYearHired()
+        {
+            bool run = false;
+
+            Console.Write("What year was the employee hired: ");
+            run = int.TryParse(Console.ReadLine(), out int year) && year >= 1935 && year <= 2018;
+
+            while (!run)
+            {
+                // Provide a custom message if the year isn't correct
+                EnterValidInformation(year, "Year must be after 1935 and before 2018!");
+                Console.Write("Please try agan: ");
+                run = int.TryParse(Console.ReadLine(), out year) && year >= 1935 && year <= 2018;
+
+            }
+
+            return year;
+
+        }
+        #endregion
+
+        #region EmployeeNumber
+        /// <summary>
+        /// Method that returns the number for an employee object
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns>Returns what number the employee has</returns>
+        public static int EmployeeNumber()
+        {
+            bool run = false;
+
+            Console.Write("What is the employee's number: ");
+            run = int.TryParse(Console.ReadLine(), out int number) && number >= 1000 && number <= 2000;
+
+            while (!run)
+            {
+                // Provide a custom message if the number isn't correct
+                EnterValidInformation(number, "The number must be between 1000 and 2000");
+                Console.Write("Please try again: ");
+                run = int.TryParse(Console.ReadLine(), out number) && number >= 1000 && number <= 2000;
+
+            }
+
+            return number;
 
         }
         #endregion
@@ -552,11 +661,12 @@ namespace VogtEventsEmp
         /// <param name="adminName"></param>
         public static void ShowGreetingToUser(string adminName)
         {
+            // Clear Console
             ClearConsole();
 
             // Standard message for a greeting
             Console.WriteLine($"Greetings {adminName}! Please enter your admin number, and then select one of the proceeding options. \n");
-            //Speak(adminName);
+            Speak(adminName);
 
         }
         #endregion
@@ -698,7 +808,7 @@ namespace VogtEventsEmp
         public static void Speak(string admin)
         {
             SpeechSynthesizer speaker = new SpeechSynthesizer();
-            //speaker.Speak($"Greetings {admin}! Please enter your admin number, and then select one of the proceeding options. \n");
+            speaker.Speak($"Greetings {admin}! Please enter your admin number, and then select one of the proceeding options. \n");
 
         }
         #endregion

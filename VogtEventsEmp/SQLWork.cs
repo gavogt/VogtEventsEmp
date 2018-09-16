@@ -161,6 +161,9 @@ namespace VogtEventsEmp
             // Assign the sqlconnection to the sqlconnection method
             sqlConn = SqlConn(sqlString);
 
+            // Have a counter for the number of users added
+            int count = 0;
+
             try
             {
                 // Open th connection
@@ -171,19 +174,27 @@ namespace VogtEventsEmp
 
                 foreach (var personnel in sortedPersonnel)
                 {
-                    // Prepare the insert statement
-                    SqlCommand sqlCmd = new SqlCommand(sqlInsert, sqlConn);
+                    if (personnel.Value.Item2 == 'E')
+                    {
+                        // Prepare the insert statement
+                        SqlCommand sqlCmd = new SqlCommand(sqlInsert, sqlConn);
 
-                    // Insert personnel properties
-                    sqlCmd.Parameters.AddWithValue("@emp_number", personnel.Key.ToString());
-                    sqlCmd.Parameters.AddWithValue("@emp_name", personnel.Value.Item1);
-                    sqlCmd.Parameters.AddWithValue("@date_added", date.ToShortDateString());
-                    sqlCmd.Parameters.AddWithValue("@emp_type", personnel.Value.Item2);
-                    sqlCmd.Parameters.AddWithValue("@emp_password", personnel.Value.Item3);
+                        // Insert personnel properties
+                        sqlCmd.Parameters.AddWithValue("@emp_number", personnel.Key.ToString());
+                        sqlCmd.Parameters.AddWithValue("@emp_name", personnel.Value.Item1);
+                        sqlCmd.Parameters.AddWithValue("@date_added", date.ToShortDateString());
+                        sqlCmd.Parameters.AddWithValue("@emp_type", personnel.Value.Item2);
+                        sqlCmd.Parameters.AddWithValue("@emp_password", personnel.Value.Item3);
 
-                    sqlCmd.ExecuteNonQuery();
+                        sqlCmd.ExecuteNonQuery();
 
+                        count += 1;
+
+                    }
                 }
+
+                // Notify the admin how many employees were added
+                Console.WriteLine("\n" + count + " employees were added to the DB!\n");
             }
             catch (SqlException sqlE)
             {
@@ -213,5 +224,82 @@ namespace VogtEventsEmp
         }
         #endregion
 
+        #region SQLINSERT
+        /// <summary>
+        /// Method that inserts an admin object into a seperate table
+        /// </summary>
+        /// <param name="admin">The admin object to pass in</param>
+        public static void SqlInsertAdmin(Admin admin)
+        {
+            // Variable for a new database connection string
+            SqlConnectionStringBuilder sqlString;
+
+            // Declare and initialize the sql connection
+            SqlConnection sqlConn = new SqlConnection();
+
+            // New DateTime should be swapped with added information
+            DateTime date = DateTime.Now;
+
+            // Assign the string builder to the string building method
+            sqlString = SQLString();
+
+            // Assign the sqlconnection to the sqlconnection method
+            sqlConn = SqlConn(sqlString);
+
+            try
+            {
+                // Open th connection
+                sqlConn.Open();
+
+                // Insert into DB
+                string sqlInsert = "INSERT INTO dbo.Admin_Table(admin_number, admin_name, date_added, emp_type, admin_password) VALUES(@admin_number, @admin_name, @date_added, @emp_type, @admin_password)";
+
+                // Prepare the insert statement
+                SqlCommand sqlCmd = new SqlCommand(sqlInsert, sqlConn);
+
+                // Insert personnel properties
+                sqlCmd.Parameters.AddWithValue("@admin_number", admin.Number);
+                sqlCmd.Parameters.AddWithValue("@admin_name", admin.Name);
+                sqlCmd.Parameters.AddWithValue("@date_added", date.ToShortDateString());
+                sqlCmd.Parameters.AddWithValue("@emp_type", 'A');
+                sqlCmd.Parameters.AddWithValue("@admin_password", admin.Password);
+
+                sqlCmd.ExecuteNonQuery();
+
+            }
+            catch (SqlException sqlE)
+            {
+                // Display custom message for taken PK
+                if (sqlE.Number == 2627)
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("\nAdmin number is already taken: " + sqlE.Message + ". Please hit any key and try again. \n");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    Console.Clear();
+                    Program.AddInformation();
+
+                }
+                else
+                {
+                    Console.WriteLine("Another error occured!");
+                }
+            }
+            catch (Exception e)
+            {
+                // General exception
+                Console.WriteLine(e.ToString());
+
+            }
+            finally
+            {
+                // Close DB
+                sqlConn.Close();
+
+            }
+
+        }
+        #endregion
     }
 }
