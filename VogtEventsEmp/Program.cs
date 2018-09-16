@@ -521,7 +521,7 @@ namespace VogtEventsEmp
             {
                 // Provide a custom message if the day isn't correct
                 EnterValidInformation(day, "Day must be between 1 and 31!");
-                Console.Write("Please try agan: ");
+                Console.Write("Please try again: ");
                 run = int.TryParse(Console.ReadLine(), out day) && day >= 1 && day <= 31;
 
             }
@@ -547,7 +547,7 @@ namespace VogtEventsEmp
             {
                 // Provide a custom message if the month isn't correct
                 EnterValidInformation(month, "Month must be between 1 and 12!");
-                Console.Write("Please try agan: ");
+                Console.Write("Please try again: ");
                 run = int.TryParse(Console.ReadLine(), out month) && month >= 1 && month <= 12;
 
             }
@@ -573,7 +573,7 @@ namespace VogtEventsEmp
             {
                 // Provide a custom message if the year isn't correct
                 EnterValidInformation(year, "Year must be after 1935 and before 2018!");
-                Console.Write("Please try agan: ");
+                Console.Write("Please try again: ");
                 run = int.TryParse(Console.ReadLine(), out year) && year >= 1935 && year <= 2018;
 
             }
