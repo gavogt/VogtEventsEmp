@@ -37,7 +37,7 @@ namespace VogtEventsEmp
                 sqlConn.Open();
 
                 // Select from the DB
-                string sqlInsert = $"SELECT emp_number FROM dbo.Employee_Table WHERE emp_number = @emp_number AND password = @emp_password";
+                string sqlInsert = $"SELECT emp_number FROM dbo.Employee_Table WHERE emp_number = @emp_number AND emp_password = @emp_password";
 
                 try
                 {
