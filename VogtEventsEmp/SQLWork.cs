@@ -41,12 +41,12 @@ namespace VogtEventsEmp
                     // Prepare a select statement
                     SqlCommand sqlCmd = new SqlCommand(sqlInsert, sqlConn);
 
-                    // Prepare to read the DB with the SQLcmd
-                    var sqlCheck = sqlCmd.ExecuteScalar();
-
                     // Admin properties to query
                     sqlCmd.Parameters.AddWithValue("@emp_number", guest.Number);
                     sqlCmd.Parameters.AddWithValue("@emp_password", guest.Password);
+
+                    // Prepare to read the DB with the SQLcmd
+                    var sqlCheck = sqlCmd.ExecuteScalar();
 
                     if (sqlCheck != null)
                     {
@@ -62,7 +62,7 @@ namespace VogtEventsEmp
                         // Display an error that the guests credentials don't match in the DB
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("Incorrect!");
+                        Console.WriteLine("\nIncorrect!\n");
                         Console.ResetColor();
 
                         // Continue running

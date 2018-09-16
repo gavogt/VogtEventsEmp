@@ -19,19 +19,8 @@ namespace VogtEventsEmp
 
         static void Main(string[] args)
         {
-
-            // Variables  
-            string adminName = default;
-            string empName = default;
-            byte[] encryptedPassword = default;
-            var admin = new Admin();
-            var adminList = new List<Admin>();
-            var emp = new Employee<DateTime>();
-            var employeeList = new List<Employee<DateTime>>();
-            var guest = new Guest();
-            var hashedPassword = String.Empty;
-            var password = String.Empty;
-            var sortedDictionary = new SortedDictionary<int, Tuple<string, char, string>>();
+            // Variables
+            Guest guest = new Guest();
             int choice = default;
 
             // Displays
@@ -56,66 +45,74 @@ namespace VogtEventsEmp
 
                     if (bruteForce >= 3)
                     {
-                        // Clear the console
-                        ClearConsole();
-
-                        // Display a red warning messae
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("\nBrute force detected! Exiting...\n");
-                        SpeakBruteForce();
-
-                        Console.ResetColor();
-
-                        // Exit the system
-                        Environment.Exit(0);
+                        // Display the brute force message
+                        BruteForceMessage();
 
                     }
                 }
             }
             if (choice == 2)
             {
-                // Checking how I would save a byte to SQL ?
-                encryptedPassword = AskPassword();
-
-                // AES to SHA512
-                hashedPassword = SHA512Crypto.Hash(encryptedPassword);
-
-                // Ask Admin's name
-                adminName = AskAdminName();
-                admin = AddAdministrator(adminName, hashedPassword);
-
-                // Add admin to a list
-                adminList.Add(admin);
-
-                // Menu
-                Menu(adminName);
-
-                // Add employee and return to list
-                employeeList = AddEmployeeToList(empName);
-
-                // Loop through Employee
-                LoopThroughEmployeeList(employeeList);
-
-                // Add Employee list to a file
-                WriteToFile.WriteEmployeeListToFile(employeeList);
-                WriteToFile.WriteAdminToFile(admin, DateTime.Now);
-
-                // Assign a sorted dictionary from emp list and adminlist
-                sortedDictionary = AllPersonnel(employeeList, adminList);
-
-                // Display the sorted dictionary on console
-                Displays.DisplaySortedDictionary(sortedDictionary);
-
-                // Write the sorted dictionary to a file
-                WriteToFile.WriteSortedDictionaryToFile(sortedDictionary);
-
-                // Write password to File
-                WriteToFile.WriteToPasswordFile(admin, hashedPassword);
-
-                // DB Insert
-                SQLWork.SQLInsert(sortedDictionary);
-
+                AddInformation();
             }
+        }
+
+        public static void AddInformation()
+        {
+            // Variables  
+            string adminName = default;
+            string empName = default;
+            byte[] encryptedPassword = default;
+            var admin = new Admin();
+            var adminList = new List<Admin>();
+            var emp = new Employee<DateTime>();
+            var employeeList = new List<Employee<DateTime>>();
+            var guest = new Guest();
+            var hashedPassword = String.Empty;
+            var password = String.Empty;
+            var sortedDictionary = new SortedDictionary<int, Tuple<string, char, string>>();
+
+            // Checking how I would save a byte to SQL ?
+            encryptedPassword = AskPassword();
+
+            // AES to SHA512
+            hashedPassword = SHA512Crypto.Hash(encryptedPassword);
+
+            // Ask Admin's name
+            adminName = AskAdminName();
+            admin = AddAdministrator(adminName, hashedPassword);
+
+            // Add admin to a list
+            adminList.Add(admin);
+
+            // Menu
+            Menu(adminName);
+
+            // Add employee and return to list
+            employeeList = AddEmployeeToList(empName);
+
+            // Loop through Employee
+            LoopThroughEmployeeList(employeeList);
+
+            // Add Employee list to a file
+            WriteToFile.WriteEmployeeListToFile(employeeList);
+            WriteToFile.WriteAdminToFile(admin, DateTime.Now);
+
+            // Assign a sorted dictionary from emp list and adminlist
+            sortedDictionary = AllPersonnel(employeeList, adminList);
+
+            // Display the sorted dictionary on console
+            Displays.DisplaySortedDictionary(sortedDictionary);
+
+            // Write the sorted dictionary to a file
+            WriteToFile.WriteSortedDictionaryToFile(sortedDictionary);
+
+            // Write password to File
+            WriteToFile.WriteToPasswordFile(admin, hashedPassword);
+
+            // DB Insert
+            SQLWork.SQLInsert(sortedDictionary);
+
         }
 
         #region PasswordsMatch 
@@ -143,13 +140,15 @@ namespace VogtEventsEmp
             // New guest object
             Guest guest = new Guest();
 
-            // Ask for admin properties
-            Console.WriteLine("Enter your number");
+            // Ask for admin number
+            Console.Write("Please enter your admin number: ");
             guest.Number = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Please enter password");
+            // Ask for admin password
+            Console.Write("Please enter your password: ");
             guest.Password = Console.ReadLine();
 
+            // Return guest object
             return guest;
 
         }
@@ -622,6 +621,29 @@ namespace VogtEventsEmp
         public static void ClearConsole()
         {
             Console.Clear();
+
+        }
+        #endregion
+
+        #region BruteForceMessage
+        /// <summary>
+        /// A method for when a brute force is detected
+        /// </summary>
+        public static void BruteForceMessage()
+        {
+            // Clear the console
+            ClearConsole();
+
+            // Display a red warning messae
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("\nBrute force detected! Exiting...\n");
+            SpeakBruteForce();
+
+            // Reset the color
+            Console.ResetColor();
+
+            // Exit the system
+            Environment.Exit(0);
 
         }
         #endregion
