@@ -18,16 +18,16 @@ namespace VogtEventsEmp
         public static void WriteToPasswordFile(Admin admin, string hashedPassword)
         {
             // Open new stream
-            StreamWriter File = new StreamWriter(@"C:\WorkLists\PasswordList.txt");
+            StreamWriter st = File.AppendText(@"C:\WorkLists\PasswordList.txt");
 
             // Write the admin's number with a secure hash
-            File.WriteLine($"Admin # {admin.Number} Password: {hashedPassword}");
+            st.WriteLine($"Admin # {admin.Number} Password: {hashedPassword}");
 
             // Display that the password list has been updated
             Console.WriteLine("\nPassword has been written to the DB!");
 
             // Close stream
-            File.Close();
+            st.Close();
 
         }
         #endregion
@@ -40,17 +40,17 @@ namespace VogtEventsEmp
         public static void WriteSortedDictionaryToFile(SortedDictionary<int, Tuple<string, char, string>> sortedDictionary)
         {
             // Open new stream
-            StreamWriter File = new StreamWriter(@"C:\WorkLists\SortedDictionaryList.txt");
+            StreamWriter st = File.AppendText(@"C:\WorkLists\SortedDictionaryList.txt");
 
             // Loop trough personnel for key and value pairs
             foreach (var personnel in sortedDictionary)
             {
-                File.WriteLine($"PK: {personnel.Key} Value: {personnel.Value} ");
+                st.WriteLine($"PK: {personnel.Key} Value: {personnel.Value} ");
 
             }
 
             // Close stream
-            File.Close();
+            st.Close();
 
         }
         #endregion
@@ -64,13 +64,13 @@ namespace VogtEventsEmp
         public static void WriteAdminToFile(Admin admin, DateTime accessed)
         {
             // Open new stream
-            StreamWriter File = new StreamWriter(@"C:\WorkLists\AdminList.txt");
+            StreamWriter st = File.AppendText(@"C:\WorkLists\AdminList.txt");
 
             // Write user to file
-            File.WriteLine($"{admin.Name} {admin.Number} " + accessed.ToLocalTime());
+            st.WriteLine($"{admin.Name} {admin.Number} " + accessed.ToLocalTime());
 
             // Close stream
-            File.Close();
+            st.Close();
 
         }
         #endregion
@@ -83,14 +83,15 @@ namespace VogtEventsEmp
         /// <param name="occured">DateTime when attempted bruteforce happened</param>
         public static void WriteBruteForceAttemptsToFile(Guest guest, DateTime occured)
         {
-            // Open new stream
-            StreamWriter File = new StreamWriter(@"C:\WorkLists\BruteForceList.txt");
+            occured = DateTime.Now;
+
+            StreamWriter st = File.AppendText(@"C:\WorkLists\BruteForceList.txt");
 
             // Write brute force to file
-            File.WriteLine($"Employee number: {guest.Number} at {occured.ToLocalTime()}");
+            st.WriteLine($"\nGuest number: {guest.Number} at {occured.ToLocalTime()}");
 
             // Close stream
-            File.Close();
+            st.Close();
 
         }
         #endregion
@@ -103,18 +104,19 @@ namespace VogtEventsEmp
         public static void WriteEmployeeListToFile(List<Employee<DateTime>> employeeList)
         {
             // Open new stream
-            StreamWriter File = new StreamWriter(@"C:\WorkLists\EmployeeList.txt");
+            StreamWriter st = File.AppendText(@"C:\WorkLists\EmployeeList.txt");
 
             // Loop through employee list
             foreach (var employee in employeeList)
             {
-                File.WriteLine($"{employee.Name} {employee.Number} {employee.HireDate.ToShortDateString()} ");
+                st.WriteLine($"{employee.Name} {employee.Number} {employee.HireDate.ToShortDateString()} ");
             }
 
             // Close stream
-            File.Close();
+            st.Close();
 
         }
         #endregion
+
     }
 }

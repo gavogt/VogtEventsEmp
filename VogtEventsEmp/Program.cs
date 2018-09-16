@@ -161,6 +161,9 @@ namespace VogtEventsEmp
 
             }
 
+            // Guest number
+            guest.Number = number;
+
             // Ask for admin password
             Console.Write("Please enter your password: ");
             guest.Password = Console.ReadLine();
