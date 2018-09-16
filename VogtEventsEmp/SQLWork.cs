@@ -70,15 +70,13 @@ namespace VogtEventsEmp
 
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    // Display an error that the guests credentials don't match in the DB
+                    // Display an exception message
                     Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
 
                     // Error with the credentials
-                    Console.WriteLine("Your login information is incorrect!");
-                    Console.ResetColor();
+                    Console.WriteLine(e.ToString());
 
                     // Passwords don't match
                     run = true;
