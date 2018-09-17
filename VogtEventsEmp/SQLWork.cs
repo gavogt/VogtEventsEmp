@@ -302,6 +302,7 @@ namespace VogtEventsEmp
         }
         #endregion
 
+        /*
         #region
         /// <summary>
         /// A method that queries the DB to see all employees in the DB
@@ -327,7 +328,7 @@ namespace VogtEventsEmp
                 sqlConn.Open();
 
                 // Select from the DB
-                string sqlInsert = "SELECT emp_number FROM dbo.Employee_Table WHERE emp_number = @emp_number AND emp_password = @emp_password";
+                string sqlInsert = "SELECT emp_number, emp_name FROM dbo.Employee_Table";
 
                 try
                 {
@@ -393,7 +394,7 @@ namespace VogtEventsEmp
             }
             finally
             {
-                // Might be redunant
+                // Might be redundant
                 sqlConn.Close();
 
             }
@@ -402,5 +403,6 @@ namespace VogtEventsEmp
 
         }
         #endregion
+    */
     }
 }
