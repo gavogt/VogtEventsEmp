@@ -120,6 +120,23 @@ namespace VogtEventsEmp
 
         }
 
+        #region EnumEmployees
+        /// <summary>
+        /// Enumerate through employee list with IEnumerable interface
+        /// </summary>
+        /// <param name="employeeList">Employee list to pass in</param>
+        public static void EnumEmployees(List<Employee<DateTime>> employeeList)
+        {
+            IEnumerable<Employee<DateTime>> enumEmployees = employeeList.AsEnumerable();
+
+            foreach (var employee in enumEmployees)
+            {
+                Console.WriteLine($"Employee #: {employee.Number} and Employee name: {employee.Name} ");
+
+            }
+        }
+        #endregion
+
         #region PasswordsMatch 
         /// <summary>
         /// A method lets the user know if his or her password matches the DB

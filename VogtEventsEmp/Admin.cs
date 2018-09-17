@@ -57,7 +57,7 @@ namespace VogtEventsEmp
             Console.Clear();
             Console.WriteLine($"Your name is {name}, and your admin number is {number}. Your login time is at {DateTime.Now.ToLocalTime()}. If this is not correct, please contact the appropriate team.");
 
-            speaker.Speak($"Your name is {name}, and your admin number is {number}. Your login time is at {DateTime.Now.ToLocalTime()}. If this is not correct, please contact the appropriate team.");
+            //speaker.Speak($"Your name is {name}, and your admin number is {number}. Your login time is at {DateTime.Now.ToLocalTime()}. If this is not correct, please contact the appropriate team.");
 
             Console.Clear();
 
