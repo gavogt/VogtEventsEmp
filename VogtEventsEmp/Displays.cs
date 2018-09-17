@@ -15,8 +15,7 @@ namespace VogtEventsEmp
         public static void DisplayOptionsForMenu()
         {
             Console.WriteLine("1. Add an employee");
-            Console.WriteLine("2. Show currently added employees");
-            Console.WriteLine("3. Exit");
+            Console.WriteLine("2. Exit");
 
         }
         #endregion

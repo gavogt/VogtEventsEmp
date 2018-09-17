@@ -118,24 +118,13 @@ namespace VogtEventsEmp
             // DB Insert
             SQLWork.SQLInsert(sortedDictionary);
 
+            // Enum test
+            Console.ReadKey();
+            Console.Clear();
+            Console.WriteLine("Emp enum");
+            Employee<DateTime>.EnumEmployees(employeeList);
+
         }
-
-        #region EnumEmployees
-        /// <summary>
-        /// Enumerate through employee list with IEnumerable interface
-        /// </summary>
-        /// <param name="employeeList">Employee list to pass in</param>
-        public static void EnumEmployees(List<Employee<DateTime>> employeeList)
-        {
-            IEnumerable<Employee<DateTime>> enumEmployees = employeeList.AsEnumerable();
-
-            foreach (var employee in enumEmployees)
-            {
-                Console.WriteLine($"Employee #: {employee.Number} and Employee name: {employee.Name} ");
-
-            }
-        }
-        #endregion
 
         #region PasswordsMatch 
         /// <summary>
