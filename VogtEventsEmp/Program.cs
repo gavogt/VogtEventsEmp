@@ -24,7 +24,7 @@ namespace VogtEventsEmp
             int choice = default;
 
             // Displays
-            choice = Displays.InitialDisplayForProgram();
+            choice = Displays.DisplayInitialMenuMethodForProgram();
 
             if (choice == 1)
             {
@@ -117,7 +117,7 @@ namespace VogtEventsEmp
 
             // DB Insert
             SQLWork.SQLInsert(sortedDictionary);
-
+            
             // Enum test
             Console.ReadKey();
             Console.Clear();
@@ -674,7 +674,7 @@ namespace VogtEventsEmp
             ClearConsole();
 
             // AdminDisplay for Sign up
-            Displays.AdminDisplayForSignUp();
+            Displays.DisplayToAdminHeaderForSignUp();
 
             // Standard message for a greeting
             Console.WriteLine($"\nGreetings {adminName}! Please enter your password and admin number, and then select one of the proceeding options. \n");

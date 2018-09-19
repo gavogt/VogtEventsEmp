@@ -41,30 +41,30 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        #region InitialDisplayForProgram
+        #region DisplayInitialMenuMethodForProgram
         /// <summary>
         /// Method to display when the program starts
         /// </summary>
-        public static int InitialDisplayForProgram()
+        public static int DisplayInitialMenuMethodForProgram()
         {
             int choice = default;
 
             // Standard system messages
             DisplayHeader();
             DisplayGreeting();
-            choice = DisplayForAdmin();
+            choice = DisplayMenuForAdmin();
 
             return choice;
 
         }
         #endregion
 
-        #region DisplayForAdmin
+        #region DisplayMenuForAdmin
         /// <summary>
         /// Display the initial choice for the admin
         /// </summary>
         /// <returns>The selection made</returns>
-        public static int DisplayForAdmin()
+        public static int DisplayMenuForAdmin()
         {
             int choice = default;
 
@@ -81,11 +81,11 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        #region AdmnDisplayForSignUp
+        #region DisplayToAdminHeaderForSignUp
         /// <summary>
         /// Display the admin entry
         /// </summary>
-        public static void AdminDisplayForSignUp()
+        public static void DisplayToAdminHeaderForSignUp()
         {
             Console.WriteLine("ADMIN ENTRY ~~~~~~~");
 
