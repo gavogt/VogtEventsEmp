@@ -307,7 +307,107 @@ namespace VogtEventsEmp
         /// A method that queries the DB to see all employees in the DB
         /// </summary>
         /// <returns>All employees in the db</returns>
-        public static bool SQLSelectAllEmployees(Employee<DateTime> emp)
+        public static bool SQLUpdateEmployee(Employee<DateTime> emp)
+        {
+            // True or false to continue running
+            bool run = true;
+
+            // SQLStringConnect variable
+            SqlConnectionStringBuilder sqlString = SQLString();
+
+            // SQLConnect variable
+            SqlConnection sqlConn = new SqlConnection();
+
+            // Assign the sqlconnection to the sqlconnection method
+            sqlConn = SqlConn(sqlString);
+
+            try
+            {
+                // Open a new connection
+                sqlConn.Open();
+
+                // Select from the DB
+                string sqlInsert = $"UPDATE SET {emp.Number} FROM dbo.Employee_Table WHERE {emp.Number} = '{emp.Number}'";
+
+                try
+                {
+                    // Prepare a select statement
+                    SqlCommand sqlCmd = new SqlCommand(sqlInsert, sqlConn);
+
+                    // Admin properties to query
+                    sqlCmd.Parameters.AddWithValue("@emp_number", emp.Number);
+                    sqlCmd.Parameters.AddWithValue("@emp_password", emp.Name);
+
+                    // Prepare to read the DB with the SQLcmd
+                    var sqlCheck = sqlCmd.ExecuteScalar();
+
+                    if (sqlCheck != null)
+                    {
+                        // Display showing that the credentials are correct
+                        Console.WriteLine("Login information was correct! Proceeding...");
+
+                        // Stop running and proceed
+                        run = false;
+
+                    }
+                    else
+                    {
+                        // Display an error that the guests credentials don't match in the DB
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("\nIncorrect!\n");
+                        Console.ResetColor();
+
+                        // Continue running
+                        run = true;
+
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    // Display an exception message
+                    Console.Clear();
+
+                    // Error with the credentials
+                    Console.WriteLine(e.ToString());
+
+                    // Passwords don't match
+                    run = true;
+
+                }
+                finally
+                {
+                    // Close the connection
+                    sqlConn.Close();
+
+                }
+            }
+            catch
+            {
+                // SELECT statement is off
+                Console.WriteLine("Error with the query!");
+
+            }
+            finally
+            {
+                // Might be redundant
+                sqlConn.Close();
+
+            }
+
+            return run;
+
+        }
+        #endregion
+
+
+        #region
+        /// <summary>
+        /// A method that queries the DB to see all employees in the DB
+        /// </summary>
+        /// <returns>All employees in the db</returns>
+        public static bool SQLDeletEmployee(Employee<DateTime> emp)
         {
             // True or false to continue running
             bool run = true;
