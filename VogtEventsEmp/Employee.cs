@@ -104,7 +104,7 @@ namespace VogtEventsEmp
             Console.Clear();
             Console.WriteLine($"The employee's name is {name}, number is {number} and hired {hiredate.ToShortDateString()}");
 
-            //speaker.Speak($"The employee's name is {name}, number is {number} and hired {hiredate.ToShortDateString()}");
+            speaker.Speak($"The employee's name is {name}, number is {number} and hired {hiredate.ToShortDateString()}");
 
             Console.WriteLine("");
 

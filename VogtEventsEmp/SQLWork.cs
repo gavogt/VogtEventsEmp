@@ -302,13 +302,12 @@ namespace VogtEventsEmp
         }
         #endregion
 
-        /*
         #region
         /// <summary>
         /// A method that queries the DB to see all employees in the DB
         /// </summary>
         /// <returns>All employees in the db</returns>
-        public static bool SQLSelectAllEmployees(List<Employee<DateTime>> employeeList)
+        public static bool SQLSelectAllEmployees(Employee<DateTime> emp)
         {
             // True or false to continue running
             bool run = true;
@@ -328,44 +327,42 @@ namespace VogtEventsEmp
                 sqlConn.Open();
 
                 // Select from the DB
-                string sqlInsert = "SELECT emp_number, emp_name FROM dbo.Employee_Table";
+                string sqlInsert = $"DELETE emp_number FROM dbo.Employee_Table WHERE emp_number = '{emp.Number}'";
 
                 try
                 {
-                    foreach (var employees in employeeList)
+                    // Prepare a select statement
+                    SqlCommand sqlCmd = new SqlCommand(sqlInsert, sqlConn);
+
+                    // Admin properties to query
+                    sqlCmd.Parameters.AddWithValue("@emp_number", emp.Number);
+                    sqlCmd.Parameters.AddWithValue("@emp_password", emp.Name);
+
+                    // Prepare to read the DB with the SQLcmd
+                    var sqlCheck = sqlCmd.ExecuteScalar();
+
+                    if (sqlCheck != null)
                     {
-                        // Prepare a select statement
-                        SqlCommand sqlCmd = new SqlCommand(sqlInsert, sqlConn);
+                        // Display showing that the credentials are correct
+                        Console.WriteLine("Login information was correct! Proceeding...");
 
-                        // Admin properties to query
-                        sqlCmd.Parameters.AddWithValue("@emp_number", employees.Number);
-                        sqlCmd.Parameters.AddWithValue("@emp_password", employees.Name);
+                        // Stop running and proceed
+                        run = false;
 
-                        // Prepare to read the DB with the SQLcmd
-                        var sqlCheck = sqlCmd.ExecuteScalar();
-
-                        if (sqlCheck != null)
-                        {
-                            // Display showing that the credentials are correct
-                            Console.WriteLine("Login information was correct! Proceeding...");
-
-                            // Stop running and proceed
-                            run = false;
-
-                        }
-                        else
-                        {
-                            // Display an error that the guests credentials don't match in the DB
-                            Console.Clear();
-                            Console.ForegroundColor = ConsoleColor.DarkRed;
-                            Console.WriteLine("\nIncorrect!\n");
-                            Console.ResetColor();
-
-                            // Continue running
-                            run = true;
-
-                        }
                     }
+                    else
+                    {
+                        // Display an error that the guests credentials don't match in the DB
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("\nIncorrect!\n");
+                        Console.ResetColor();
+
+                        // Continue running
+                        run = true;
+
+                    }
+
                 }
                 catch (Exception e)
                 {
@@ -403,6 +400,6 @@ namespace VogtEventsEmp
 
         }
         #endregion
-    */
+
     }
 }
