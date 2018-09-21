@@ -95,7 +95,7 @@ namespace VogtEventsEmp
         public delegate void DisplayAddedMessage();
         public event DisplayAddedMessage DisplayEventAddedMessage;
 
-        public void DisplayEmpInformation(string name, int number, DateTime hiredate)
+        public virtual void DisplayEmpInformation(string name, int number, DateTime hiredate)
         {
             // Added speech
             SpeechSynthesizer speaker = new SpeechSynthesizer();

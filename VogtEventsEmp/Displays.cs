@@ -69,14 +69,35 @@ namespace VogtEventsEmp
             int choice = default;
 
             // Ask the admin if they'd like to login or sign up
-            Console.WriteLine("1. Login");
-            Console.WriteLine("2. Sign up\n");
-            Console.Write("SELECTION: ");
+            MenuOptionForAdminDisplay();
             choice = Convert.ToInt32(Console.ReadLine());
-
             Console.WriteLine(" ");
 
             return choice;
+
+        }
+        #endregion
+
+        #region MenuOptionsForAdminDisplay
+        /// <summary>
+        /// Method that has the options inside of its own menu
+        /// </summary>
+        public static void MenuOptionForAdminDisplay()
+        {
+            Console.WriteLine("1. Login");
+            Console.WriteLine("2. Sign up\n");
+            Console.Write("SELECTION: ");
+
+        }
+        #endregion
+
+        #region DisplayPleaseTryAgain
+        /// <summary>
+        /// A method that displays a please try again message
+        /// </summary>
+        public static void DisplayPleaseTryAgain()
+        {
+            Console.Write("Please try again: ");
 
         }
         #endregion
