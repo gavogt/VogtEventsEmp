@@ -16,6 +16,8 @@ namespace VogtEventsEmp
         {
             Console.WriteLine("1. Add an employee");
             Console.WriteLine("2. Exit");
+            Console.WriteLine("3. Update an employee");
+            Console.WriteLine("4. Remove an employee from the DB");
 
         }
         #endregion
