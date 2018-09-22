@@ -117,7 +117,7 @@ namespace VogtEventsEmp
 
             // DB Insert
             SQLWork.SQLInsert(sortedDictionary);
-            
+
             // Enum test
             Console.ReadKey();
             Console.Clear();
@@ -765,8 +765,20 @@ namespace VogtEventsEmp
 
             // Display a red warning messae
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("\nBrute force detected! Exiting...\n");
+            Console.Write("\nBrute force detected! Exiting in...");
             SpeakBruteForce();
+            for (int i = 3; i > 0; i--)
+            {
+                // Wait 1 second for exiting
+                Thread.Sleep(1000);
+                Console.Write(i + "...");
+
+                // Display the press any key below with two new lines
+                if (i == 1)
+                {
+                    Console.WriteLine("\n");
+                }
+            }
 
             // Reset the color
             Console.ResetColor();
